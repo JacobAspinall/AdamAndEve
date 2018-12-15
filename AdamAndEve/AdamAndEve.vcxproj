@@ -115,6 +115,20 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="GameMap.h" />
+    <ClInclude Include="Grass.h" />
+    <ClInclude Include="resource.h" />
+    <ClInclude Include="Tile.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="GameMap.cpp" />
+    <ClCompile Include="Grass.cpp" />
+    <ClCompile Include="Main.cpp" />
+    <ClCompile Include="Tile.cpp" />
+    <ClCompile Include="TileType.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="AdamAndEve.rc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
