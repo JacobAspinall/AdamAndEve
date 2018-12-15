@@ -1,19 +1,27 @@
 #pragma once
 #include "Tile.h"
+#include "SaveFile.h"
+#include "Constants.h"
+#include <vector>
 
-const int MAP_DISPLAY_WIDTH = 64;
-const int MAP_DISPLAY_HEIGHT = 32;
-const int CHUNK_WIDTH = 256;
+
+
 
 class GameMap
 {
 public:
 	GameMap();
 	~GameMap();
-	void DisplayMap();
+	void displayMap();
+	void initializeMap();
+	Tile get(int x, int y);
+	void set(int x, int y, Tile t);
+	int centerXCoord;
+	int centerYCoord;
+	SaveFile saveFile;
+	std::vector<Tile> map;
 
 private:
-	void GenerateMap();
-	Tile* map[MAP_DISPLAY_HEIGHT][MAP_DISPLAY_WIDTH];
+	void loadMap();
 };
 

@@ -115,15 +115,18 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Constants.h" />
     <ClInclude Include="GameMap.h" />
     <ClInclude Include="Grass.h" />
     <ClInclude Include="resource.h" />
+    <ClInclude Include="SaveFile.h" />
     <ClInclude Include="Tile.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GameMap.cpp" />
     <ClCompile Include="Grass.cpp" />
     <ClCompile Include="Main.cpp" />
+    <ClCompile Include="SaveFile.cpp" />
     <ClCompile Include="Tile.cpp" />
     <ClCompile Include="TileType.h" />
   </ItemGroup>
