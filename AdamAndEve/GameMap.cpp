@@ -41,6 +41,7 @@ void GameMap::displayMap() {
 	int topRightXCoord = topLeftXCoord + MAP_DISPLAY_WIDTH;
 	int topLeftYCoord = centerYCoord - MAP_DISPLAY_HEIGHT / 2;
 	int bottomLeftYCoord = topLeftYCoord + MAP_DISPLAY_HEIGHT;
+	int currentRow = 0;
 
 	for (int i = topLeftYCoord; i < bottomLeftYCoord; i++) {
 		for (int j = topLeftXCoord; j < topRightXCoord; j++) {
@@ -50,9 +51,11 @@ void GameMap::displayMap() {
 			else
 				output += ' ';
 		}
-		output += '\n';
+		mvprintw(currentRow,0,output.c_str());
+		currentRow++;
+		output = "";
+
 	}
-	std::cout << output << std::endl;
 }
 
 void GameMap::loadMap() {

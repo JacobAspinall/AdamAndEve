@@ -3,6 +3,7 @@
 #include "SaveFile.h"
 #include "Constants.h"
 #include <vector>
+#include "curses.h"
 
 
 

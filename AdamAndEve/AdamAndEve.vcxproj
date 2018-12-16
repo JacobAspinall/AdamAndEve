@@ -70,8 +70,8 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <IncludePath>$(IncludePath);C:\pdcurses;</IncludePath>
-    <LibraryPath>$(LibraryPath);C:\pdcurses\wincon;</LibraryPath>
+    <IncludePath>$(IncludePath);.\include;</IncludePath>
+    <LibraryPath>$(LibraryPath);.\lib;</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>

@@ -2,18 +2,19 @@
 #include <chrono>
 #include <thread>
 #include <iostream>
-//#include "include/curses.h"
+#include "curses.h"
 
 void readUserInput(GameMap& map);
 
 int main() {
 	GameMap map = GameMap();
-
+	initscr();
+	noecho();
 	while (1) {
 		map.displayMap();
-		//clear();
+		refresh();
 		readUserInput(map);
-		std::this_thread::sleep_for(std::chrono::milliseconds(200));
+		//std::this_thread::sleep_for(std::chrono::milliseconds(200));
 	}
 
 }
@@ -21,7 +22,7 @@ int main() {
 void readUserInput(GameMap& map) {
 
 	char input;
-	std::cin >> input;
+	input = getch();
 
 	switch (input) {
 		case 'w':
