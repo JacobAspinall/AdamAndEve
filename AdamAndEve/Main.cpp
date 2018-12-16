@@ -12,6 +12,7 @@ int main() {
 	initializeMap(map.map);
 	initscr();
 	noecho();
+	start_color();
 	while (1) {
 		map.displayMap();
 		refresh();

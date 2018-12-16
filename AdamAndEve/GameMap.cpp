@@ -42,18 +42,28 @@ void GameMap::displayMap() {
 	int topLeftYCoord = centerYCoord - MAP_DISPLAY_HEIGHT / 2;
 	int bottomLeftYCoord = topLeftYCoord + MAP_DISPLAY_HEIGHT;
 	int currentRow = 0;
+	int currentCol = 0;
 
 	for (int i = topLeftYCoord; i < bottomLeftYCoord; i++) {
 		for (int j = topLeftXCoord; j < topRightXCoord; j++) {
 			//Check for map bounds
-			if(i >= 0 && i < MAP_WIDTH && j >= 0 && j < MAP_WIDTH)
-				output += get(i,j).symbol;
-			else
+			if (i >= 0 && i < MAP_WIDTH && j >= 0 && j < MAP_WIDTH) {
+				output += get(i, j).symbol;
+				init_pair(1, get(i, j).foregroundColor, get(i,j).backgroundColor);
+				attron(COLOR_PAIR(1));
+			}
+			else {
 				output += ' ';
+			}
+
+			mvprintw(currentRow, currentCol, output.c_str());
+			attroff(COLOR_PAIR(1));
+			currentCol++;
+			output = "";
 		}
-		mvprintw(currentRow,0,output.c_str());
 		currentRow++;
-		output = "";
+		currentCol = 0;
+		
 
 	}
 }
