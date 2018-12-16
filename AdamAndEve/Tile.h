@@ -10,5 +10,6 @@ public:
 	char symbol;
 	int foregroundColor;
 	int backgroundColor;
+	int colorPair;
 };
 

@@ -8,11 +8,14 @@
 void readUserInput(GameMap& map);
 
 int main() {
-	GameMap map = GameMap();
-	initializeMap(map.map);
 	initscr();
 	noecho();
 	start_color();
+
+	GameMap map = GameMap();
+	initializeMap(map.map);
+
+	
 	while (1) {
 		map.displayMap();
 		refresh();

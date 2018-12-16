@@ -9,6 +9,7 @@ GameMap::GameMap()
 	map.reserve(MAP_WIDTH*MAP_WIDTH);
 	//saveFile = SaveFile();
 	//initializeMap();
+
 }
 
 
@@ -43,21 +44,27 @@ void GameMap::displayMap() {
 	int bottomLeftYCoord = topLeftYCoord + MAP_DISPLAY_HEIGHT;
 	int currentRow = 0;
 	int currentCol = 0;
+	bool validCoord = false;
 
 	for (int i = topLeftYCoord; i < bottomLeftYCoord; i++) {
 		for (int j = topLeftXCoord; j < topRightXCoord; j++) {
 			//Check for map bounds
 			if (i >= 0 && i < MAP_WIDTH && j >= 0 && j < MAP_WIDTH) {
 				output += get(i, j).symbol;
-				init_pair(1, get(i, j).foregroundColor, get(i,j).backgroundColor);
-				attron(COLOR_PAIR(1));
+				//Turn on color
+				attron(COLOR_PAIR(get(i, j).colorPair));
+				validCoord = true;
 			}
 			else {
 				output += ' ';
 			}
 
 			mvprintw(currentRow, currentCol, output.c_str());
-			attroff(COLOR_PAIR(1));
+			//Turn off color
+			if(validCoord)
+				attroff(COLOR_PAIR(get(i, j).colorPair));
+			validCoord = false;
+
 			currentCol++;
 			output = "";
 		}
