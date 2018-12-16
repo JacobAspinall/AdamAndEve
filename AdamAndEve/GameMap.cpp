@@ -3,7 +3,7 @@
 #include <string>
 #include <iostream>
 
-
+void clearScreen();
 
 GameMap::GameMap()
 {
@@ -35,14 +35,24 @@ void GameMap::initializeMap() {
 }
 
 void GameMap::displayMap() {
+
 	std::string output = "";
-	for (int i = 0; i < MAP_DISPLAY_HEIGHT; i++) {
-		for (int j = 0; j < MAP_DISPLAY_WIDTH; j++) {
-			//output += map[i][j]->symbol;
+	int topLeftXCoord = centerXCoord - MAP_DISPLAY_WIDTH / 2;
+	int topRightXCoord = topLeftXCoord + MAP_DISPLAY_WIDTH;
+	int topLeftYCoord = centerYCoord - MAP_DISPLAY_HEIGHT / 2;
+	int bottomLeftYCoord = topLeftYCoord + MAP_DISPLAY_HEIGHT;
+
+	for (int i = topLeftYCoord; i < bottomLeftYCoord; i++) {
+		for (int j = topLeftXCoord; j < topRightXCoord; j++) {
+			//Check for map bounds
+			if(i >= 0 && i < MAP_WIDTH && j >= 0 && j < MAP_WIDTH)
+				output += get(i,j).symbol;
+			else
+				output += ' ';
 		}
 		output += '\n';
 	}
-	std::cout << output;
+	std::cout << output << std::endl;
 }
 
 void GameMap::loadMap() {
@@ -57,5 +67,32 @@ Tile GameMap::get(int x, int y) {
 void GameMap::set(int x, int y, Tile t) {
 
 	map[x * MAP_WIDTH + y] = t;
+}
+
+bool isValidCoordinate(int x, int y) {
+	if (x >= 0 && x < MAP_WIDTH && y >= 0 && y < MAP_WIDTH)
+		return true;
+	else
+		return false;
+}
+
+void GameMap::panNorth() {
+	if (isValidCoordinate(centerXCoord, centerYCoord - 1))
+		centerYCoord -= 1;
+}
+
+void GameMap::panEast() {
+	if (isValidCoordinate(centerXCoord + 1, centerYCoord + 1))
+		centerXCoord += 1;
+}
+
+void GameMap::panSouth() {
+	if (isValidCoordinate(centerXCoord, centerYCoord + 1))
+		centerYCoord += 1;
+}
+
+void GameMap::panWest() {
+	if (isValidCoordinate(centerXCoord - 1, centerYCoord))
+		centerXCoord -= 1;
 }
 
