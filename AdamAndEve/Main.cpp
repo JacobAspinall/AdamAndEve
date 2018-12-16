@@ -10,6 +10,7 @@ int main() {
 	GameMap map = GameMap();
 	initscr();
 	noecho();
+	start_color();
 	while (1) {
 		map.displayMap();
 		refresh();

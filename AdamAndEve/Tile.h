@@ -1,5 +1,6 @@
 #pragma once
 #include "TileType.h"
+#include "curses.h"
 class Tile
 {
 public:
@@ -7,5 +8,7 @@ public:
 	virtual ~Tile();
 	TileType type;
 	char symbol;
+	int foregroundColor;
+	int backgroundColor;
 };
 
