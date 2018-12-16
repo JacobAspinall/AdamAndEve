@@ -1,5 +1,4 @@
 #include "GameMap.h"
-#include "Grass.h"
 #include <string>
 #include <iostream>
 
@@ -8,8 +7,8 @@ void clearScreen();
 GameMap::GameMap()
 {
 	map.reserve(MAP_WIDTH*MAP_WIDTH);
-	saveFile = SaveFile();
-	initializeMap();
+	//saveFile = SaveFile();
+	//initializeMap();
 }
 
 
@@ -23,7 +22,7 @@ GameMap::~GameMap()
 }
 
 //Call when creating a brand new map
-void GameMap::initializeMap() {
+/*void GameMap::initializeMap() {
 
 	for (int i = 0; i < MAP_WIDTH; i++) {
 		for (int j = 0; j < MAP_WIDTH; j++) {
@@ -33,6 +32,7 @@ void GameMap::initializeMap() {
 
 	saveFile.saveFullMap(map);
 }
+*/
 
 void GameMap::displayMap() {
 

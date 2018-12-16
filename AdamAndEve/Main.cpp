@@ -1,4 +1,5 @@
 #include "GameMap.h"
+#include "InitializeMap.h"
 #include <chrono>
 #include <thread>
 #include <iostream>
@@ -8,6 +9,7 @@ void readUserInput(GameMap& map);
 
 int main() {
 	GameMap map = GameMap();
+	initializeMap(map.map);
 	initscr();
 	noecho();
 	while (1) {

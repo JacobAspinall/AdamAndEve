@@ -1,5 +1,6 @@
 #pragma once
 #include "Tile.h"
+#include "Tiles.h"
 #include "SaveFile.h"
 #include "Constants.h"
 #include <vector>
@@ -14,7 +15,7 @@ public:
 	GameMap();
 	~GameMap();
 	void displayMap();
-	void initializeMap();
+	//void initializeMap();
 	Tile get(int x, int y);
 	void set(int x, int y, Tile t);
 	void panNorth();

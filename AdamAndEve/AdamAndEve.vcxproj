@@ -125,6 +125,7 @@
     <ClInclude Include="Constants.h" />
     <ClInclude Include="GameMap.h" />
     <ClInclude Include="Grass.h" />
+    <ClInclude Include="InitializeMap.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="SaveFile.h" />
     <ClInclude Include="Tile.h" />
@@ -132,6 +133,7 @@
   <ItemGroup>
     <ClCompile Include="GameMap.cpp" />
     <ClCompile Include="Grass.cpp" />
+    <ClCompile Include="InitializeMap.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="SaveFile.cpp" />
     <ClCompile Include="Tile.cpp" />
