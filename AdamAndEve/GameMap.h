@@ -6,7 +6,7 @@
 
 
 
-//yes fda
+
 class GameMap
 {
 public:
