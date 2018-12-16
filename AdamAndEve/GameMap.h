@@ -6,7 +6,7 @@
 
 
 
-
+//yes
 class GameMap
 {
 public:
