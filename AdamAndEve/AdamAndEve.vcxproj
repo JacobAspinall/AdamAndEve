@@ -129,6 +129,7 @@
     <ClInclude Include="resource.h" />
     <ClInclude Include="SaveFile.h" />
     <ClInclude Include="Tile.h" />
+    <ClInclude Include="Tiles.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GameMap.cpp" />
