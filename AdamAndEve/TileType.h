@@ -1,5 +1,6 @@
 #pragma once
 enum class TileType {
 	Grass,
-	Sand
+	Sand,
+	Tree
 };

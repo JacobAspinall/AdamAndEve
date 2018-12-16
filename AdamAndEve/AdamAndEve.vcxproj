@@ -125,6 +125,7 @@
     <ClInclude Include="Constants.h" />
     <ClInclude Include="GameMap.h" />
     <ClInclude Include="Grass.h" />
+    <ClInclude Include="Tree.h" />
     <ClInclude Include="InitializeMap.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="SaveFile.h" />
@@ -139,6 +140,7 @@
     <ClCompile Include="SaveFile.cpp" />
     <ClCompile Include="Tile.cpp" />
     <ClCompile Include="TileType.h" />
+    <ClCompile Include="Tree.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="AdamAndEve.rc" />
