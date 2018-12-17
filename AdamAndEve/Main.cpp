@@ -3,45 +3,49 @@
 #include <chrono>
 #include <thread>
 #include <iostream>
-#include "curses.h"
+#include "GameWindow.h"
 
-void readUserInput(GameMap& map);
+void readUserInput(GameWindow& map);
 
 int main() {
-	initscr();
-	noecho();
-	start_color();
-
+	
+	//std::cout << COLOR_PAIRS << std::endl;
+	//while (1) {}
 	GameMap map = GameMap();
 	initializeMap(map.map);
 
+	GameWindow mainWindow = GameWindow(map);
+	mainWindow.init();
+
 	
 	while (1) {
-		map.displayMap();
-		refresh();
-		readUserInput(map);
-		//std::this_thread::sleep_for(std::chrono::milliseconds(200));
+		mainWindow.refresh();
+		readUserInput(mainWindow);
+		
+		std::this_thread::sleep_for(std::chrono::milliseconds(50));
+		
 	}
 
 }
 
-void readUserInput(GameMap& map) {
+void readUserInput(GameWindow& window) {
 
 	char input;
+	flushinp();
 	input = getch();
-
+	
 	switch (input) {
 		case 'w':
-			map.panNorth();
+			window.panNorth();
 			break;
 		case 'a':
-			map.panWest();
+			window.panWest();
 			break;
 		case 's':
-			map.panSouth();
+			window.panSouth();
 			break;
 		case 'd':
-			map.panEast();
+			window.panEast();
 			break;
 		default:
 			break;

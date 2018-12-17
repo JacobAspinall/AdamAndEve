@@ -1,15 +1,15 @@
 #pragma once
 #include "TileType.h"
 #include "curses.h"
+#include "Object.h"
+#include "Entity.h"
 class Tile
 {
 public:
 	Tile();
 	virtual ~Tile();
 	TileType type;
-	char symbol;
-	int foregroundColor;
-	int backgroundColor;
-	int colorPair;
+	Object object;
+	Entity entity;
 };
 

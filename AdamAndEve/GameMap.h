@@ -18,12 +18,7 @@ public:
 	//void initializeMap();
 	Tile get(int x, int y);
 	void set(int x, int y, Tile t);
-	void panNorth();
-	void panEast();
-	void panSouth();
-	void panWest();
-	int centerXCoord = 0;//MAP_WIDTH / 2;
-	int centerYCoord = 0;//MAP_WIDTH / 2;
+	bool isValidCoordinate(int x, int y);
 	SaveFile saveFile;
 	std::vector<Tile> map;
 

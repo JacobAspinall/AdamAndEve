@@ -2,5 +2,4 @@
 enum class TileType {
 	Grass,
 	Sand,
-	Tree
 };

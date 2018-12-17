@@ -122,9 +122,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Color.h" />
     <ClInclude Include="Constants.h" />
+    <ClInclude Include="Entity.h" />
     <ClInclude Include="GameMap.h" />
+    <ClInclude Include="GameWindow.h" />
     <ClInclude Include="Grass.h" />
+    <ClInclude Include="Object.h" />
+    <ClInclude Include="ObjectType.h" />
     <ClInclude Include="Tree.h" />
     <ClInclude Include="InitializeMap.h" />
     <ClInclude Include="resource.h" />
@@ -133,10 +138,13 @@
     <ClInclude Include="Tiles.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Entity.cpp" />
     <ClCompile Include="GameMap.cpp" />
+    <ClCompile Include="GameWindow.cpp" />
     <ClCompile Include="Grass.cpp" />
     <ClCompile Include="InitializeMap.cpp" />
     <ClCompile Include="Main.cpp" />
+    <ClCompile Include="Object.cpp" />
     <ClCompile Include="SaveFile.cpp" />
     <ClCompile Include="Tile.cpp" />
     <ClCompile Include="TileType.h" />

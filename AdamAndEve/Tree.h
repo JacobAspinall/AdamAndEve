@@ -1,9 +1,9 @@
 #pragma once
-#include "Tile.h"
+#include "Object.h"
 #include "TileType.h"
 
 class Tree :
-	public Tile
+	public Object
 {
 public:
 	Tree();
