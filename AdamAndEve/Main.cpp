@@ -1,58 +1,58 @@
-#include "GameMap.h"
+#include "GameMaster.h"
 #include "InitializeMap.h"
 #include <chrono>
 #include <thread>
 #include <iostream>
 #include "GameWindow.h"
 #include "Human.h"
+#include "Player.h"
 
-void readUserInput(GameWindow& map);
+void readUserInput(std::shared_ptr<Player> p);
 
 int main() {
 	
-	//std::cout << COLOR_PAIRS << std::endl;
-	//while (1) {}
-	GameMap map = GameMap();
-	initializeMap(map);
-	map.player = std::make_shared<Human>(MAN);
-	std::shared_ptr<Tile> t = std::make_shared<Grass>();
-	t->entity = map.player;
-	map.set(10, 10, t);
+	GameMaster game = GameMaster();
 
-	GameWindow mainWindow = GameWindow(map);
+
+	GameWindow mainWindow = GameWindow(game.map);
 	mainWindow.init();
 
 	
 	while (1) {
+		mainWindow.centerXCoord = game.player->xCoord;
+		mainWindow.centerYCoord = game.player->yCoord;
+
 		mainWindow.render();
-		readUserInput(mainWindow);
-		
-		std::this_thread::sleep_for(std::chrono::milliseconds(50));
+		readUserInput(game.player);
+		game.runNextMove();
+		std::this_thread::sleep_for(std::chrono::milliseconds(150));
 		
 	}
 
 }
 
-void readUserInput(GameWindow& window) {
+void readUserInput(std::shared_ptr<Player> p) {
 
-	char input;
-	flushinp();
-	input = getch();
+	char input, finalInput = 0;
+	while ((input = getch()) != ERR) {
+		finalInput = input;
+	}
 	
-	switch (input) {
+	switch (finalInput) {
 		case 'w':
-			window.panNorth();
+			p->nextMove = MoveType::North;
 			break;
 		case 'a':
-			window.panWest();
+			p->nextMove = MoveType::West;
 			break;
 		case 's':
-			window.panSouth();
+			p->nextMove = MoveType::South;
 			break;
 		case 'd':
-			window.panEast();
+			p->nextMove = MoveType::East;
 			break;
 		default:
+			p->nextMove = MoveType::NoAction;
 			break;
 	}
 

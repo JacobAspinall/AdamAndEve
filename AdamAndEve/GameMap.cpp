@@ -41,12 +41,12 @@ void GameMap::loadMap() {
 
 std::shared_ptr<Tile> GameMap::get(int x, int y) {
 
-	return map[x * MAP_WIDTH + y];
+	return map[y * MAP_WIDTH + x];
 }
 
 void GameMap::set(int x, int y, std::shared_ptr<Tile> t) {
 
-	map[x * MAP_WIDTH + y] = t;
+	map[y * MAP_WIDTH + x] = t;
 }
 
 bool GameMap::isValidCoordinate(int x, int y) {
@@ -55,6 +55,70 @@ bool GameMap::isValidCoordinate(int x, int y) {
 	else
 		return false;
 }
+
+void GameMap::moveEntityNorth(std::shared_ptr<Entity> e) {
+	std::shared_ptr<Tile> t = get(e->xCoord, e->yCoord);
+	int newXcoord = t->entity->xCoord;
+	int newYcoord = t->entity->yCoord - 1;
+	if (isValidCoordinate(newXcoord, newYcoord)) {
+		std::shared_ptr<Tile> newTile = get(newXcoord, newYcoord);
+		if (newTile->object == nullptr || newTile->object->canWalkOn == true) {
+			if (newTile->entity == nullptr) {
+				t->entity = nullptr;
+				newTile->entity = e;
+				e->yCoord = newYcoord;
+			}
+		}
+	}
+
+}
+void GameMap::moveEntityEast(std::shared_ptr<Entity> e) {
+	std::shared_ptr<Tile> t = get(e->xCoord, e->yCoord);
+	int newXcoord = t->entity->xCoord + 1;
+	int newYcoord = t->entity->yCoord;
+	if (isValidCoordinate(newXcoord, newYcoord)) {
+		std::shared_ptr<Tile> newTile = get(newXcoord, newYcoord);
+		if (newTile->object == nullptr || newTile->object->canWalkOn == true) {
+			if (newTile->entity == nullptr) {
+				t->entity = nullptr;
+				newTile->entity = e;
+				e->xCoord = newXcoord;
+			}
+		}
+	}
+}
+void GameMap::moveEntitySouth(std::shared_ptr<Entity> e) {
+	std::shared_ptr<Tile> t = get(e->xCoord, e->yCoord);
+	int newXcoord = t->entity->xCoord;
+	int newYcoord = t->entity->yCoord + 1;
+	if (isValidCoordinate(newXcoord, newYcoord)) {
+		std::shared_ptr<Tile> newTile = get(newXcoord, newYcoord);
+		if (newTile->object == nullptr || newTile->object->canWalkOn == true) {
+			if (newTile->entity == nullptr) {
+				t->entity = nullptr;
+				newTile->entity = e;
+				e->yCoord = newYcoord;
+			}
+		}
+	}
+}
+void GameMap::moveEntityWest(std::shared_ptr<Entity> e) {
+	std::shared_ptr<Tile> t = get(e->xCoord, e->yCoord);
+	int newXcoord = t->entity->xCoord - 1;
+	int newYcoord = t->entity->yCoord;
+	if (isValidCoordinate(newXcoord, newYcoord)) {
+		std::shared_ptr<Tile> newTile = get(newXcoord, newYcoord);
+		if (newTile->object == nullptr || newTile->object->canWalkOn == true) {
+			if (newTile->entity == nullptr) {
+				t->entity = nullptr;
+				newTile->entity = e;
+				e->xCoord = newXcoord;
+			}
+		}
+	}
+}
+
+
 
 
 

@@ -16,6 +16,8 @@ GameWindow::~GameWindow()
 void GameWindow::init() {
 	initscr();
 	noecho();
+	curs_set(0);
+	timeout(1);
 	start_color();
 	refresh();
 
@@ -38,7 +40,7 @@ void GameWindow::render() {
 		for (int j = topLeftXCoord; j < topRightXCoord; j++) {
 			//Check for map bounds
 			if (i >= 0 && i < MAP_WIDTH && j >= 0 && j < MAP_WIDTH) {
-				std::shared_ptr<Tile> tileToPrint = map.get(i, j);
+				std::shared_ptr<Tile> tileToPrint = map.get(j, i);
 				if (tileToPrint->entity == nullptr) {
 					output += getSymbol(tileToPrint->object);
 					foregroundColor = getColor(tileToPrint->object);

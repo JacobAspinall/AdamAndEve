@@ -14,7 +14,10 @@ public:
 	bool isMan() const { return gender ? true : false; }
 	bool isWoman() const { return gender ? false : true; }
 private:
+
+protected:
 	bool gender = MAN;
+	
 
 };
 
