@@ -5,7 +5,7 @@
 
 GameMap::GameMap()
 {
-	map.reserve(MAP_WIDTH*MAP_WIDTH);
+	map.resize(MAP_WIDTH*MAP_WIDTH);
 	//saveFile = SaveFile();
 	//initializeMap();
 
@@ -39,12 +39,12 @@ void GameMap::loadMap() {
 
 }
 
-Tile GameMap::get(int x, int y) {
+std::shared_ptr<Tile> GameMap::get(int x, int y) {
 
 	return map[x * MAP_WIDTH + y];
 }
 
-void GameMap::set(int x, int y, Tile t) {
+void GameMap::set(int x, int y, std::shared_ptr<Tile> t) {
 
 	map[x * MAP_WIDTH + y] = t;
 }

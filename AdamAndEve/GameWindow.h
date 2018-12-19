@@ -3,13 +3,15 @@
 #include "GameMap.h"
 #include "Color.h"
 #include <unordered_map>
+#include <memory>
+
 class GameWindow
 {
 public:
 	GameWindow(GameMap map);
 	~GameWindow();
 	void init();
-	void refresh();
+	void render();
 
 	void panNorth();
 	void panEast();
@@ -22,8 +24,10 @@ public:
 
 	std::unordered_map<int, int> colorPairs;
 private:
-	int getColor(TileType t);
-	int getColor(ObjectType t);
-	char getSymbol(ObjectType t);
+	int getColor(std::shared_ptr<Tile> t);
+	int getColor(std::shared_ptr<Object> o);
+	char getSymbol(std::shared_ptr<Object> o);
+	int getColor(std::shared_ptr<Entity> e);
+	char getSymbol(std::shared_ptr<Entity> e);
 };
 

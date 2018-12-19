@@ -5,6 +5,7 @@ class Object
 public:
 	Object();
 	virtual ~Object();
-	ObjectType type;
+	ObjectType type = ObjectType::Empty;
+	bool canWalkOn;
 };
 

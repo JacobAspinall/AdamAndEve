@@ -128,6 +128,8 @@
     <ClInclude Include="GameMap.h" />
     <ClInclude Include="GameWindow.h" />
     <ClInclude Include="Grass.h" />
+    <ClInclude Include="EntityType.h" />
+    <ClInclude Include="Human.h" />
     <ClInclude Include="Object.h" />
     <ClInclude Include="ObjectType.h" />
     <ClInclude Include="Tree.h" />
@@ -142,6 +144,7 @@
     <ClCompile Include="GameMap.cpp" />
     <ClCompile Include="GameWindow.cpp" />
     <ClCompile Include="Grass.cpp" />
+    <ClCompile Include="Human.cpp" />
     <ClCompile Include="InitializeMap.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Object.cpp" />

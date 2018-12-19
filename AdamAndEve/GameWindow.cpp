@@ -21,7 +21,7 @@ void GameWindow::init() {
 
 }
 
-void GameWindow::refresh() {
+void GameWindow::render() {
 	std::string output = "";
 	int topLeftXCoord = centerXCoord - MAP_DISPLAY_WIDTH / 2;
 	int topRightXCoord = topLeftXCoord + MAP_DISPLAY_WIDTH;
@@ -31,24 +31,34 @@ void GameWindow::refresh() {
 	int currentCol = 0;
 	bool validCoord = false;
 	int currentColorPair = 1;
+	int foregroundColor;
+	int backgroundColor;
 
 	for (int i = topLeftYCoord; i < bottomLeftYCoord; i++) {
 		for (int j = topLeftXCoord; j < topRightXCoord; j++) {
 			//Check for map bounds
 			if (i >= 0 && i < MAP_WIDTH && j >= 0 && j < MAP_WIDTH) {
-				output += getSymbol(map.get(i, j).object.type);
-				int foregroundColor = getColor(map.get(i, j).object.type);
-				int backgroundColor = getColor(map.get(i, j).type);
+				std::shared_ptr<Tile> tileToPrint = map.get(i, j);
+				if (tileToPrint->entity == nullptr) {
+					output += getSymbol(tileToPrint->object);
+					foregroundColor = getColor(tileToPrint->object);
+				}
+				else {
+					output += getSymbol(tileToPrint->entity);
+					foregroundColor = getColor(tileToPrint->entity);
+				}
+				
+				backgroundColor = getColor(tileToPrint);
 
 				//Turn on color
-				auto search = colorPairs.find((foregroundColor << 16) & backgroundColor);
+				auto search = colorPairs.find((foregroundColor << 16) | backgroundColor);
 				if (search != colorPairs.end()) {
 					attron(COLOR_PAIR(search->second));
 					currentColorPair = search->second;
 				}
 				else {
 					init_pair(colorPairs.size() + 1, foregroundColor, backgroundColor);
-					colorPairs.insert({ ((foregroundColor) << 16) & backgroundColor , colorPairs.size() + 1 });
+					colorPairs.insert({ ((foregroundColor) << 16) | backgroundColor , colorPairs.size() + 1 });
 					attron(COLOR_PAIR(colorPairs.size()));
 					currentColorPair = colorPairs.size();
 				}
@@ -76,33 +86,80 @@ void GameWindow::refresh() {
 
 
 	}
-
+	refresh();
 }
 
-int GameWindow::getColor(TileType t) {
+int GameWindow::getColor(std::shared_ptr<Tile> t) {
+	if (t == nullptr)
+		return EMPTY_SYMBOL;
 
-	switch (t) {
+	switch (t->type) {
 	case TileType::Grass:
 		return GRASS_COLOR;
 	case TileType::Sand:
 		return SAND_COLOR;
+	default:
+		return COLOR_BLACK;
 
 	}
 }
 
-int GameWindow::getColor(ObjectType t) {
+int GameWindow::getColor(std::shared_ptr<Object> o) {
+	if (o == nullptr)
+		return EMPTY_SYMBOL;
 
-	switch (t) {
+	switch (o->type) {
 	case ObjectType::Tree:
 		return TREE_COLOR;
+	default:
+		return COLOR_BLACK;
 	}
 }
 
-char GameWindow::getSymbol(ObjectType t) {
+char GameWindow::getSymbol(std::shared_ptr<Object> o) {
 
-	switch (t) {
+	if (o == nullptr)
+		return EMPTY_SYMBOL;
+
+	switch (o->type) {
 	case ObjectType::Tree:
 		return TREE_SYMBOL;
+	default:
+		return EMPTY_SYMBOL;
+	}
+}
+
+int GameWindow::getColor(std::shared_ptr<Entity> e) {
+	if (e == nullptr)
+		return EMPTY_SYMBOL;
+
+	switch (e->type) {
+	case EntityType::Human:
+		if ((std::dynamic_pointer_cast<Human>(e))->isMan()) {
+			return MAN_COLOR;
+		}
+		else {
+			return WOMAN_COLOR;
+		}
+	default:
+		return COLOR_BLACK;
+	}
+}
+
+char GameWindow::getSymbol(std::shared_ptr<Entity> e) {
+	if (e == nullptr)
+		return EMPTY_SYMBOL;
+
+	switch (e->type) {
+	case EntityType::Human:
+		//Human h = *e;
+		if ((std::dynamic_pointer_cast<Human>(e))->isMan()) {
+			return MAN_SYMBOL;
+		}
+		else {
+			return WOMAN_SYMBOL;
+		}
+		
 	default:
 		return ' ';
 	}
