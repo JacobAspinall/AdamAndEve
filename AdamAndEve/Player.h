@@ -9,7 +9,7 @@ public:
 	Player(bool mygender);
 	~Player();
 
-	void makeMove();
+	int makeMove();
 
 	MoveType nextMove = MoveType::NoAction;
 };

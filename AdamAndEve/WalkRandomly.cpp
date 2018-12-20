@@ -14,11 +14,11 @@ WalkRandomly::~WalkRandomly()
 {
 }
 
-void WalkRandomly::run() {
+int WalkRandomly::run() {
 
 	std::shared_ptr<Human> human = std::dynamic_pointer_cast<Human>(entity);
 
-	switch (rand() % 5) {
+	switch (rand() % 4 + 1) {
 
 	case 0:
 		break;
@@ -35,5 +35,7 @@ void WalkRandomly::run() {
 		map->moveEntityWest(entity);
 		break;
 	}
+
+	return 10;
 
 }

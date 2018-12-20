@@ -16,6 +16,6 @@ Task::~Task()
 {
 }
 
-void Task::run() {
-
+int Task::run() {
+	return 1;
 }

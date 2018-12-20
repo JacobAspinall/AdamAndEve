@@ -1,7 +1,6 @@
 #include "Entity.h"
 
 
-
 Entity::Entity()
 {
 }
@@ -11,6 +10,6 @@ Entity::~Entity()
 {
 }
 
-void Entity::makeMove() {
-	task->run();
+int Entity::makeMove() {
+	return taskQueue.front()->run();
 }

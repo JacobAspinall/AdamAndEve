@@ -16,7 +16,7 @@ PlayerTask::~PlayerTask()
 {
 }
 
-void PlayerTask::run() {
+int PlayerTask::run() {
 
 	std::shared_ptr<Player> player = std::dynamic_pointer_cast<Player>(entity);
 
@@ -39,5 +39,5 @@ void PlayerTask::run() {
 	case MoveType::Interact:
 		break;
 	}
-
+	return 1;
 }

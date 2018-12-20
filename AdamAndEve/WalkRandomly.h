@@ -6,6 +6,6 @@ class WalkRandomly :
 public:
 	WalkRandomly(std::shared_ptr<Entity> e, std::shared_ptr<GameMap> myMap);
 	~WalkRandomly();
-	void run();
+	int run();
 };
 

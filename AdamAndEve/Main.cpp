@@ -19,13 +19,18 @@ int main() {
 
 	
 	while (1) {
-		mainWindow.centerXCoord = game.player->xCoord;
-		mainWindow.centerYCoord = game.player->yCoord;
-
-		mainWindow.render();
+		
 		readUserInput(game.player);
 		game.runNextMove();
+		mainWindow.centerXCoord = game.player->xCoord;
+		mainWindow.centerYCoord = game.player->yCoord;
+		mainWindow.render();
+		
+		
+
+		
 		std::this_thread::sleep_for(std::chrono::milliseconds(150));
+		
 		
 	}
 
@@ -33,10 +38,18 @@ int main() {
 
 void readUserInput(std::shared_ptr<Player> p) {
 
+	char charsSeen = 0;
 	char input, finalInput = 0;
+
+
 	while ((input = getch()) != ERR) {
 		finalInput = input;
+		charsSeen++;
+		if (charsSeen > 3)
+			break;
+
 	}
+	flushinp();
 	
 	switch (finalInput) {
 		case 'w':

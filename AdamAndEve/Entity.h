@@ -1,19 +1,23 @@
 #pragma once
 #include "EntityType.h"
+
+#include <list>
 #include "Task.h"
+#include <memory>
 
 class Entity
 {
 public:
 	Entity();
 	virtual ~Entity();
-	virtual void makeMove();
+	virtual int makeMove();
 
 	EntityType type = EntityType::Empty;
-	std::unique_ptr<Task> task;
+	std::list<std::unique_ptr<Task>> taskQueue;
 
 	int xCoord;
 	int yCoord;
+	long long timeOfNextMove = 0;
 
 
 };
