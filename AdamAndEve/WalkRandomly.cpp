@@ -14,6 +14,7 @@ WalkRandomly::~WalkRandomly()
 {
 }
 
+
 int WalkRandomly::run() {
 
 	std::shared_ptr<Human> human = std::dynamic_pointer_cast<Human>(entity);

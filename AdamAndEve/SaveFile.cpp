@@ -14,6 +14,7 @@ SaveFile::~SaveFile()
 {
 }
 
+//Creates a save file with basic header information
 void SaveFile::createSaveFile() {
 	std::ofstream saveFile;
 	saveFile.open(fileName, std::ios::out | std::ios::binary | std::ios::trunc);//, 
@@ -26,6 +27,7 @@ void SaveFile::createSaveFile() {
 	saveFile.close();
 }
 
+//Saves the full map at once
 void SaveFile::saveFullMap(std::vector<Tile> map) {
 	std::ofstream saveFile;
 	saveFile.open(fileName, std::ios::out | std::ios::app | std::ios::binary);

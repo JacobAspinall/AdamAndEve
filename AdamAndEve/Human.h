@@ -4,6 +4,7 @@
 const bool MAN = true;
 const bool WOMAN = false;
 
+//A human entity
 class Human :
 	public Entity
 {

@@ -1,6 +1,7 @@
 #pragma once
 #include "curses.h"
 
+//Contains colors and symbol constants for rendering graphics with PDcurses
 
 //Tiles
 const int GRASS_COLOR = COLOR_GREEN;

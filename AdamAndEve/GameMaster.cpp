@@ -3,7 +3,15 @@
 #include "WalkRandomly.h"
 
 
-
+//In charge of executing the required actions each game tick.
+//-Run the next move for each entity scheduled to move on a turn, and reshedule them afterwards.
+//
+//Example:
+//		GameMaster g = GameMaster();
+//		while (1) {
+//			g.runNextMove();
+//		}
+//
 GameMaster::GameMaster()
 {
 	initializeMap(map);
@@ -40,6 +48,8 @@ GameMaster::~GameMaster()
 {
 }
 
+//Runs the next move of the game
+//Updates every Entity on the game map that is scheduled to move on the next move.
 void GameMaster::runNextMove() {
 	while (moveQueue.top()->timeOfNextMove <= gameTurn) {
 		std::shared_ptr<Entity> e = moveQueue.top();

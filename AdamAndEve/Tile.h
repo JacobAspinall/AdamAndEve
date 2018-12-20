@@ -4,6 +4,15 @@
 #include "Object.h"
 #include "Entity.h"
 #include <memory>
+
+//Abstract class to represent the ground of each tile on the game map
+//e.g. grass, water, sand, etc.
+//When using this class, initialize it as a pointer to one of its derived classes to prevent object slicing
+//
+//Example:
+//		std::unique_ptr<Tile> e = std::make_unique<Grass>();
+//
+
 class Tile
 {
 public:

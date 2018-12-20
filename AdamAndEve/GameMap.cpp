@@ -6,8 +6,6 @@
 GameMap::GameMap()
 {
 	map.resize(MAP_WIDTH*MAP_WIDTH);
-	//saveFile = SaveFile();
-	//initializeMap();
 
 }
 
@@ -21,34 +19,20 @@ GameMap::~GameMap()
 	}
 }
 
-//Call when creating a brand new map
-/*void GameMap::initializeMap() {
-
-	for (int i = 0; i < MAP_WIDTH; i++) {
-		for (int j = 0; j < MAP_WIDTH; j++) {
-			map.push_back(Grass());
-		}
-	}
-
-	saveFile.saveFullMap(map);
-}
-*/
-
-
-void GameMap::loadMap() {
-
-}
-
+//returns pointer to the tile at coordinates x and y
 std::shared_ptr<Tile> GameMap::get(int x, int y) {
 
 	return map[y * MAP_WIDTH + x];
 }
 
+// sets the tile at x,y to the passed in tile t
 void GameMap::set(int x, int y, std::shared_ptr<Tile> t) {
 
 	map[y * MAP_WIDTH + x] = t;
 }
 
+//returns true if x,y are within the bounds of the map
+//does not check if an entity is able to legally move to this tile(due to an obstruction e.g tree/wall)
 bool GameMap::isValidCoordinate(int x, int y) {
 	if (x >= 0 && x < MAP_WIDTH && y >= 0 && y < MAP_WIDTH)
 		return true;
@@ -56,6 +40,7 @@ bool GameMap::isValidCoordinate(int x, int y) {
 		return false;
 }
 
+//If legal, moves an entity one tile to its north, otherwise the entity with stay put
 void GameMap::moveEntityNorth(std::shared_ptr<Entity> e) {
 	std::shared_ptr<Tile> t = get(e->xCoord, e->yCoord);
 	int newXcoord = t->entity->xCoord;
@@ -72,6 +57,8 @@ void GameMap::moveEntityNorth(std::shared_ptr<Entity> e) {
 	}
 
 }
+
+//If legal, moves an entity one tile to its east, otherwise the entity with stay put
 void GameMap::moveEntityEast(std::shared_ptr<Entity> e) {
 	std::shared_ptr<Tile> t = get(e->xCoord, e->yCoord);
 	int newXcoord = t->entity->xCoord + 1;
@@ -87,6 +74,8 @@ void GameMap::moveEntityEast(std::shared_ptr<Entity> e) {
 		}
 	}
 }
+
+//If legal, moves an entity one tile to its south, otherwise the entity with stay put
 void GameMap::moveEntitySouth(std::shared_ptr<Entity> e) {
 	std::shared_ptr<Tile> t = get(e->xCoord, e->yCoord);
 	int newXcoord = t->entity->xCoord;
@@ -102,6 +91,8 @@ void GameMap::moveEntitySouth(std::shared_ptr<Entity> e) {
 		}
 	}
 }
+
+//If legal, moves an entity one tile to its west, otherwise the entity with stay put
 void GameMap::moveEntityWest(std::shared_ptr<Entity> e) {
 	std::shared_ptr<Tile> t = get(e->xCoord, e->yCoord);
 	int newXcoord = t->entity->xCoord - 1;

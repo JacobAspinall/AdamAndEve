@@ -1,5 +1,7 @@
 #pragma once
 
+//Contains commonly used constants definitions
+
 //Constants for map
 const int MAP_WIDTH = 1024;
 const int MAP_DISPLAY_WIDTH = 80;

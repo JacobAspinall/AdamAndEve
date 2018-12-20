@@ -1,5 +1,7 @@
 #pragma once
 #include "Task.h"
+
+//Causes entity to do a random walk
 class WalkRandomly :
 	public Task
 {

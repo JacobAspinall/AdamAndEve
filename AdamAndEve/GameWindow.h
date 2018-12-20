@@ -5,6 +5,18 @@
 #include <unordered_map>
 #include <memory>
 
+
+//Renders the game map onto the terminal
+//
+//Example:
+//		GameMap g = GameMap();
+//		GameWindow g = GameWindow(map);
+//		g.init();
+//		while(1){
+//			//update map
+//			...
+//			g.render();
+//		}
 class GameWindow
 {
 public:
@@ -13,12 +25,12 @@ public:
 	void init();
 	void render();
 
-	void panNorth();
-	void panEast();
-	void panSouth();
-	void panWest();
-	int centerXCoord = 0;
-	int centerYCoord = 0;
+	void panCameraNorth();
+	void panCameraEast();
+	void panCameraSouth();
+	void panCameraWest();
+	int cameraXcoord = 0;
+	int cameraYCoord = 0;
 
 	GameMap map;
 

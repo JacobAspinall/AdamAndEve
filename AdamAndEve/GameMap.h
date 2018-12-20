@@ -9,7 +9,8 @@
 
 
 
-
+//Container for the game map
+//member functions must be used to make any changes to the game map
 class GameMap
 {
 public:
@@ -32,6 +33,6 @@ public:
 
 
 private:
-	void loadMap();
+
 };
 

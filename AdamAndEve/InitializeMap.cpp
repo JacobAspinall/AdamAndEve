@@ -1,6 +1,8 @@
 #include "InitializeMap.h"
 #include <cstdlib>
 
+//Fills a game map with tiles
+//call when creating a map for the first time
 void initializeMap(GameMap& map)
 {
 	for (int i = 0; i < MAP_WIDTH; i++) {

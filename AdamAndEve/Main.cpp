@@ -22,12 +22,9 @@ int main() {
 		
 		readUserInput(game.player);
 		game.runNextMove();
-		mainWindow.centerXCoord = game.player->xCoord;
-		mainWindow.centerYCoord = game.player->yCoord;
+		mainWindow.cameraXcoord = game.player->xCoord;
+		mainWindow.cameraYCoord = game.player->yCoord;
 		mainWindow.render();
-		
-		
-
 		
 		std::this_thread::sleep_for(std::chrono::milliseconds(150));
 		
@@ -36,6 +33,9 @@ int main() {
 
 }
 
+
+//Reads user input and sets the players next move
+//-non-blocking
 void readUserInput(std::shared_ptr<Player> p) {
 
 	char charsSeen = 0;

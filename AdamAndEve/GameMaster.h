@@ -6,7 +6,6 @@
 #include <vector>
 #include <queue>
 
-//class MoveQueueComparator;
 class MoveQueueComparator {
 public:
 	bool operator()(std::shared_ptr<Entity> e1, std::shared_ptr<Entity> e2) {

@@ -16,6 +16,7 @@ PlayerTask::~PlayerTask()
 {
 }
 
+
 int PlayerTask::run() {
 
 	std::shared_ptr<Player> player = std::dynamic_pointer_cast<Player>(entity);

@@ -13,6 +13,7 @@ GameWindow::~GameWindow()
 {
 }
 
+//Runs necessary initialization functions from PDcurses
 void GameWindow::init() {
 	initscr();
 	noecho();
@@ -23,11 +24,12 @@ void GameWindow::init() {
 
 }
 
+//displays map on terminal based upon the camera's x and y coords
 void GameWindow::render() {
 	std::string output = "";
-	int topLeftXCoord = centerXCoord - MAP_DISPLAY_WIDTH / 2;
+	int topLeftXCoord = cameraXcoord - MAP_DISPLAY_WIDTH / 2;
 	int topRightXCoord = topLeftXCoord + MAP_DISPLAY_WIDTH;
-	int topLeftYCoord = centerYCoord - MAP_DISPLAY_HEIGHT / 2;
+	int topLeftYCoord = cameraYCoord - MAP_DISPLAY_HEIGHT / 2;
 	int bottomLeftYCoord = topLeftYCoord + MAP_DISPLAY_HEIGHT;
 	int currentRow = 0;
 	int currentCol = 0;
@@ -91,6 +93,7 @@ void GameWindow::render() {
 	refresh();
 }
 
+//Returns the color used for a tile
 int GameWindow::getColor(std::shared_ptr<Tile> t) {
 	if (t == nullptr)
 		return EMPTY_SYMBOL;
@@ -106,6 +109,7 @@ int GameWindow::getColor(std::shared_ptr<Tile> t) {
 	}
 }
 
+//Returns the color used for am object
 int GameWindow::getColor(std::shared_ptr<Object> o) {
 	if (o == nullptr)
 		return EMPTY_SYMBOL;
@@ -118,6 +122,7 @@ int GameWindow::getColor(std::shared_ptr<Object> o) {
 	}
 }
 
+//Returns the character that wil be displayed for an object
 char GameWindow::getSymbol(std::shared_ptr<Object> o) {
 
 	if (o == nullptr)
@@ -131,6 +136,7 @@ char GameWindow::getSymbol(std::shared_ptr<Object> o) {
 	}
 }
 
+//Returns the color used for am entity
 int GameWindow::getColor(std::shared_ptr<Entity> e) {
 	if (e == nullptr)
 		return EMPTY_SYMBOL;
@@ -148,6 +154,7 @@ int GameWindow::getColor(std::shared_ptr<Entity> e) {
 	}
 }
 
+//Returns the character that wil be displayed for an entity
 char GameWindow::getSymbol(std::shared_ptr<Entity> e) {
 	if (e == nullptr)
 		return EMPTY_SYMBOL;
@@ -167,27 +174,30 @@ char GameWindow::getSymbol(std::shared_ptr<Entity> e) {
 	}
 }
 
-void GameWindow::panNorth() {
-	if (map.isValidCoordinate(centerXCoord, centerYCoord - 1))
-		centerYCoord -= 1;
+//Centers camera one tile to the north and re-renders the screen
+void GameWindow::panCameraNorth() {
+	if (map.isValidCoordinate(cameraXcoord, cameraYCoord - 1))
+		cameraYCoord -= 1;
+	render();
 }
 
-void GameWindow::panEast() {
-	if (map.isValidCoordinate(centerXCoord + 1, centerYCoord + 1))
-		centerXCoord += 1;
+//Centers camera one tile to the east and re-renders the screen
+void GameWindow::panCameraEast() {
+	if (map.isValidCoordinate(cameraXcoord + 1, cameraYCoord + 1))
+		cameraXcoord += 1;
+	render();
 }
 
-void GameWindow::panSouth() {
-	if (map.isValidCoordinate(centerXCoord, centerYCoord + 1))
-		centerYCoord += 1;
+//Centers camera one tile to the south and re-renders the screen
+void GameWindow::panCameraSouth() {
+	if (map.isValidCoordinate(cameraXcoord, cameraYCoord + 1))
+		cameraYCoord += 1;
+	render();
 }
 
-void GameWindow::panWest() {
-	if (map.isValidCoordinate(centerXCoord - 1, centerYCoord))
-		centerXCoord -= 1;
-}
-
-void initColorPairs() {
-
-
+//Centers camera one tile to the west and re-renders the screen
+void GameWindow::panCameraWest() {
+	if (map.isValidCoordinate(cameraXcoord - 1, cameraYCoord))
+		cameraXcoord -= 1;
+	render();
 }
