@@ -21,14 +21,18 @@ GameMap::~GameMap()
 
 //returns pointer to the tile at coordinates x and y
 std::shared_ptr<Tile> GameMap::get(int x, int y) {
-
+	if (!isValidCoordinate(x, y)) {
+		return nullptr;
+	}
 	return map[y * MAP_WIDTH + x];
 }
 
 // sets the tile at x,y to the passed in tile t
 void GameMap::set(int x, int y, std::shared_ptr<Tile> t) {
+	if (isValidCoordinate(x, y)) {
+		map[y * MAP_WIDTH + x] = t;
+	}
 
-	map[y * MAP_WIDTH + x] = t;
 }
 
 //returns true if x,y are within the bounds of the map
@@ -55,7 +59,7 @@ void GameMap::moveEntityNorth(std::shared_ptr<Entity> e) {
 			}
 		}
 	}
-
+	e->directionFacing = Direction::NORTH;
 }
 
 //If legal, moves an entity one tile to its east, otherwise the entity with stay put
@@ -73,6 +77,7 @@ void GameMap::moveEntityEast(std::shared_ptr<Entity> e) {
 			}
 		}
 	}
+	e->directionFacing = Direction::EAST;
 }
 
 //If legal, moves an entity one tile to its south, otherwise the entity with stay put
@@ -90,6 +95,7 @@ void GameMap::moveEntitySouth(std::shared_ptr<Entity> e) {
 			}
 		}
 	}
+	e->directionFacing = Direction::SOUTH;
 }
 
 //If legal, moves an entity one tile to its west, otherwise the entity with stay put
@@ -107,7 +113,24 @@ void GameMap::moveEntityWest(std::shared_ptr<Entity> e) {
 			}
 		}
 	}
+	e->directionFacing = Direction::WEST;
 }
+
+std::shared_ptr<Tile> GameMap::tileInFrontof(std::shared_ptr<Entity> e) {
+	switch (e->directionFacing) {
+	case Direction::NORTH:
+		return get(e->xCoord, e->yCoord - 1);
+	case Direction::EAST:
+		return get(e->xCoord + 1, e->yCoord);
+	case Direction::SOUTH:
+		return get(e->xCoord, e->yCoord + 1);
+	case Direction::WEST:
+		return get(e->xCoord - 1, e->yCoord);
+
+	}
+}
+
+
 
 
 

@@ -2,6 +2,7 @@
 #include "Player.h"
 #include "Entity.h"
 #include "GameMap.h"
+#include "Interact.h"
 
 
 
@@ -38,6 +39,7 @@ int PlayerTask::run() {
 		map->moveEntityWest(entity);
 		break;
 	case MoveType::Interact:
+		entity->setCurrentTask(std::move(getInteractTask(entity, map)));
 		break;
 	}
 	return 1;

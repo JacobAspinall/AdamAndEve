@@ -122,6 +122,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Direction.h" />
+    <ClInclude Include="Interact.h" />
+    <ClInclude Include="TreeInteraction.h" />
     <ClInclude Include="Color.h" />
     <ClInclude Include="Constants.h" />
     <ClInclude Include="Entity.h" />
@@ -146,6 +149,7 @@
     <ClInclude Include="WalkRandomly.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="TreeInteraction.cpp" />
     <ClCompile Include="Entity.cpp" />
     <ClCompile Include="GameMap.cpp" />
     <ClCompile Include="GameMaster.cpp" />
@@ -153,6 +157,7 @@
     <ClCompile Include="Grass.cpp" />
     <ClCompile Include="Human.cpp" />
     <ClCompile Include="InitializeMap.cpp" />
+    <ClCompile Include="Interact.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Object.cpp" />
     <ClCompile Include="Player.cpp" />

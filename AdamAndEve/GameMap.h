@@ -25,6 +25,7 @@ public:
 	void moveEntityEast(std::shared_ptr<Entity> e);
 	void moveEntitySouth(std::shared_ptr<Entity> e);
 	void moveEntityWest(std::shared_ptr<Entity> e);
+	std::shared_ptr<Tile>tileInFrontof(std::shared_ptr<Entity> e);
 
 
 	SaveFile saveFile;

@@ -21,5 +21,7 @@ public:
 	TileType type;
 	std::shared_ptr<Object> object;
 	std::shared_ptr<Entity> entity;
+
+
 };
 

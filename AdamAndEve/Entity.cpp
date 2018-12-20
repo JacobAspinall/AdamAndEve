@@ -16,3 +16,12 @@ Entity::~Entity()
 int Entity::makeMove() {
 	return taskQueue.front()->run();
 }
+
+void Entity::setCurrentTask(std::unique_ptr<Task> t) {
+	if(t != nullptr)
+		taskQueue.emplace_front(std::move(t));
+}
+
+void Entity::endCurrentTask() {
+	taskQueue.pop_front();
+}

@@ -64,6 +64,9 @@ void readUserInput(std::shared_ptr<Player> p) {
 		case 'd':
 			p->nextMove = MoveType::East;
 			break;
+		case 'f':
+			p->nextMove = MoveType::Interact;
+			break;
 		default:
 			p->nextMove = MoveType::NoAction;
 			break;
