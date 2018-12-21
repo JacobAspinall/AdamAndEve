@@ -6,11 +6,6 @@
 
 
 
-PlayerTask::PlayerTask(std::shared_ptr<Entity> e, std::shared_ptr<GameMap> myMap)
-{
-	entity = e;
-	map = myMap;
-}
 
 
 PlayerTask::~PlayerTask()
@@ -20,26 +15,26 @@ PlayerTask::~PlayerTask()
 
 int PlayerTask::run() {
 
-	std::shared_ptr<Player> player = std::dynamic_pointer_cast<Player>(entity);
+	Player& player = static_cast<Player&>(entity);
 
-	switch (player->nextMove) {
+	switch (player.nextMove) {
 
 	case MoveType::NoAction:
 		break;
 	case MoveType::North:
-		map->moveEntityNorth(entity);
+		map.moveEntityNorth(entity);
 		break;
 	case MoveType::East:
-		map->moveEntityEast(entity);
+		map.moveEntityEast(entity);
 		break;
 	case MoveType::South:
-		map->moveEntitySouth(entity);
+		map.moveEntitySouth(entity);
 		break;
 	case MoveType::West:
-		map->moveEntityWest(entity);
+		map.moveEntityWest(entity);
 		break;
 	case MoveType::Interact:
-		entity->setCurrentTask(std::move(getInteractTask(entity, map)));
+		entity.setCurrentTask(std::move(getInteractTask(entity, map)));
 		break;
 	}
 	return 1;

@@ -14,7 +14,7 @@ Entity::~Entity()
 //
 //return: number of game ticks until the task needs to be run again
 int Entity::makeMove() {
-	return taskQueue.front()->run();
+	return taskQueue.front().get()->run();
 }
 
 void Entity::setCurrentTask(std::unique_ptr<Task> t) {

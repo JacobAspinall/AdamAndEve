@@ -3,42 +3,36 @@
 #include "WalkRandomly.h"
 
 
-//In charge of executing the required actions each game tick.
-//-Run the next move for each entity scheduled to move on a turn, and reshedule them afterwards.
-//
-//Example:
-//		GameMaster g = GameMaster();
-//		while (1) {
-//			g.runNextMove();
-//		}
-//
+
 GameMaster::GameMaster()
 {
 	initializeMap(map);
-	player = std::make_shared<Player>(MAN);
-	std::shared_ptr<Tile> t = std::make_shared<Grass>();
-	t->entity = player;
-	map.set(10, 10, t);
+	std::shared_ptr<Player> playerSharedPtr = std::make_shared<Player>(MAN);
+	std::unique_ptr<Tile> t = std::make_unique<Grass>();
+	t->entity = playerSharedPtr;
+	player = playerSharedPtr;
+	map.set(10, 10, std::move(t));
 
-	player->taskQueue.emplace_front(std::make_unique<PlayerTask>(player, std::make_shared<GameMap>(map)));
-	player->xCoord = 10;
-	player->yCoord = 10;
+	player.lock()->taskQueue.emplace_front(std::make_unique<PlayerTask>(*(std::static_pointer_cast<Entity>(playerSharedPtr)).get(), map));
+	player.lock()->xCoord = 10;
+	player.lock()->yCoord = 10;
 
-	entityList.push_back(player);
-	moveQueue.push(player);
+
+	entityList.push_back(std::weak_ptr<Entity>(playerSharedPtr));
+	moveQueue.push(std::weak_ptr<Entity>(playerSharedPtr));
 
 	//Make myself a wife
-	std::shared_ptr<Tile> wifeTile = std::make_shared<Grass>();
+	std::unique_ptr<Tile> wifeTile = std::make_unique<Grass>();
 	std::shared_ptr<Human> wifey = std::make_shared<Human>(WOMAN);
 	wifeTile->entity = wifey;
-	map.set(11, 11, wifeTile);
+	map.set(11, 11, std::move(wifeTile));
 
-	wifey->taskQueue.emplace_front(std::make_unique<WalkRandomly>(wifey, std::make_shared<GameMap>(map)));
+	wifey->taskQueue.emplace_front(std::make_unique<WalkRandomly>(*(std::static_pointer_cast<Entity>(wifey)).get(), map));
 	wifey->xCoord = 11;
 	wifey->yCoord = 11;
 
-	entityList.push_back(wifey);
-	moveQueue.push(wifey);
+	entityList.push_back(std::weak_ptr<Entity>(wifey));
+	moveQueue.push(std::weak_ptr<Entity>(wifey));
 
 
 }
@@ -51,8 +45,8 @@ GameMaster::~GameMaster()
 //Runs the next move of the game
 //Updates every Entity on the game map that is scheduled to move on the next move.
 void GameMaster::runNextMove() {
-	while (moveQueue.top()->timeOfNextMove <= gameTurn) {
-		std::shared_ptr<Entity> e = moveQueue.top();
+	while (moveQueue.top().lock()->timeOfNextMove <= gameTurn) {
+		std::shared_ptr<Entity> e = moveQueue.top().lock();
 		moveQueue.pop();
 		int timeUntilNextTurn = e->makeMove();
 		e->timeOfNextMove = gameTurn + timeUntilNextTurn;

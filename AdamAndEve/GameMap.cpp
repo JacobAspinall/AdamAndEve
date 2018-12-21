@@ -12,25 +12,20 @@ GameMap::GameMap()
 
 GameMap::~GameMap()
 {
-	for (int i = 0; i < MAP_DISPLAY_HEIGHT; i++) {
-		for (int j = 0; j < MAP_DISPLAY_WIDTH; j++) {
-			//delete loadedMap[i][j];
-		}
-	}
 }
 
 //returns pointer to the tile at coordinates x and y
-std::shared_ptr<Tile> GameMap::get(int x, int y) {
+Tile* GameMap::get(int x, int y) {
 	if (!isValidCoordinate(x, y)) {
 		return nullptr;
 	}
-	return map[y * MAP_WIDTH + x];
+	return map[y * MAP_WIDTH + x].get();
 }
 
 // sets the tile at x,y to the passed in tile t
-void GameMap::set(int x, int y, std::shared_ptr<Tile> t) {
+void GameMap::set(int x, int y, std::unique_ptr<Tile> t) {
 	if (isValidCoordinate(x, y)) {
-		map[y * MAP_WIDTH + x] = t;
+		map[y * MAP_WIDTH + x] = std::move(t);
 	}
 
 }
@@ -45,88 +40,89 @@ bool GameMap::isValidCoordinate(int x, int y) {
 }
 
 //If legal, moves an entity one tile to its north, otherwise the entity with stay put
-void GameMap::moveEntityNorth(std::shared_ptr<Entity> e) {
-	std::shared_ptr<Tile> t = get(e->xCoord, e->yCoord);
+void GameMap::moveEntityNorth(Entity& e) {
+	Tile* t = get(e.xCoord, e.yCoord);
 	int newXcoord = t->entity->xCoord;
 	int newYcoord = t->entity->yCoord - 1;
 	if (isValidCoordinate(newXcoord, newYcoord)) {
-		std::shared_ptr<Tile> newTile = get(newXcoord, newYcoord);
+		Tile* newTile = get(newXcoord, newYcoord);
 		if (newTile->object == nullptr || newTile->object->canWalkOn == true) {
 			if (newTile->entity == nullptr) {
+				newTile->entity = std::move(t->entity);
 				t->entity = nullptr;
-				newTile->entity = e;
-				e->yCoord = newYcoord;
+				e.yCoord = newYcoord;
 			}
 		}
 	}
-	e->directionFacing = Direction::NORTH;
+	e.directionFacing = Direction::NORTH;
 }
 
 //If legal, moves an entity one tile to its east, otherwise the entity with stay put
-void GameMap::moveEntityEast(std::shared_ptr<Entity> e) {
-	std::shared_ptr<Tile> t = get(e->xCoord, e->yCoord);
+void GameMap::moveEntityEast(Entity& e) {
+	Tile* t = get(e.xCoord, e.yCoord);
 	int newXcoord = t->entity->xCoord + 1;
 	int newYcoord = t->entity->yCoord;
 	if (isValidCoordinate(newXcoord, newYcoord)) {
-		std::shared_ptr<Tile> newTile = get(newXcoord, newYcoord);
+		Tile* newTile = get(newXcoord, newYcoord);
 		if (newTile->object == nullptr || newTile->object->canWalkOn == true) {
 			if (newTile->entity == nullptr) {
+				newTile->entity = std::move(t->entity);
 				t->entity = nullptr;
-				newTile->entity = e;
-				e->xCoord = newXcoord;
+				e.xCoord = newXcoord;
 			}
 		}
 	}
-	e->directionFacing = Direction::EAST;
+	e.directionFacing = Direction::EAST;
 }
 
 //If legal, moves an entity one tile to its south, otherwise the entity with stay put
-void GameMap::moveEntitySouth(std::shared_ptr<Entity> e) {
-	std::shared_ptr<Tile> t = get(e->xCoord, e->yCoord);
+void GameMap::moveEntitySouth(Entity& e) {
+	Tile* t = get(e.xCoord, e.yCoord);
 	int newXcoord = t->entity->xCoord;
 	int newYcoord = t->entity->yCoord + 1;
 	if (isValidCoordinate(newXcoord, newYcoord)) {
-		std::shared_ptr<Tile> newTile = get(newXcoord, newYcoord);
+		Tile* newTile = get(newXcoord, newYcoord);
 		if (newTile->object == nullptr || newTile->object->canWalkOn == true) {
 			if (newTile->entity == nullptr) {
+				newTile->entity = std::move(t->entity);
 				t->entity = nullptr;
-				newTile->entity = e;
-				e->yCoord = newYcoord;
+				e.yCoord = newYcoord;
 			}
 		}
 	}
-	e->directionFacing = Direction::SOUTH;
+	e.directionFacing = Direction::SOUTH;
 }
 
 //If legal, moves an entity one tile to its west, otherwise the entity with stay put
-void GameMap::moveEntityWest(std::shared_ptr<Entity> e) {
-	std::shared_ptr<Tile> t = get(e->xCoord, e->yCoord);
+void GameMap::moveEntityWest(Entity& e) {
+	Tile* t = get(e.xCoord, e.yCoord);
 	int newXcoord = t->entity->xCoord - 1;
 	int newYcoord = t->entity->yCoord;
 	if (isValidCoordinate(newXcoord, newYcoord)) {
-		std::shared_ptr<Tile> newTile = get(newXcoord, newYcoord);
+		Tile* newTile = get(newXcoord, newYcoord);
 		if (newTile->object == nullptr || newTile->object->canWalkOn == true) {
 			if (newTile->entity == nullptr) {
+				newTile->entity = std::move(t->entity);
 				t->entity = nullptr;
-				newTile->entity = e;
-				e->xCoord = newXcoord;
+				e.xCoord = newXcoord;
 			}
 		}
 	}
-	e->directionFacing = Direction::WEST;
+	e.directionFacing = Direction::WEST;
 }
 
-std::shared_ptr<Tile> GameMap::tileInFrontof(std::shared_ptr<Entity> e) {
-	switch (e->directionFacing) {
+Tile* GameMap::tileInFrontof(Entity& e) {
+	switch (e.directionFacing) {
 	case Direction::NORTH:
-		return get(e->xCoord, e->yCoord - 1);
+		return get(e.xCoord, e.yCoord - 1);
 	case Direction::EAST:
-		return get(e->xCoord + 1, e->yCoord);
+		return get(e.xCoord + 1, e.yCoord);
 	case Direction::SOUTH:
-		return get(e->xCoord, e->yCoord + 1);
+		return get(e.xCoord, e.yCoord + 1);
 	case Direction::WEST:
-		return get(e->xCoord - 1, e->yCoord);
-
+		return get(e.xCoord - 1, e.yCoord);
+	default:
+		return nullptr;
 	}
 }
 

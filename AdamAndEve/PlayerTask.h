@@ -6,7 +6,7 @@ class PlayerTask :
 	public Task
 {
 public:
-	PlayerTask(std::shared_ptr<Entity> e, std::shared_ptr<GameMap> map);
+	PlayerTask(Entity& e, GameMap& myMap) : Task(e, myMap) {};
 	~PlayerTask();
 	int run();
 };

@@ -8,12 +8,12 @@ void initializeMap(GameMap& map)
 	for (int i = 0; i < MAP_WIDTH; i++) {
 		for (int j = 0; j < MAP_WIDTH; j++) {
 			if (rand() % 10 < 1) {
-				std::shared_ptr<Tile> newTile = std::make_shared<Grass>();
-				newTile->object = std::make_shared<Tree>();
-				map.set(i, j, newTile);
+				std::unique_ptr<Tile> newTile = std::make_unique<Grass>();
+				newTile->object = std::make_unique<Tree>();
+				map.set(i, j, std::move(newTile));
 			}
 			else
-				map.set(i, j, std::make_shared<Grass>());
+				map.set(i, j, std::make_unique<Grass>());
 		}
 	}
 }

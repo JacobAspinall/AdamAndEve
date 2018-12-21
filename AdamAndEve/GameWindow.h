@@ -20,7 +20,7 @@
 class GameWindow
 {
 public:
-	GameWindow(GameMap map);
+	GameWindow(GameMap& map);
 	~GameWindow();
 	void init();
 	void render();
@@ -32,14 +32,14 @@ public:
 	int cameraXcoord = 0;
 	int cameraYCoord = 0;
 
-	GameMap map;
+	GameMap& map;
 
 	std::unordered_map<int, int> colorPairs;
 private:
-	int getColor(std::shared_ptr<Tile> t);
-	int getColor(std::shared_ptr<Object> o);
-	char getSymbol(std::shared_ptr<Object> o);
-	int getColor(std::shared_ptr<Entity> e);
-	char getSymbol(std::shared_ptr<Entity> e);
+	int getColor(Tile* t);
+	int getColor(Object* o);
+	char getSymbol(Object* o);
+	int getColor(Entity* e);
+	char getSymbol(Entity* e);
 };
 

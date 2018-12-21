@@ -12,7 +12,6 @@ public:
 	Player(bool mygender);
 	~Player();
 
-	int makeMove();
 
 	MoveType nextMove = MoveType::NoAction;
 };

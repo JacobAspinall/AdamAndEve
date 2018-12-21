@@ -20,10 +20,10 @@ int main() {
 	
 	while (1) {
 		
-		readUserInput(game.player);
+		readUserInput(game.player.lock());
 		game.runNextMove();
-		mainWindow.cameraXcoord = game.player->xCoord;
-		mainWindow.cameraYCoord = game.player->yCoord;
+		mainWindow.cameraXcoord = game.player.lock()->xCoord;
+		mainWindow.cameraYCoord = game.player.lock()->yCoord;
 		mainWindow.render();
 		
 		std::this_thread::sleep_for(std::chrono::milliseconds(150));

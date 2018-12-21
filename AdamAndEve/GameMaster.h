@@ -6,10 +6,20 @@
 #include <vector>
 #include <queue>
 
+//In charge of executing the required actions each game tick.
+//-Run the next move for each entity scheduled to move on a turn, and reshedule them afterwards.
+//
+//Example:
+//		GameMaster g = GameMaster();
+//		while (1) {
+//			g.runNextMove();
+//		}
+//
+
 class MoveQueueComparator {
 public:
-	bool operator()(std::shared_ptr<Entity> e1, std::shared_ptr<Entity> e2) {
-		return e1->timeOfNextMove > e2->timeOfNextMove;
+	bool operator()(std::weak_ptr<Entity> e1, std::weak_ptr<Entity> e2) {
+		return e1.lock()->timeOfNextMove > e2.lock()->timeOfNextMove;
 	}
 };
 
@@ -22,9 +32,9 @@ public:
 
 
 	GameMap map;
-	std::priority_queue<std::shared_ptr<Entity>, std::vector<std::shared_ptr<Entity>>, MoveQueueComparator> moveQueue;
-	std::vector<std::shared_ptr<Entity>> entityList;
-	std::shared_ptr<Player> player;
+	std::priority_queue<std::weak_ptr<Entity>, std::vector<std::weak_ptr<Entity>>, MoveQueueComparator> moveQueue;
+	std::vector<std::weak_ptr<Entity>> entityList;
+	std::weak_ptr<Player> player;
 	long long gameTurn = 0;
 
 };

@@ -2,7 +2,7 @@
 
 
 
-GameWindow::GameWindow(GameMap map)
+GameWindow::GameWindow(GameMap& map)
 	:map{ map }
 {
 
@@ -42,14 +42,14 @@ void GameWindow::render() {
 		for (int j = topLeftXCoord; j < topRightXCoord; j++) {
 			//Check for map bounds
 			if (i >= 0 && i < MAP_WIDTH && j >= 0 && j < MAP_WIDTH) {
-				std::shared_ptr<Tile> tileToPrint = map.get(j, i);
+				Tile* tileToPrint = map.get(j, i);
 				if (tileToPrint->entity == nullptr) {
-					output += getSymbol(tileToPrint->object);
-					foregroundColor = getColor(tileToPrint->object);
+					output += getSymbol(tileToPrint->object.get());
+					foregroundColor = getColor(tileToPrint->object.get());
 				}
 				else {
-					output += getSymbol(tileToPrint->entity);
-					foregroundColor = getColor(tileToPrint->entity);
+					output += getSymbol(tileToPrint->entity.get());
+					foregroundColor = getColor(tileToPrint->entity.get());
 				}
 				
 				backgroundColor = getColor(tileToPrint);
@@ -94,7 +94,7 @@ void GameWindow::render() {
 }
 
 //Returns the color used for a tile
-int GameWindow::getColor(std::shared_ptr<Tile> t) {
+int GameWindow::getColor(Tile* t) {
 	if (t == nullptr)
 		return EMPTY_SYMBOL;
 
@@ -110,7 +110,7 @@ int GameWindow::getColor(std::shared_ptr<Tile> t) {
 }
 
 //Returns the color used for am object
-int GameWindow::getColor(std::shared_ptr<Object> o) {
+int GameWindow::getColor(Object* o) {
 	if (o == nullptr)
 		return EMPTY_SYMBOL;
 
@@ -123,7 +123,7 @@ int GameWindow::getColor(std::shared_ptr<Object> o) {
 }
 
 //Returns the character that wil be displayed for an object
-char GameWindow::getSymbol(std::shared_ptr<Object> o) {
+char GameWindow::getSymbol(Object* o) {
 
 	if (o == nullptr)
 		return EMPTY_SYMBOL;
@@ -137,13 +137,13 @@ char GameWindow::getSymbol(std::shared_ptr<Object> o) {
 }
 
 //Returns the color used for am entity
-int GameWindow::getColor(std::shared_ptr<Entity> e) {
+int GameWindow::getColor(Entity* e) {
 	if (e == nullptr)
 		return EMPTY_SYMBOL;
 
 	switch (e->type) {
 	case EntityType::Human:
-		if ((std::dynamic_pointer_cast<Human>(e))->isMan()) {
+		if ((static_cast<Human*>(e))->isMan()) {
 			return MAN_COLOR;
 		}
 		else {
@@ -155,14 +155,14 @@ int GameWindow::getColor(std::shared_ptr<Entity> e) {
 }
 
 //Returns the character that wil be displayed for an entity
-char GameWindow::getSymbol(std::shared_ptr<Entity> e) {
+char GameWindow::getSymbol(Entity* e) {
 	if (e == nullptr)
 		return EMPTY_SYMBOL;
 
 	switch (e->type) {
 	case EntityType::Human:
 		//Human h = *e;
-		if ((std::dynamic_pointer_cast<Human>(e))->isMan()) {
+		if ((static_cast<Human*>(e))->isMan()) {
 			return MAN_SYMBOL;
 		}
 		else {

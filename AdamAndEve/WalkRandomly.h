@@ -6,7 +6,7 @@ class WalkRandomly :
 	public Task
 {
 public:
-	WalkRandomly(std::shared_ptr<Entity> e, std::shared_ptr<GameMap> myMap);
+	WalkRandomly(Entity& e, GameMap& myMap) : Task(e, myMap) {};
 	~WalkRandomly();
 	int run();
 };

@@ -16,20 +16,19 @@ class GameMap
 public:
 	GameMap();
 	~GameMap();
-	void displayMap();
 	//void initializeMap();
-	std::shared_ptr<Tile> get(int x, int y);
-	void set(int x, int y, std::shared_ptr<Tile> t);
+	Tile* get(int x, int y);
+	void set(int x, int y, std::unique_ptr<Tile> t);
 	bool isValidCoordinate(int x, int y);
-	void moveEntityNorth(std::shared_ptr<Entity> e);
-	void moveEntityEast(std::shared_ptr<Entity> e);
-	void moveEntitySouth(std::shared_ptr<Entity> e);
-	void moveEntityWest(std::shared_ptr<Entity> e);
-	std::shared_ptr<Tile>tileInFrontof(std::shared_ptr<Entity> e);
+	void moveEntityNorth(Entity& e);
+	void moveEntityEast(Entity& e);
+	void moveEntitySouth(Entity& e);
+	void moveEntityWest(Entity& e);
+	Tile* tileInFrontof(Entity& e);
 
 
 	SaveFile saveFile;
-	std::vector<std::shared_ptr<Tile>> map;
+	std::vector<std::unique_ptr<Tile>> map;
 	
 
 

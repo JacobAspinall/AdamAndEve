@@ -17,9 +17,5 @@ Player::~Player()
 {
 }
 
-int Player::makeMove() {
-	return taskQueue.front()->run();
-
-}
 
 

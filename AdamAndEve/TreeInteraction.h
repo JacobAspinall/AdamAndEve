@@ -5,7 +5,7 @@ class TreeInteraction :
 	public Task
 {
 public:
-	TreeInteraction(std::shared_ptr<Entity> e, std::shared_ptr<GameMap> myMap);
+	TreeInteraction(Entity& e, GameMap& myMap) : Task(e, myMap) {};
 	~TreeInteraction();
 
 	int run();
