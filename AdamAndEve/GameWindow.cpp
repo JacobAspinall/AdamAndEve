@@ -29,7 +29,7 @@ void GameWindow::render() {
 	std::string output = "";
 	int topLeftXCoord = cameraXcoord - MAP_DISPLAY_WIDTH / 2;
 	int topRightXCoord = topLeftXCoord + MAP_DISPLAY_WIDTH;
-	int topLeftYCoord = cameraYCoord - MAP_DISPLAY_HEIGHT / 2;
+	int topLeftYCoord = cameraYcoord - MAP_DISPLAY_HEIGHT / 2;
 	int bottomLeftYCoord = topLeftYCoord + MAP_DISPLAY_HEIGHT;
 	int currentRow = 0;
 	int currentCol = 0;
@@ -90,6 +90,9 @@ void GameWindow::render() {
 
 
 	}
+	//Print coords
+	std::string coords = "(" + std::to_string(cameraXcoord) + ", " + std::to_string(cameraYcoord) + ")";
+	mvprintw(0, 0, coords.c_str());
 	refresh();
 }
 
@@ -176,28 +179,28 @@ char GameWindow::getSymbol(Entity* e) {
 
 //Centers camera one tile to the north and re-renders the screen
 void GameWindow::panCameraNorth() {
-	if (map.isValidCoordinate(cameraXcoord, cameraYCoord - 1))
-		cameraYCoord -= 1;
+	if (map.isValidCoordinate(cameraXcoord, cameraYcoord - 1))
+		cameraYcoord -= 1;
 	render();
 }
 
 //Centers camera one tile to the east and re-renders the screen
 void GameWindow::panCameraEast() {
-	if (map.isValidCoordinate(cameraXcoord + 1, cameraYCoord + 1))
+	if (map.isValidCoordinate(cameraXcoord + 1, cameraYcoord + 1))
 		cameraXcoord += 1;
 	render();
 }
 
 //Centers camera one tile to the south and re-renders the screen
 void GameWindow::panCameraSouth() {
-	if (map.isValidCoordinate(cameraXcoord, cameraYCoord + 1))
-		cameraYCoord += 1;
+	if (map.isValidCoordinate(cameraXcoord, cameraYcoord + 1))
+		cameraYcoord += 1;
 	render();
 }
 
 //Centers camera one tile to the west and re-renders the screen
 void GameWindow::panCameraWest() {
-	if (map.isValidCoordinate(cameraXcoord - 1, cameraYCoord))
+	if (map.isValidCoordinate(cameraXcoord - 1, cameraYcoord))
 		cameraXcoord -= 1;
 	render();
 }

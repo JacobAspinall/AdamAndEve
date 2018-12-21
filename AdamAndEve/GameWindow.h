@@ -30,7 +30,7 @@ public:
 	void panCameraSouth();
 	void panCameraWest();
 	int cameraXcoord = 0;
-	int cameraYCoord = 0;
+	int cameraYcoord = 0;
 
 	GameMap& map;
 
