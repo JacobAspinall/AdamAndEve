@@ -7,7 +7,7 @@
 #include "Human.h"
 #include "Player.h"
 
-void readUserInput(Player& p, GameWindow& gameWIndow );
+void readUserInput(Player& p, GameMap& map, GameWindow& gameWindow );
 
 int main() {
 	
@@ -21,7 +21,7 @@ int main() {
 	
 	while (1) {
 		
-		readUserInput(*(game.player.lock()), mainWindow);
+		readUserInput(*(game.player.lock()), game.map, mainWindow);
 		game.runNextMove();
 		mainWindow.cameraXcoord = game.player.lock()->xCoord;
 		mainWindow.cameraYcoord = game.player.lock()->yCoord;
@@ -37,7 +37,7 @@ int main() {
 
 //Reads user input and sets the players next move
 //-non-blocking
-void readUserInput(Player& p, GameWindow& gameWindow) {
+void readUserInput(Player& p, GameMap& map, GameWindow& gameWindow) {
 
 	char charsSeen = 0;
 	char input, finalInput = 0;
@@ -74,6 +74,8 @@ void readUserInput(Player& p, GameWindow& gameWindow) {
 			else
 				gameWindow.displayingInventory = false;
 			break;
+		case 'p':
+			map.dropItem(p, (int)p.inventory.size() - 1);
 		default:
 			p.nextMove = MoveType::NoAction;
 			break;

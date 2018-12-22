@@ -152,6 +152,14 @@
     <ClCompile Include="tiles\Grass.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="constants\Color.h" />
+    <ClInclude Include="constants\Constants.h" />
+    <ClInclude Include="constants\Direction.h" />
+    <ClInclude Include="constants\EntityType.h" />
+    <ClInclude Include="constants\ItemType.h" />
+    <ClInclude Include="constants\MoveType.h" />
+    <ClInclude Include="constants\ObjectType.h" />
+    <ClInclude Include="constants\TileType.h" />
     <ClInclude Include="core\Entity.h" />
     <ClInclude Include="core\GameMap.h" />
     <ClInclude Include="core\GameMaster.h" />

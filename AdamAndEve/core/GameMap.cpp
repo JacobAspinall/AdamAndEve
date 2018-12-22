@@ -127,6 +127,17 @@ Tile* GameMap::tileInFrontof(Entity& e) {
 }
 
 
+void GameMap::dropItem(Entity& e, int inventoryIndex) {
+	Tile* t = get(e.xCoord, e.yCoord);
+	Human& h = static_cast<Human&>(e);
+	if (inventoryIndex < (int)h.inventory.size() && inventoryIndex >= 0) {
+		t->items.push_back(h.inventory[inventoryIndex]);
+		h.inventory.erase(h.inventory.begin() + inventoryIndex);
+	}
+
+}
+
+
 
 
 

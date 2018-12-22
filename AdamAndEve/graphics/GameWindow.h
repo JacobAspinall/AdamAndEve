@@ -45,5 +45,7 @@ private:
 	char getSymbol(Object* o);
 	int getColor(Entity* e);
 	char getSymbol(Entity* e);
+	int getColor(Item* e);
+	char getSymbol(Item* e);
 };
 

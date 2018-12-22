@@ -43,9 +43,14 @@ void GameWindow::render() {
 			//Check for map bounds
 			if (i >= 0 && i < MAP_WIDTH && j >= 0 && j < MAP_WIDTH) {
 				Tile* tileToPrint = map.get(j, i);
-				if (tileToPrint->entity == nullptr) {
+				if (tileToPrint->entity == nullptr && (int)tileToPrint->items.size() == 0) {
 					output += getSymbol(tileToPrint->object.get());
 					foregroundColor = getColor(tileToPrint->object.get());
+				}
+				else if(tileToPrint->entity == nullptr){
+
+					output += getSymbol(tileToPrint->items.back().get());
+					foregroundColor = getColor(tileToPrint->items.back().get());
 				}
 				else {
 					output += getSymbol(tileToPrint->entity.get());
@@ -179,6 +184,35 @@ char GameWindow::getSymbol(Entity* e) {
 		return ' ';
 	}
 }
+
+//Returns the color used for an Item
+int GameWindow::getColor(Item* i) {
+	if (i == nullptr)
+		return EMPTY_SYMBOL;
+
+	switch (i->type) {
+	case ItemType::Log:
+		return LOG_COLOR;
+	default:
+		return COLOR_BLACK;
+	}
+}
+
+//Returns the character that wil be displayed for an item
+char GameWindow::getSymbol(Item* i) {
+
+	if (i == nullptr)
+		return EMPTY_SYMBOL;
+
+	switch (i->type) {
+	case ItemType::Log:
+		return LOG_SYMBOL;
+	default:
+		return EMPTY_SYMBOL;
+	}
+}
+
+
 
 //Centers camera one tile to the north and re-renders the screen
 void GameWindow::panCameraNorth() {
