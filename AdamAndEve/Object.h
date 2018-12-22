@@ -1,6 +1,7 @@
 #pragma once
+class Entity;
+class GameMap;
 #include "ObjectType.h"
-#include "Entity.h"
 #include <memory>
 
 //Abstract class to represent anything that will be seen on the game map but is not controled by AI.
@@ -11,6 +12,7 @@ class Object
 public:
 	Object();
 	virtual ~Object();
+	virtual int interact(Entity& e, GameMap& myMap);
 
 	ObjectType type = ObjectType::Empty;
 	bool canWalkOn;

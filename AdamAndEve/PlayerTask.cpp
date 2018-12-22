@@ -3,6 +3,10 @@
 #include "Entity.h"
 #include "GameMap.h"
 #include "Interact.h"
+#include "MoveNorth.h"
+#include "MoveEast.h"
+#include "MoveSouth.h"
+#include "MoveWest.h"
 
 
 
@@ -20,22 +24,23 @@ int PlayerTask::run() {
 	switch (player.nextMove) {
 
 	case MoveType::NoAction:
+		return 1;
 		break;
 	case MoveType::North:
-		map.moveEntityNorth(entity);
+		player.setCurrentTask(std::move(std::make_unique<MoveNorth>(entity,map)));
 		break;
 	case MoveType::East:
-		map.moveEntityEast(entity);
+		player.setCurrentTask(std::move(std::make_unique<MoveEast>(entity, map)));
 		break;
 	case MoveType::South:
-		map.moveEntitySouth(entity);
+		player.setCurrentTask(std::move(std::make_unique<MoveSouth>(entity, map)));
 		break;
 	case MoveType::West:
-		map.moveEntityWest(entity);
+		player.setCurrentTask(std::move(std::make_unique<MoveWest>(entity, map)));
 		break;
 	case MoveType::Interact:
-		entity.setCurrentTask(std::move(getInteractTask(entity, map)));
+		entity.setCurrentTask(std::move(std::make_unique<Interact>(entity, map)));
 		break;
 	}
-	return 1;
+	return 0;
 }

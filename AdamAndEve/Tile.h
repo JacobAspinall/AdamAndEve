@@ -14,6 +14,7 @@ class Tile
 public:
 	Tile();
 	virtual ~Tile();
+	void removeObject();
 	TileType type;
 	std::shared_ptr<Object> object;
 	std::shared_ptr<Entity> entity;

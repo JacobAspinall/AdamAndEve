@@ -15,3 +15,8 @@ Human::Human(bool gender)
 Human::~Human()
 {
 }
+
+
+void Human::addItemToInventory(std::shared_ptr<Item> item) {
+	inventory.push_back(std::move(item));
+}

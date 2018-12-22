@@ -1,7 +1,6 @@
 #pragma once
 #include "Object.h"
 #include "TileType.h"
-#include "Human.h"
 
 //Represents a tree
 class Tree :
@@ -10,4 +9,6 @@ class Tree :
 public:
 	Tree();
 	~Tree();
+	int interact(Entity& e, GameMap& myMap);
+	bool startedChopping = false;
 };

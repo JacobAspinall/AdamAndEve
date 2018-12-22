@@ -1,5 +1,6 @@
 #pragma once
 class Entity;
+class Object;
 class GameMap;
 
 #include <memory>

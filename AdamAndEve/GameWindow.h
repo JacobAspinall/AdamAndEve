@@ -1,6 +1,7 @@
 #pragma once
 #include "curses.h"
 #include "GameMap.h"
+#include "Player.h"
 #include "Color.h"
 #include <unordered_map>
 #include <memory>
@@ -29,8 +30,11 @@ public:
 	void panCameraEast();
 	void panCameraSouth();
 	void panCameraWest();
+	void displayInventory(Human& h);
 	int cameraXcoord = 0;
 	int cameraYcoord = 0;
+	bool displayingInventory = false;
+	std::weak_ptr<Player> player;
 
 	GameMap& map;
 

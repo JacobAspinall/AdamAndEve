@@ -7,7 +7,7 @@
 #include "Human.h"
 #include "Player.h"
 
-void readUserInput(std::shared_ptr<Player> p);
+void readUserInput(Player& p, GameWindow& gameWIndow );
 
 int main() {
 	
@@ -15,15 +15,16 @@ int main() {
 
 
 	GameWindow mainWindow = GameWindow(game.map);
+	mainWindow.player = game.player;
 	mainWindow.init();
 
 	
 	while (1) {
 		
-		readUserInput(game.player.lock());
+		readUserInput(*(game.player.lock()), mainWindow);
 		game.runNextMove();
 		mainWindow.cameraXcoord = game.player.lock()->xCoord;
-		mainWindow.cameraYCoord = game.player.lock()->yCoord;
+		mainWindow.cameraYcoord = game.player.lock()->yCoord;
 		mainWindow.render();
 		
 		std::this_thread::sleep_for(std::chrono::milliseconds(150));
@@ -36,7 +37,7 @@ int main() {
 
 //Reads user input and sets the players next move
 //-non-blocking
-void readUserInput(std::shared_ptr<Player> p) {
+void readUserInput(Player& p, GameWindow& gameWindow) {
 
 	char charsSeen = 0;
 	char input, finalInput = 0;
@@ -53,22 +54,28 @@ void readUserInput(std::shared_ptr<Player> p) {
 	
 	switch (finalInput) {
 		case 'w':
-			p->nextMove = MoveType::North;
+			p.nextMove = MoveType::North;
 			break;
 		case 'a':
-			p->nextMove = MoveType::West;
+			p.nextMove = MoveType::West;
 			break;
 		case 's':
-			p->nextMove = MoveType::South;
+			p.nextMove = MoveType::South;
 			break;
 		case 'd':
-			p->nextMove = MoveType::East;
+			p.nextMove = MoveType::East;
 			break;
 		case 'f':
-			p->nextMove = MoveType::Interact;
+			p.nextMove = MoveType::Interact;
+			break;
+		case 'i':
+			if(!gameWindow.displayingInventory)
+				gameWindow.displayingInventory = true;
+			else
+				gameWindow.displayingInventory = false;
 			break;
 		default:
-			p->nextMove = MoveType::NoAction;
+			p.nextMove = MoveType::NoAction;
 			break;
 	}
 

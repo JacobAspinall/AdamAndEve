@@ -124,7 +124,11 @@
   <ItemGroup>
     <ClInclude Include="Direction.h" />
     <ClInclude Include="Interact.h" />
-    <ClInclude Include="TreeInteraction.h" />
+    <ClInclude Include="Item.h" />
+    <ClInclude Include="MoveEast.h" />
+    <ClInclude Include="MoveNorth.h" />
+    <ClInclude Include="MoveSouth.h" />
+    <ClInclude Include="MoveWest.h" />
     <ClInclude Include="Color.h" />
     <ClInclude Include="Constants.h" />
     <ClInclude Include="Entity.h" />
@@ -147,9 +151,15 @@
     <ClInclude Include="Tile.h" />
     <ClInclude Include="Tiles.h" />
     <ClInclude Include="WalkRandomly.h" />
+    <ClInclude Include="WoodenLog.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="TreeInteraction.cpp" />
+    <ClCompile Include="Interact.cpp" />
+    <ClCompile Include="Item.cpp" />
+    <ClCompile Include="MoveEast.cpp" />
+    <ClCompile Include="MoveNorth.cpp" />
+    <ClCompile Include="MoveSouth.cpp" />
+    <ClCompile Include="MoveWest.cpp" />
     <ClCompile Include="Entity.cpp" />
     <ClCompile Include="GameMap.cpp" />
     <ClCompile Include="GameMaster.cpp" />
@@ -157,7 +167,6 @@
     <ClCompile Include="Grass.cpp" />
     <ClCompile Include="Human.cpp" />
     <ClCompile Include="InitializeMap.cpp" />
-    <ClCompile Include="Interact.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Object.cpp" />
     <ClCompile Include="Player.cpp" />
@@ -168,6 +177,7 @@
     <ClCompile Include="TileType.h" />
     <ClCompile Include="Tree.cpp" />
     <ClCompile Include="WalkRandomly.cpp" />
+    <ClCompile Include="WoodenLog.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="AdamAndEve.rc" />

@@ -93,6 +93,9 @@ void GameWindow::render() {
 	//Print coords
 	std::string coords = "(" + std::to_string(cameraXcoord) + ", " + std::to_string(cameraYcoord) + ")";
 	mvprintw(0, 0, coords.c_str());
+
+	if (displayingInventory)
+		displayInventory(*player.lock());
 	refresh();
 }
 
@@ -203,4 +206,12 @@ void GameWindow::panCameraWest() {
 	if (map.isValidCoordinate(cameraXcoord - 1, cameraYcoord))
 		cameraXcoord -= 1;
 	render();
+}
+
+void GameWindow::displayInventory(Human& h) {
+	mvprintw(2, 0, "Inventory:");
+	for (int i = 0; i < static_cast<int>(h.inventory.size()); i++) {
+		mvprintw(i + 3, 0, h.inventory[i]->name.c_str());
+	}
+	refresh();
 }
