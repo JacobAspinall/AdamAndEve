@@ -70,8 +70,9 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <IncludePath>$(IncludePath);.\include;</IncludePath>
+    <IncludePath>$(IncludePath);.\constants;.\core;.\entitys;.\graphics;.\include;.\items;.\objects;.\tasks;.\tiles;</IncludePath>
     <LibraryPath>$(LibraryPath);.\lib;</LibraryPath>
+    <SourcePath>$(VC_SourcePath);</SourcePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -122,68 +123,69 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="Direction.h" />
-    <ClInclude Include="Interact.h" />
-    <ClInclude Include="Item.h" />
-    <ClInclude Include="MoveEast.h" />
-    <ClInclude Include="MoveNorth.h" />
-    <ClInclude Include="MoveSouth.h" />
-    <ClInclude Include="MoveWest.h" />
-    <ClInclude Include="Color.h" />
-    <ClInclude Include="Constants.h" />
-    <ClInclude Include="Entity.h" />
-    <ClInclude Include="GameMap.h" />
-    <ClInclude Include="GameMaster.h" />
-    <ClInclude Include="GameWindow.h" />
-    <ClInclude Include="Grass.h" />
-    <ClInclude Include="EntityType.h" />
-    <ClInclude Include="MoveType.h" />
-    <ClInclude Include="Human.h" />
-    <ClInclude Include="Object.h" />
-    <ClInclude Include="ObjectType.h" />
-    <ClInclude Include="Player.h" />
-    <ClInclude Include="PlayerTask.h" />
-    <ClInclude Include="Task.h" />
-    <ClInclude Include="Tree.h" />
-    <ClInclude Include="InitializeMap.h" />
-    <ClInclude Include="resource.h" />
-    <ClInclude Include="SaveFile.h" />
-    <ClInclude Include="Tile.h" />
-    <ClInclude Include="Tiles.h" />
-    <ClInclude Include="WalkRandomly.h" />
-    <ClInclude Include="WoodenLog.h" />
+    <None Include="AdamAndEve.aps" />
+    <None Include="ClassDiagram.cd" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Interact.cpp" />
-    <ClCompile Include="Item.cpp" />
-    <ClCompile Include="MoveEast.cpp" />
-    <ClCompile Include="MoveNorth.cpp" />
-    <ClCompile Include="MoveSouth.cpp" />
-    <ClCompile Include="MoveWest.cpp" />
-    <ClCompile Include="Entity.cpp" />
-    <ClCompile Include="GameMap.cpp" />
-    <ClCompile Include="GameMaster.cpp" />
-    <ClCompile Include="GameWindow.cpp" />
-    <ClCompile Include="Grass.cpp" />
-    <ClCompile Include="Human.cpp" />
-    <ClCompile Include="InitializeMap.cpp" />
-    <ClCompile Include="Main.cpp" />
-    <ClCompile Include="Object.cpp" />
-    <ClCompile Include="Player.cpp" />
-    <ClCompile Include="PlayerTask.cpp" />
-    <ClCompile Include="SaveFile.cpp" />
-    <ClCompile Include="Task.cpp" />
-    <ClCompile Include="Tile.cpp" />
-    <ClCompile Include="TileType.h" />
-    <ClCompile Include="Tree.cpp" />
-    <ClCompile Include="WalkRandomly.cpp" />
-    <ClCompile Include="WoodenLog.cpp" />
+    <ClCompile Include="core\Entity.cpp" />
+    <ClCompile Include="core\GameMap.cpp" />
+    <ClCompile Include="core\GameMaster.cpp" />
+    <ClCompile Include="core\InitializeMap.cpp" />
+    <ClCompile Include="core\Item.cpp" />
+    <ClCompile Include="core\Main.cpp" />
+    <ClCompile Include="core\Object.cpp" />
+    <ClCompile Include="core\SaveFile.cpp" />
+    <ClCompile Include="core\Task.cpp" />
+    <ClCompile Include="core\Tile.cpp" />
+    <ClCompile Include="entitys\Human.cpp" />
+    <ClCompile Include="entitys\Player.cpp" />
+    <ClCompile Include="graphics\GameWindow.cpp" />
+    <ClCompile Include="items\WoodenLog.cpp" />
+    <ClCompile Include="objects\Tree.cpp" />
+    <ClCompile Include="tasks\Interact.cpp" />
+    <ClCompile Include="tasks\MoveEast.cpp" />
+    <ClCompile Include="tasks\MoveNorth.cpp" />
+    <ClCompile Include="tasks\MoveSouth.cpp" />
+    <ClCompile Include="tasks\MoveWest.cpp" />
+    <ClCompile Include="tasks\PlayerTask.cpp" />
+    <ClCompile Include="tasks\WalkRandomly.cpp" />
+    <ClCompile Include="tiles\Grass.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="core\Entity.h" />
+    <ClInclude Include="core\GameMap.h" />
+    <ClInclude Include="core\GameMaster.h" />
+    <ClInclude Include="core\InitializeMap.h" />
+    <ClInclude Include="core\Item.h" />
+    <ClInclude Include="core\Object.h" />
+    <ClInclude Include="core\SaveFile.h" />
+    <ClInclude Include="core\Task.h" />
+    <ClInclude Include="core\Tile.h" />
+    <ClInclude Include="core\Tiles.h" />
+    <ClInclude Include="entitys\Human.h" />
+    <ClInclude Include="entitys\Player.h" />
+    <ClInclude Include="graphics\GameWindow.h" />
+    <ClInclude Include="include\curses.h" />
+    <ClInclude Include="include\curspriv.h" />
+    <ClInclude Include="include\panel.h" />
+    <ClInclude Include="include\term.h" />
+    <ClInclude Include="items\WoodenLog.h" />
+    <ClInclude Include="objects\Tree.h" />
+    <ClInclude Include="resource.h" />
+    <ClInclude Include="tasks\Interact.h" />
+    <ClInclude Include="tasks\MoveEast.h" />
+    <ClInclude Include="tasks\MoveNorth.h" />
+    <ClInclude Include="tasks\MoveSouth.h" />
+    <ClInclude Include="tasks\MoveWest.h" />
+    <ClInclude Include="tasks\PlayerTask.h" />
+    <ClInclude Include="tasks\WalkRandomly.h" />
+    <ClInclude Include="tiles\Grass.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Library Include="lib\pdcurses.lib" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="AdamAndEve.rc" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="ClassDiagram.cd" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

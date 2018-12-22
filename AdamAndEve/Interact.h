@@ -1,11 +1,6 @@
 #pragma once
 #include "Task.h"
-class Interact :
-	public Task
-{
-public:
-	Interact(Entity& e, GameMap& myMap) : Task(e, myMap) {};
-	~Interact();
-	int run();
-};
+#include "Entity.h"
+#include "GameMap.h"
 
+std::unique_ptr<Task> getInteractTask(Entity& e, GameMap& myMap);
