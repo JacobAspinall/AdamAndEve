@@ -74,8 +74,12 @@ void readUserInput(Player& p, GameMap& map, GameWindow& gameWindow) {
 			else
 				gameWindow.displayingInventory = false;
 			break;
-		case 'p':
+		case 'o':
 			map.dropItem(p, (int)p.inventory.size() - 1);
+			break;
+		case 'p':
+			map.pickUpItem(p, (int)map.get(p.xCoord,p.yCoord)->items.size() - 1);
+			break;
 		default:
 			p.nextMove = MoveType::NoAction;
 			break;

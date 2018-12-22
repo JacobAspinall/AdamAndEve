@@ -138,6 +138,16 @@ void GameMap::dropItem(Entity& e, int inventoryIndex) {
 }
 
 
+void GameMap::pickUpItem(Entity& e, int tileItemsIndex) {
+	Tile* t = get(e.xCoord, e.yCoord);
+	Human& h = static_cast<Human&>(e);
+	if (tileItemsIndex < (int)t->items.size() && tileItemsIndex >= 0) {
+		h.inventory.push_back(t->items[tileItemsIndex]);
+		t->items.erase(t->items.begin() + tileItemsIndex);
+	}
+}
+
+
 
 
 

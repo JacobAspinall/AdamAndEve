@@ -26,6 +26,7 @@ public:
 	void moveEntityWest(Entity& e);
 	Tile* tileInFrontof(Entity& e);
 	void dropItem(Entity& e, int inventoryIndex);
+	void pickUpItem(Entity& e, int tileItemsIndex);
 
 
 
