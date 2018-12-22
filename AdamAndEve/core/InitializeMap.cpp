@@ -1,5 +1,4 @@
 #include "InitializeMap.h"
-#include <cstdlib>
 
 //Fills a game map with tiles
 //call when creating a map for the first time

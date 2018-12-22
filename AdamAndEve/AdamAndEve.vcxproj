@@ -70,8 +70,9 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <IncludePath>$(IncludePath);.\include;</IncludePath>
+    <IncludePath>$(IncludePath);.\include;\constants;\graphics;\objects;\tiles;\entitys;\core;\tasks\*;</IncludePath>
     <LibraryPath>$(LibraryPath);.\lib;</LibraryPath>
+    <SourcePath>$(VC_SourcePath);</SourcePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
