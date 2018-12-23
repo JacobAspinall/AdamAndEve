@@ -9,7 +9,7 @@
 
 void readUserInput(Player& p, GameMap& map, GameWindow& gameWindow );
 
-int main() {
+int main(int argc, char *args[]) {
 	
 	GameMaster game = GameMaster();
 

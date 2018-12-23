@@ -70,7 +70,7 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <IncludePath>$(IncludePath);.\constants;.\core;.\entitys;.\graphics;.\include;.\items;.\objects;.\tasks;.\tiles;</IncludePath>
+    <IncludePath>$(IncludePath);.\constants;.\core;.\entitys;.\graphics;.\include;.\include\SDL;.\items;.\objects;.\tasks;.\tiles;</IncludePath>
     <LibraryPath>$(LibraryPath);.\lib;</LibraryPath>
     <SourcePath>$(VC_SourcePath);</SourcePath>
   </PropertyGroup>
@@ -83,7 +83,8 @@
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>.\lib\pdcurses.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>.\lib\pdcurses.lib;.\lib\SDL2.lib;.\lib\SDL2main.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <SubSystem>Console</SubSystem>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -125,6 +126,10 @@
   <ItemGroup>
     <None Include="AdamAndEve.aps" />
     <None Include="ClassDiagram.cd" />
+    <None Include="include\SDL\SDL_config.h.cmake" />
+    <None Include="include\SDL\SDL_config.h.in" />
+    <None Include="include\SDL\SDL_config_macosx.h.orig" />
+    <None Include="SDL2.dll" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="core\Entity.cpp" />
@@ -176,6 +181,89 @@
     <ClInclude Include="include\curses.h" />
     <ClInclude Include="include\curspriv.h" />
     <ClInclude Include="include\panel.h" />
+    <ClInclude Include="include\SDL\begin_code.h" />
+    <ClInclude Include="include\SDL\close_code.h" />
+    <ClInclude Include="include\SDL\SDL.h" />
+    <ClInclude Include="include\SDL\SDL_assert.h" />
+    <ClInclude Include="include\SDL\SDL_atomic.h" />
+    <ClInclude Include="include\SDL\SDL_audio.h" />
+    <ClInclude Include="include\SDL\SDL_bits.h" />
+    <ClInclude Include="include\SDL\SDL_blendmode.h" />
+    <ClInclude Include="include\SDL\SDL_clipboard.h" />
+    <ClInclude Include="include\SDL\SDL_config.h" />
+    <ClInclude Include="include\SDL\SDL_config_android.h" />
+    <ClInclude Include="include\SDL\SDL_config_iphoneos.h" />
+    <ClInclude Include="include\SDL\SDL_config_macosx.h" />
+    <ClInclude Include="include\SDL\SDL_config_minimal.h" />
+    <ClInclude Include="include\SDL\SDL_config_pandora.h" />
+    <ClInclude Include="include\SDL\SDL_config_psp.h" />
+    <ClInclude Include="include\SDL\SDL_config_windows.h" />
+    <ClInclude Include="include\SDL\SDL_config_winrt.h" />
+    <ClInclude Include="include\SDL\SDL_config_wiz.h" />
+    <ClInclude Include="include\SDL\SDL_copying.h" />
+    <ClInclude Include="include\SDL\SDL_cpuinfo.h" />
+    <ClInclude Include="include\SDL\SDL_egl.h" />
+    <ClInclude Include="include\SDL\SDL_endian.h" />
+    <ClInclude Include="include\SDL\SDL_error.h" />
+    <ClInclude Include="include\SDL\SDL_events.h" />
+    <ClInclude Include="include\SDL\SDL_filesystem.h" />
+    <ClInclude Include="include\SDL\SDL_gamecontroller.h" />
+    <ClInclude Include="include\SDL\SDL_gesture.h" />
+    <ClInclude Include="include\SDL\SDL_haptic.h" />
+    <ClInclude Include="include\SDL\SDL_hints.h" />
+    <ClInclude Include="include\SDL\SDL_joystick.h" />
+    <ClInclude Include="include\SDL\SDL_keyboard.h" />
+    <ClInclude Include="include\SDL\SDL_keycode.h" />
+    <ClInclude Include="include\SDL\SDL_loadso.h" />
+    <ClInclude Include="include\SDL\SDL_log.h" />
+    <ClInclude Include="include\SDL\SDL_main.h" />
+    <ClInclude Include="include\SDL\SDL_messagebox.h" />
+    <ClInclude Include="include\SDL\SDL_mouse.h" />
+    <ClInclude Include="include\SDL\SDL_mutex.h" />
+    <ClInclude Include="include\SDL\SDL_name.h" />
+    <ClInclude Include="include\SDL\SDL_opengl.h" />
+    <ClInclude Include="include\SDL\SDL_opengles.h" />
+    <ClInclude Include="include\SDL\SDL_opengles2.h" />
+    <ClInclude Include="include\SDL\SDL_opengles2_gl2.h" />
+    <ClInclude Include="include\SDL\SDL_opengles2_gl2ext.h" />
+    <ClInclude Include="include\SDL\SDL_opengles2_gl2platform.h" />
+    <ClInclude Include="include\SDL\SDL_opengles2_khrplatform.h" />
+    <ClInclude Include="include\SDL\SDL_opengl_glext.h" />
+    <ClInclude Include="include\SDL\SDL_pixels.h" />
+    <ClInclude Include="include\SDL\SDL_platform.h" />
+    <ClInclude Include="include\SDL\SDL_power.h" />
+    <ClInclude Include="include\SDL\SDL_quit.h" />
+    <ClInclude Include="include\SDL\SDL_rect.h" />
+    <ClInclude Include="include\SDL\SDL_render.h" />
+    <ClInclude Include="include\SDL\SDL_revision.h" />
+    <ClInclude Include="include\SDL\SDL_rwops.h" />
+    <ClInclude Include="include\SDL\SDL_scancode.h" />
+    <ClInclude Include="include\SDL\SDL_sensor.h" />
+    <ClInclude Include="include\SDL\SDL_shape.h" />
+    <ClInclude Include="include\SDL\SDL_stdinc.h" />
+    <ClInclude Include="include\SDL\SDL_surface.h" />
+    <ClInclude Include="include\SDL\SDL_system.h" />
+    <ClInclude Include="include\SDL\SDL_syswm.h" />
+    <ClInclude Include="include\SDL\SDL_test.h" />
+    <ClInclude Include="include\SDL\SDL_test_assert.h" />
+    <ClInclude Include="include\SDL\SDL_test_common.h" />
+    <ClInclude Include="include\SDL\SDL_test_compare.h" />
+    <ClInclude Include="include\SDL\SDL_test_crc32.h" />
+    <ClInclude Include="include\SDL\SDL_test_font.h" />
+    <ClInclude Include="include\SDL\SDL_test_fuzzer.h" />
+    <ClInclude Include="include\SDL\SDL_test_harness.h" />
+    <ClInclude Include="include\SDL\SDL_test_images.h" />
+    <ClInclude Include="include\SDL\SDL_test_log.h" />
+    <ClInclude Include="include\SDL\SDL_test_md5.h" />
+    <ClInclude Include="include\SDL\SDL_test_memory.h" />
+    <ClInclude Include="include\SDL\SDL_test_random.h" />
+    <ClInclude Include="include\SDL\SDL_thread.h" />
+    <ClInclude Include="include\SDL\SDL_timer.h" />
+    <ClInclude Include="include\SDL\SDL_touch.h" />
+    <ClInclude Include="include\SDL\SDL_types.h" />
+    <ClInclude Include="include\SDL\SDL_version.h" />
+    <ClInclude Include="include\SDL\SDL_video.h" />
+    <ClInclude Include="include\SDL\SDL_vulkan.h" />
     <ClInclude Include="include\term.h" />
     <ClInclude Include="items\WoodenLog.h" />
     <ClInclude Include="objects\Tree.h" />
