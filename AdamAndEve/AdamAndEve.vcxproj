@@ -70,7 +70,7 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <IncludePath>$(IncludePath);.\constants;.\core;.\entitys;.\graphics;.\include;.\include\SDL;.\items;.\objects;.\tasks;.\tiles;</IncludePath>
+    <IncludePath>$(IncludePath);.\constants;.\core;.\entitys;.\graphics;.\include;.\include\SDL;.\include\SDL_image;.\items;.\objects;.\tasks;.\tiles;</IncludePath>
     <LibraryPath>$(LibraryPath);.\lib;</LibraryPath>
     <SourcePath>$(VC_SourcePath);</SourcePath>
   </PropertyGroup>
@@ -83,7 +83,7 @@
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>.\lib\pdcurses.lib;.\lib\SDL2.lib;.\lib\SDL2main.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>.\lib\pdcurses.lib;.\lib\SDL2.lib;.\lib\SDL2main.lib;.\lib\SDL2_image.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <SubSystem>Console</SubSystem>
     </Link>
   </ItemDefinitionGroup>
@@ -129,7 +129,13 @@
     <None Include="include\SDL\SDL_config.h.cmake" />
     <None Include="include\SDL\SDL_config.h.in" />
     <None Include="include\SDL\SDL_config_macosx.h.orig" />
+    <None Include="libjpeg-9.dll" />
+    <None Include="libpng16-16.dll" />
+    <None Include="libtiff-5.dll" />
+    <None Include="libwebp-7.dll" />
     <None Include="SDL2.dll" />
+    <None Include="SDL2_image.dll" />
+    <None Include="zlib1.dll" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="core\Entity.cpp" />
@@ -154,6 +160,7 @@
     <ClCompile Include="tasks\MoveWest.cpp" />
     <ClCompile Include="tasks\PlayerTask.cpp" />
     <ClCompile Include="tasks\WalkRandomly.cpp" />
+    <ClCompile Include="graphics\Texture.cpp" />
     <ClCompile Include="tiles\Grass.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -264,6 +271,7 @@
     <ClInclude Include="include\SDL\SDL_version.h" />
     <ClInclude Include="include\SDL\SDL_video.h" />
     <ClInclude Include="include\SDL\SDL_vulkan.h" />
+    <ClInclude Include="include\SDL_image\SDL_image.h" />
     <ClInclude Include="include\term.h" />
     <ClInclude Include="items\WoodenLog.h" />
     <ClInclude Include="objects\Tree.h" />
@@ -275,6 +283,7 @@
     <ClInclude Include="tasks\MoveWest.h" />
     <ClInclude Include="tasks\PlayerTask.h" />
     <ClInclude Include="tasks\WalkRandomly.h" />
+    <ClInclude Include="graphics\Texture.h" />
     <ClInclude Include="tiles\Grass.h" />
   </ItemGroup>
   <ItemGroup>

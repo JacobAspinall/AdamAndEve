@@ -5,6 +5,9 @@
 #include "Color.h"
 #include <unordered_map>
 #include <memory>
+#include "SDL.h"
+#include "Texture.h"
+#include "SDL_image.h"
 
 
 //Renders the game map onto the terminal
@@ -37,15 +40,17 @@ public:
 	std::weak_ptr<Player> player;
 
 	GameMap& map;
+	//////
+	SDL_Window* mainWindow = NULL;
+	SDL_Renderer* renderer = NULL;
+	Texture texture;
 
+	///////
 	std::unordered_map<int, int> colorPairs;
 private:
-	int getColor(Tile* t);
-	int getColor(Object* o);
-	char getSymbol(Object* o);
-	int getColor(Entity* e);
-	char getSymbol(Entity* e);
-	int getColor(Item* e);
-	char getSymbol(Item* e);
+	int getTextureLocation(Tile* t);
+	int getTextureLocation(Object* o);
+	int getTextureLocation(Entity* e);
+	int getTextureLocation(Item* i);
 };
 

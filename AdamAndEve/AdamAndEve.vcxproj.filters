@@ -21,6 +21,12 @@
     <None Include="include\SDL\SDL_config.h.in" />
     <None Include="include\SDL\SDL_config_macosx.h.orig" />
     <None Include="SDL2.dll" />
+    <None Include="libjpeg-9.dll" />
+    <None Include="libpng16-16.dll" />
+    <None Include="libtiff-5.dll" />
+    <None Include="libwebp-7.dll" />
+    <None Include="SDL2_image.dll" />
+    <None Include="zlib1.dll" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="core\Entity.cpp">
@@ -90,6 +96,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="tiles\Grass.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="graphics\Texture.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -449,6 +458,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\SDL\SDL_vulkan.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="graphics\Texture.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\SDL_image\SDL_image.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
