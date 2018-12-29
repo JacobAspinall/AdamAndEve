@@ -16,7 +16,7 @@ int main(int argc, char *args[]) {
 	GameMaster game = GameMaster();
 
 
-	GameWindow mainWindow = GameWindow(game.map);
+	GameWindow mainWindow = GameWindow(game.map, game);
 	mainWindow.player = game.player;
 	mainWindow.init();
 	bool quit = false;
@@ -24,21 +24,26 @@ int main(int argc, char *args[]) {
 	
 	while(!quit) {
 		SDL_Event e;
-		bool movedThisTurn = false;
+		bool startOfTick = true;
+		game.setNextMove(MoveType::NoAction);
 		while (SDL_PollEvent(&e) != 0) {
 			if (e.type == SDL_QUIT) {
 				quit = true;
 				break;
 			}
-			if (!movedThisTurn) {
-				readUserInput(&e, *(game.player.lock()), game.map);
-				movedThisTurn = true;
+			if (e.type == SDL_SCANCODE_GRAVE) {
+				mainWindow.devConsoleEnabled = !mainWindow.devConsoleEnabled;
+				break;
 			}
+			if (mainWindow.devConsoleEnabled == false) {
+				mainWindow.KeyPressHandler(e, startOfTick);
+				startOfTick = false;
+			}
+			//if (mainWindow.devConsoleEnabled == true) {
+			//	readUserInputForDevConsole();
+			//}
 
 
-		}
-		if (!movedThisTurn) {
-			readUserInput(nullptr, *(game.player.lock()), game.map);
 		}
 
 		
@@ -65,8 +70,8 @@ int main(int argc, char *args[]) {
 
 //Reads user input and sets the players next move
 //-non-blocking
-void readUserInput(SDL_Event* e, Player& p, GameMap& map) {
-
+void readUserInput(SDL_Event* e, Player& p) {
+	
 	if (e == nullptr) {
 		p.nextMove = MoveType::NoAction;
 		return;
@@ -99,11 +104,11 @@ void readUserInput(SDL_Event* e, Player& p, GameMap& map) {
 			break;
 
 		case SDLK_o:
-			map.dropItem(p, (int)p.inventory.size() - 1);
+			//map.dropItem(p, (int)p.inventory.size() - 1);
 			break;
 
 		case SDLK_p:
-			map.pickUpItem(p, (int)map.get(p.xCoord, p.yCoord)->items.size() - 1);
+			//map.pickUpItem(p, (int)map.get(p.xCoord, p.yCoord)->items.size() - 1);
 			break;
 
 		default:
@@ -111,5 +116,10 @@ void readUserInput(SDL_Event* e, Player& p, GameMap& map) {
 			break;
 		}
 	}
+
+}
+
+void readUserInputForDevConsole() {
+
 
 }

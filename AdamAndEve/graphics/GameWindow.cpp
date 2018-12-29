@@ -2,8 +2,8 @@
 
 
 
-GameWindow::GameWindow(GameMap& map)
-	:map{ map }
+GameWindow::GameWindow(GameMap& map, GameMaster& master)
+	:map{ map }, gameMaster{master}
 {
 
 }
@@ -250,4 +250,158 @@ void GameWindow::displayInventory(Human& h) {
 		mvprintw(i + 3, 0, h.inventory[i]->name.c_str());
 	}
 	refresh();
+}
+
+void GameWindow::KeyPressHandler(SDL_Event& e, bool isStartOfTick ){
+
+	static bool northKeyDown = false;
+	static bool southKeyDown = false;
+	static bool eastKeyDown = false;
+	static bool westKeyDown = false;
+	static bool interactionKeyDown = false;
+	static bool dropKeyDown = false;
+	static bool pickUpKeyDown = false;
+	static bool keyHeldDown = false;
+
+	MoveType nextMove = MoveType::NoAction;
+
+	bool northKeyStartedDown = false;
+	bool eastKeyStartedDown = false;
+	bool westKeyStartedDown = false;
+	bool southKeyStartedDown = false;
+
+	if(isStartOfTick && northKeyDown)
+		northKeyStartedDown = true;
+
+	if (isStartOfTick && eastKeyDown)
+		eastKeyStartedDown = true;
+
+	if (isStartOfTick && southKeyDown)
+		southKeyStartedDown = true;
+
+	if (isStartOfTick && westKeyDown)
+		westKeyStartedDown = true;
+
+	
+	if (e.type == SDL_KEYDOWN)
+	{
+		switch (e.key.keysym.sym)
+		{
+		case SDLK_w:
+			gameMaster.setNextMove(MoveType::North);
+			northKeyDown = true;
+			break;
+
+		case SDLK_a:
+			gameMaster.setNextMove(MoveType::West);
+			westKeyDown = true;
+			break;
+
+		case SDLK_s:
+			gameMaster.setNextMove(MoveType::South);
+			southKeyDown = true;
+			break;
+
+		case SDLK_d:
+			gameMaster.setNextMove(MoveType::East);
+			eastKeyDown = true;
+			break;
+
+		case SDLK_f:
+			interactionKeyDown = true;
+			break;
+
+		case SDLK_o:
+			dropKeyDown = true;
+			break;
+
+		case SDLK_p:
+			pickUpKeyDown = true;
+			break;
+
+		default:
+			gameMaster.setNextMove(MoveType::NoAction);
+			break;
+		}
+	}
+
+	if (e.type == SDL_KEYUP)
+	{
+		//Select surfaces based on key press
+		switch (e.key.keysym.sym)
+		{
+		case SDLK_w:
+			if (northKeyDown) {
+				if (northKeyStartedDown) {
+					gameMaster.setNextMove(MoveType::NoAction);
+				}
+				else {
+					gameMaster.setNextMove(MoveType::North);
+				}
+				northKeyDown = false;
+			}
+			break;
+
+		case SDLK_a:
+			if (westKeyDown) {
+				if (westKeyStartedDown) {
+					gameMaster.setNextMove(MoveType::NoAction);
+				}
+				else {
+					gameMaster.setNextMove(MoveType::West);
+				}
+				westKeyDown = false;
+			}
+			break;
+
+		case SDLK_s:
+			if (southKeyDown) {
+				if (southKeyStartedDown) {
+					gameMaster.setNextMove(MoveType::NoAction);
+				}
+				else {
+					gameMaster.setNextMove(MoveType::South);
+				}
+				southKeyDown = false;
+			}
+			break;
+
+		case SDLK_d:
+			if (westKeyDown) {
+				if (westKeyStartedDown) {
+					gameMaster.setNextMove(MoveType::NoAction);
+				}
+				else {
+					gameMaster.setNextMove(MoveType::West);
+				}
+				westKeyDown = false;
+			}
+			break;
+
+		case SDLK_f:
+			if (interactionKeyDown) {
+				gameMaster.setNextMove(MoveType::Interact);
+				interactionKeyDown = false;
+			}
+			break;
+
+		case SDLK_o:
+			if (dropKeyDown) {
+				gameMaster.setNextMove(MoveType::Drop);
+				dropKeyDown = false;
+			}
+			break;
+
+		case SDLK_p:
+			if (pickUpKeyDown) {
+				gameMaster.setNextMove(MoveType::PickUp);
+				pickUpKeyDown = false;
+			}
+			break;
+
+		default:
+			gameMaster.setNextMove(MoveType::NoAction);
+			break;
+		}
+	}
 }

@@ -6,5 +6,7 @@ enum class MoveType {
 	East,
 	South,
 	West,
-	Interact
+	Interact,
+	Drop,
+	PickUp
 };

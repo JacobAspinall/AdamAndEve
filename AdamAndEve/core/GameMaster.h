@@ -29,6 +29,7 @@ public:
 	GameMaster();
 	~GameMaster();
 	void runNextMove();
+	void setNextMove(MoveType t);
 
 
 	GameMap map;
