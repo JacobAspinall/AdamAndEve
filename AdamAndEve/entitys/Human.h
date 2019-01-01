@@ -3,8 +3,10 @@
 #include "Item.h"
 #include <vector>
 
-const bool MAN = true;
-const bool WOMAN = false;
+enum class Gender {
+	MAN,
+	WOMAN
+};
 
 //A human entity
 class Human :
@@ -12,16 +14,16 @@ class Human :
 {
 public:
 	Human();
-	Human(bool gender);
+	Human(Gender gender);
 	~Human();
-	bool isMan() const { return gender ? true : false; }
-	bool isWoman() const { return gender ? false : true; }
+	bool isMan() const { return gender == Gender::MAN ? true : false; }
+	bool isWoman() const { return gender == Gender::WOMAN ? false : true; }
 	void addItemToInventory(std::shared_ptr<Item> item);
 	std::vector<std::shared_ptr<Item>> inventory;
 private:
 
 protected:
-	bool gender = MAN;
+	Gender gender = Gender::MAN;
 	
 };
 

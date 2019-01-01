@@ -1,14 +1,18 @@
 #include "Texture.h"
 
 
-Texture::Texture()
+
+Texture::Texture(SDL_Renderer& r)
+	:renderer {r}
 {
+	loadImage("textures/tiles.png");
 }
 
-Texture::Texture(SDL_Renderer* r)
+Texture::Texture(const Texture& obj) 
+	:renderer{obj.renderer}, texture{obj.texture}
 {
-	renderer = r;
-	loadImage("textures/tiles.png");
+
+
 }
 
 
@@ -21,7 +25,7 @@ void Texture::loadImage(std::string path) {
 
 	SDL_Surface* loadedSurface = IMG_Load(path.c_str());
 
-	texture = SDL_CreateTextureFromSurface(renderer, loadedSurface);
+	texture = SDL_CreateTextureFromSurface(&renderer, loadedSurface);
 	SDL_FreeSurface(loadedSurface);
 
 }
@@ -34,8 +38,7 @@ void Texture::render(int x, int y, SDL_Rect* clip) {
 
 
 	//Render texture to screen
-	SDL_RenderCopy(renderer, texture, clip, &renderQuad);
-
+	SDL_RenderCopy(&renderer, texture, clip, &renderQuad);
 
 }
 

@@ -2,6 +2,9 @@
 
 //Contains commonly used constants definitions
 
+const int SCREEN_WIDTH = 640;
+const int SCREEN_HEIGHT = 480;
+
 //Constants for map
 const int MAP_WIDTH = 256;
 const int MAP_DISPLAY_WIDTH = 40;

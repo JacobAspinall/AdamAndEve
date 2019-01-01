@@ -9,7 +9,7 @@ class Player :
 {
 public:
 	Player();
-	Player(bool mygender);
+	Player(Gender mygender);
 	~Player();
 
 

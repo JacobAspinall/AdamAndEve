@@ -6,9 +6,11 @@
 #include "Color.h"
 #include <unordered_map>
 #include <memory>
-#include "SDL.h"
 #include "Texture.h"
-#include "SDL_image.h"
+#include "Window.h"
+#include "Screen.h"
+#include "Renderable.h"
+
 
 
 //Renders the game map onto the terminal
@@ -22,10 +24,11 @@
 //			...
 //			g.render();
 //		}
-class GameWindow
+class GameWindow:
+	public Screen
 {
 public:
-	GameWindow(GameMap& map, GameMaster& master);
+	GameWindow(GameMap& map, GameMaster& master, Window& mainWindow);
 	~GameWindow();
 	void init();
 	void render();
@@ -37,24 +40,21 @@ public:
 	void displayInventory(Human& h);
 	int cameraXcoord = 0;
 	int cameraYcoord = 0;
-	bool devConsoleEnabled = false;
 	std::weak_ptr<Player> player;
+	bool startOfTick = false;
 
-	void KeyPressHandler(SDL_Event& e,  bool isStartOfTick);
+	
 
 	GameMap& map;
 	GameMaster& gameMaster;
-	//////
-	SDL_Window* mainWindow = NULL;
-	SDL_Renderer* renderer = NULL;
-	Texture texture;
+	Window& mainWindow;
 
-	///////
-	std::unordered_map<int, int> colorPairs;
 private:
-	int getTextureLocation(Tile* t);
-	int getTextureLocation(Object* o);
-	int getTextureLocation(Entity* e);
-	int getTextureLocation(Item* i);
+	int getClipCode(Tile* t);
+	int getClipCode(Object* o);
+	int getClipCode(Entity* e);
+	int getClipCode(Item* i);
 };
+
+void KeyPressHandler(Screen& window, SDL_Event& e);
 

@@ -6,7 +6,7 @@ Player::Player()
 {
 }
 
-Player::Player(bool mygender)
+Player::Player(Gender mygender)
 {
 	gender = mygender;
 	type = EntityType::Human;

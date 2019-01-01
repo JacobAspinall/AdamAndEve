@@ -7,7 +7,7 @@
 GameMaster::GameMaster()
 {
 	initializeMap(map);
-	std::shared_ptr<Player> playerSharedPtr = std::make_shared<Player>(MAN);
+	std::shared_ptr<Player> playerSharedPtr = std::make_shared<Player>(Gender::MAN);
 	std::unique_ptr<Tile> t = std::make_unique<Grass>();
 	t->entity = playerSharedPtr;
 	player = playerSharedPtr;
@@ -23,7 +23,7 @@ GameMaster::GameMaster()
 
 	//Make myself a wife
 	std::unique_ptr<Tile> wifeTile = std::make_unique<Grass>();
-	std::shared_ptr<Human> wifey = std::make_shared<Human>(WOMAN);
+	std::shared_ptr<Human> wifey = std::make_shared<Human>(Gender::WOMAN);
 	wifeTile->entity = wifey;
 	map.set(11, 11, std::move(wifeTile));
 

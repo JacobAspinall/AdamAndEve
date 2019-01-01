@@ -5,7 +5,7 @@ Human::Human() {
 
 }
 
-Human::Human(bool gender)
+Human::Human(Gender gender)
 	:gender(gender)
 {
 	type = EntityType::Human;

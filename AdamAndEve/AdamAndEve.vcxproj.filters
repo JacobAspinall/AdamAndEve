@@ -101,6 +101,21 @@
     <ClCompile Include="graphics\Texture.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="graphics\Window.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="graphics\DevConsole.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="graphics\Screen.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="constants\ClipCode.h">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="graphics\Renderable.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="core\Entity.h">
@@ -464,6 +479,18 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\SDL_image\SDL_image.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="graphics\Window.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="graphics\DevConsole.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="graphics\Screen.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="graphics\Renderable.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

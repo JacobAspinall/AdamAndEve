@@ -9,17 +9,59 @@
 #include "SDL.h"
 
 
-void readUserInput(SDL_Event* e, Player& p, GameMap& map);
 
 int main(int argc, char *args[]) {
 	
 	GameMaster game = GameMaster();
 
+	Window mainWindow = Window();
+	mainWindow.init();
 
+	GameWindow gameWindow = GameWindow(game.map, game, mainWindow);
+	gameWindow.player = game.player;
+
+	bool quit = false;
+	while (!quit) {
+
+		SDL_Event e;
+		gameWindow.startOfTick = true;
+		game.setNextMove(MoveType::NoAction);
+		while (SDL_PollEvent(&e) != 0) {
+			if (e.type == SDL_QUIT) {
+				quit = true;
+				break;
+			}
+			if (e.type == SDL_SCANCODE_GRAVE) {
+				//mainWindow.devConsoleEnabled = !mainWindow.devConsoleEnabled;
+				//break;
+			}
+	
+			mainWindow.handleEvent(e);
+
+		}
+
+
+
+
+		
+		
+		game.runNextMove();
+		gameWindow.cameraXcoord = game.player.lock()->xCoord;
+		gameWindow.cameraYcoord = game.player.lock()->yCoord;
+		mainWindow.render();
+		std::this_thread::sleep_for(std::chrono::milliseconds(250));
+	
+	}
+
+
+
+	/*
 	GameWindow mainWindow = GameWindow(game.map, game);
 	mainWindow.player = game.player;
 	mainWindow.init();
 	bool quit = false;
+	std::vector<Window*> openWindows;
+	openWindows.push_back(&mainWindow);
 	
 	
 	while(!quit) {
@@ -62,64 +104,7 @@ int main(int argc, char *args[]) {
 
 
 	}
-
+	*/
 	return 0;
-
-}
-
-
-//Reads user input and sets the players next move
-//-non-blocking
-void readUserInput(SDL_Event* e, Player& p) {
-	
-	if (e == nullptr) {
-		p.nextMove = MoveType::NoAction;
-		return;
-	}
-
-
-	if (e->type == SDL_KEYDOWN)
-	{
-		//Select surfaces based on key press
-		switch (e->key.keysym.sym)
-		{
-		case SDLK_w:
-			p.nextMove = MoveType::North;
-			break;
-
-		case SDLK_a:
-			p.nextMove = MoveType::West;
-			break;
-
-		case SDLK_s:
-			p.nextMove = MoveType::South;
-			break;
-
-		case SDLK_d:
-			p.nextMove = MoveType::East;
-			break;
-
-		case SDLK_f:
-			p.nextMove = MoveType::Interact;
-			break;
-
-		case SDLK_o:
-			//map.dropItem(p, (int)p.inventory.size() - 1);
-			break;
-
-		case SDLK_p:
-			//map.pickUpItem(p, (int)map.get(p.xCoord, p.yCoord)->items.size() - 1);
-			break;
-
-		default:
-			p.nextMove = MoveType::NoAction;
-			break;
-		}
-	}
-
-}
-
-void readUserInputForDevConsole() {
-
 
 }
