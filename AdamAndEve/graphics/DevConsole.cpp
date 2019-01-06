@@ -41,20 +41,20 @@ void DevConsole::displayInventory() {
 }
 
 
-void DevConsoleKeyPressHandler(Screen& window, SDL_Event& e) {
+void DevConsoleKeyPressHandler(Screen& window, SDL_Event* e) {
 	DevConsole& devConsole = static_cast<DevConsole&>(window);
 	TextInputBox& inputBox = devConsole.inputBox;
-	if (e.type == SDL_KEYDOWN) {
-		if (e.key.keysym.sym == SDLK_BACKSPACE && inputBox.content.length() > 0) {
+	if (e->type == SDL_KEYDOWN) {
+		if (e->key.keysym.sym == SDLK_BACKSPACE && inputBox.content.length() > 0) {
 			inputBox.content.pop_back();
 		}
-		if (e.key.keysym.scancode == SDL_SCANCODE_RETURN) {
+		if (e->key.keysym.scancode == SDL_SCANCODE_RETURN) {
 			devConsole.executeCommand(inputBox.content);
 			inputBox.content = "";
 		}
 	}
-	else if (e.type == SDL_TEXTINPUT && e.text.text[0] != '`') {
-		inputBox.appendText(e.text.text);
+	else if (e->type == SDL_TEXTINPUT && e->text.text[0] != '`') {
+		inputBox.appendText(e->text.text);
 	}
 
 }

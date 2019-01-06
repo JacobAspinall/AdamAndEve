@@ -32,12 +32,12 @@ void Screen::render() {
 
 }
 
-void Screen::addKeyPressHandler(void (*funcPtr)(Screen& s, SDL_Event& e)) {
+void Screen::addKeyPressHandler(void (*funcPtr)(Screen& s, SDL_Event* e)) {
 	keyPressHandler = funcPtr;
 }
 
 
-void Screen::handleEvent(SDL_Event& e) {
+void Screen::handleEvent(SDL_Event* e) {
 
 	////if (e.type == SDL_KEYDOWN || e.type == SDL_KEYUP ) {
 		if (keyPressHandler != nullptr) {

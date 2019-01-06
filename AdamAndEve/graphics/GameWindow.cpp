@@ -21,7 +21,7 @@ GameWindow::~GameWindow()
 {
 }
 
-//Runs necessary initialization functions from PDcurses
+//Adds clip locations for each tile/entity/item/object
 void GameWindow::init() {
 	
 	texture.addClip(0, 0, 16, 16, ClipCode::GRASS);
@@ -61,7 +61,7 @@ void GameWindow::drawScreen(int x, int y, Canvas& c) {
 	}
 }
 
-//Returns the color used for a tile
+//Returns the texture clip code used for a tile
 int GameWindow::getClipCode(Tile* t) {
 	if (t == nullptr)
 		return 0;
@@ -77,7 +77,7 @@ int GameWindow::getClipCode(Tile* t) {
 	}
 }
 
-//Returns the color used for am object
+//Returns the texture clip code used for am object
 int GameWindow::getClipCode(Object* o) {
 	if (o == nullptr)
 		return 0;
@@ -91,7 +91,7 @@ int GameWindow::getClipCode(Object* o) {
 }
 
 
-//Returns the color used for am entity
+//Returns the texture clip code used for am entity
 int GameWindow::getClipCode(Entity* e) {
 	if (e == nullptr)
 		return 0;
@@ -111,7 +111,7 @@ int GameWindow::getClipCode(Entity* e) {
 
 
 
-//Returns the color used for an Item
+//Returns the texture clip code used for an Item
 int GameWindow::getClipCode(Item* i) {
 	if (i == nullptr)
 		return 0;
@@ -154,16 +154,9 @@ void GameWindow::panCameraWest() {
 	render();
 }
 
-void GameWindow::displayInventory(Human& h) {
-	mvprintw(2, 0, "Inventory:");
-	for (int i = 0; i < static_cast<int>(h.inventory.size()); i++) {
-		mvprintw(i + 3, 0, h.inventory[i]->name.c_str());
-	}
-	refresh();
-}
 
 
-void KeyPressHandler(Screen& window, SDL_Event& e){
+void KeyPressHandler(Screen& window, SDL_Event* e){
 	GameWindow& gameWindow = static_cast<GameWindow&>(window);
 	bool isStartOfTick = gameWindow.startOfTick;
 	gameWindow.startOfTick = false;
@@ -183,22 +176,32 @@ void KeyPressHandler(Screen& window, SDL_Event& e){
 	if(isStartOfTick)
 		gameWindow.gameMaster.setNextMove(MoveType::NoAction);
 
-	if(isStartOfTick && northKeyDown)
+	if (isStartOfTick && northKeyDown) {
 		northKeyStartedDown = true;
+		gameWindow.gameMaster.setNextMove(MoveType::North);
+	}
 
-	if (isStartOfTick && eastKeyDown)
+	if (isStartOfTick && eastKeyDown) {
 		eastKeyStartedDown = true;
+		gameWindow.gameMaster.setNextMove(MoveType::East);
+	}
 
-	if (isStartOfTick && southKeyDown)
+	if (isStartOfTick && southKeyDown) {
 		southKeyStartedDown = true;
+		gameWindow.gameMaster.setNextMove(MoveType::South);
+	}
 
-	if (isStartOfTick && westKeyDown)
+	if (isStartOfTick && westKeyDown) {
 		westKeyStartedDown = true;
+		gameWindow.gameMaster.setNextMove(MoveType::West);
+	}
 
+	if (e == NULL)
+		return;
 	
-	if (e.type == SDL_KEYDOWN)
+	if (e->type == SDL_KEYDOWN)
 	{
-		switch (e.key.keysym.sym)
+		switch (e->key.keysym.sym)
 		{
 		case SDLK_w:
 			gameWindow.gameMaster.setNextMove(MoveType::North);
@@ -230,10 +233,10 @@ void KeyPressHandler(Screen& window, SDL_Event& e){
 		}
 	}
 
-	if (e.type == SDL_KEYUP)
+	if (e->type == SDL_KEYUP)
 	{
 		//Select surfaces based on key press
-		switch (e.key.keysym.sym)
+		switch (e->key.keysym.sym)
 		{
 		case SDLK_w:
 			if (northKeyDown) {
@@ -272,14 +275,14 @@ void KeyPressHandler(Screen& window, SDL_Event& e){
 			break;
 
 		case SDLK_d:
-			if (westKeyDown) {
-				if (westKeyStartedDown) {
+			if (eastKeyDown) {
+				if (eastKeyStartedDown) {
 					gameWindow.gameMaster.setNextMove(MoveType::NoAction);
 				}
 				else {
-					gameWindow.gameMaster.setNextMove(MoveType::West);
+					gameWindow.gameMaster.setNextMove(MoveType::East);
 				}
-				westKeyDown = false;
+				eastKeyDown = false;
 			}
 			break;
 

@@ -35,7 +35,7 @@ void Window::drawWindow() {
 	SDL_RenderPresent(canvas->renderer);
 }
 
-void Window::handleEvent(SDL_Event &e) {
-	
-	screens.back()->handleEvent(e);
+void Window::handleEvent(SDL_Event* e) {
+	if(e == NULL || e->type == SDL_KEYDOWN || e->type == SDL_KEYUP || e->type == SDL_TEXTINPUT)
+		screens.back()->handleEvent(e);
 }

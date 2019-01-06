@@ -20,7 +20,7 @@ public:
 
 	void init();
 	void drawWindow();
-	void handleEvent(SDL_Event &e);
+	void handleEvent(SDL_Event* e);
 
 };
 

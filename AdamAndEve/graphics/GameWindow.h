@@ -56,5 +56,5 @@ private:
 	int getClipCode(Item* i);
 };
 
-void KeyPressHandler(Screen& window, SDL_Event& e);
+void KeyPressHandler(Screen& window, SDL_Event* e);
 

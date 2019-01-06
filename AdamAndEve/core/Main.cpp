@@ -23,13 +23,13 @@ int main(int argc, char *args[]) {
 
 	DevConsole devConsole = DevConsole(game, mainWindow);
 	bool devConsoleOn = false;
-
+	bool madeMove = false;
 	bool quit = false;
 	while (!quit) {
 
 		SDL_Event e;
 		gameWindow.startOfTick = true;
-		game.setNextMove(MoveType::NoAction);
+		//game.setNextMove(MoveType::NoAction);
 		while (SDL_PollEvent(&e) != 0) {
 			if (e.type == SDL_QUIT) {
 				quit = true;
@@ -47,9 +47,15 @@ int main(int argc, char *args[]) {
 					devConsoleOn = false;
 				}
 			}
-			//std::cout << e.key.keysym.sym << std::endl;
-			mainWindow.handleEvent(e);
+			mainWindow.handleEvent(&e);
+			madeMove = true;
+		}
 
+		if (!madeMove) {
+			mainWindow.handleEvent(NULL);
+		}
+		else {
+			madeMove = false;
 		}
 		
 		game.runNextMove();

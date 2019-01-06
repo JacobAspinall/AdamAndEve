@@ -25,11 +25,11 @@ public:
 	void loadTexture(std::string fileName);
 	virtual void drawScreen(int x, int y, Canvas& c);
 	virtual void render();
-	void addKeyPressHandler(void(*funcPtr)(Screen& s, SDL_Event& e));
-	void handleEvent(SDL_Event& e);
+	void addKeyPressHandler(void(*funcPtr)(Screen& s, SDL_Event* e));
+	void handleEvent(SDL_Event* e);
 
 
-	void (*keyPressHandler)(Screen& s, SDL_Event& e) = nullptr;
+	void (*keyPressHandler)(Screen& s, SDL_Event* e) = nullptr;
 
 private:
 	

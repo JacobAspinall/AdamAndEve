@@ -24,5 +24,5 @@ public:
 
 };
 
-void DevConsoleKeyPressHandler(Screen& window, SDL_Event& e);
+void DevConsoleKeyPressHandler(Screen& window, SDL_Event* e);
 
