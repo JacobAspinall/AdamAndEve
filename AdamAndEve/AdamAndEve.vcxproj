@@ -70,7 +70,7 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <IncludePath>$(IncludePath);.\constants;.\core;.\entitys;.\graphics;.\include;.\include\SDL;.\include\SDL_image;.\items;.\objects;.\tasks;.\tiles;</IncludePath>
+    <IncludePath>$(IncludePath);.\constants;.\core;.\entitys;.\graphics;.\include;.\include\SDL;.\include\SDL_image;.\include\SDL_ttf;.\items;.\objects;.\tasks;.\tiles;</IncludePath>
     <LibraryPath>$(LibraryPath);.\lib;</LibraryPath>
     <SourcePath>$(VC_SourcePath);</SourcePath>
   </PropertyGroup>
@@ -83,7 +83,7 @@
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>.\lib\pdcurses.lib;.\lib\SDL2.lib;.\lib\SDL2main.lib;.\lib\SDL2_image.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>.\lib\pdcurses.lib;.\lib\SDL2.lib;.\lib\SDL2main.lib;.\lib\SDL2_image.lib;.\lib\SDL2_ttf.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <SubSystem>Console</SubSystem>
     </Link>
   </ItemDefinitionGroup>
@@ -129,15 +129,18 @@
     <None Include="include\SDL\SDL_config.h.cmake" />
     <None Include="include\SDL\SDL_config.h.in" />
     <None Include="include\SDL\SDL_config_macosx.h.orig" />
+    <None Include="libfreetype-6.dll" />
     <None Include="libjpeg-9.dll" />
     <None Include="libpng16-16.dll" />
     <None Include="libtiff-5.dll" />
     <None Include="libwebp-7.dll" />
     <None Include="SDL2.dll" />
     <None Include="SDL2_image.dll" />
+    <None Include="SDL2_ttf.dll" />
     <None Include="zlib1.dll" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="graphics\Canvas.cpp" />
     <ClCompile Include="constants\ClipCode.h" />
     <ClCompile Include="core\Entity.cpp" />
     <ClCompile Include="core\GameMap.cpp" />
@@ -149,6 +152,7 @@
     <ClCompile Include="core\SaveFile.cpp" />
     <ClCompile Include="core\Task.cpp" />
     <ClCompile Include="core\Tile.cpp" />
+    <ClCompile Include="graphics\Element.cpp" />
     <ClCompile Include="graphics\DevConsole.cpp" />
     <ClCompile Include="entitys\Human.cpp" />
     <ClCompile Include="entitys\Player.cpp" />
@@ -165,10 +169,13 @@
     <ClCompile Include="tasks\PlayerTask.cpp" />
     <ClCompile Include="tasks\WalkRandomly.cpp" />
     <ClCompile Include="graphics\Texture.cpp" />
+    <ClCompile Include="graphics\TextDisplayBox.cpp" />
+    <ClCompile Include="graphics\textInputBox.cpp" />
     <ClCompile Include="tiles\Grass.cpp" />
     <ClCompile Include="graphics\Window.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="graphics\Canvas.h" />
     <ClInclude Include="constants\Color.h" />
     <ClInclude Include="constants\Constants.h" />
     <ClInclude Include="constants\Direction.h" />
@@ -187,6 +194,7 @@
     <ClInclude Include="core\Task.h" />
     <ClInclude Include="core\Tile.h" />
     <ClInclude Include="core\Tiles.h" />
+    <ClInclude Include="graphics\Element.h" />
     <ClInclude Include="graphics\DevConsole.h" />
     <ClInclude Include="entitys\Human.h" />
     <ClInclude Include="entitys\Player.h" />
@@ -278,6 +286,7 @@
     <ClInclude Include="include\SDL\SDL_video.h" />
     <ClInclude Include="include\SDL\SDL_vulkan.h" />
     <ClInclude Include="include\SDL_image\SDL_image.h" />
+    <ClInclude Include="include\SDL_ttf\SDL_ttf.h" />
     <ClInclude Include="include\term.h" />
     <ClInclude Include="items\WoodenLog.h" />
     <ClInclude Include="objects\Tree.h" />
@@ -292,11 +301,17 @@
     <ClInclude Include="tasks\PlayerTask.h" />
     <ClInclude Include="tasks\WalkRandomly.h" />
     <ClInclude Include="graphics\Texture.h" />
+    <ClInclude Include="graphics\TextDisplayBox.h" />
+    <ClInclude Include="graphics\textInputBox.h" />
     <ClInclude Include="tiles\Grass.h" />
     <ClInclude Include="graphics\Window.h" />
   </ItemGroup>
   <ItemGroup>
     <Library Include="lib\pdcurses.lib" />
+    <Library Include="lib\SDL2.lib" />
+    <Library Include="lib\SDL2main.lib" />
+    <Library Include="lib\SDL2_image.lib" />
+    <Library Include="lib\SDL2_ttf.lib" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="AdamAndEve.rc" />

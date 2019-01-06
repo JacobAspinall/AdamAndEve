@@ -7,6 +7,7 @@
 #include "Human.h"
 #include "Player.h"
 #include "SDL.h"
+#include "DevConsole.h"
 
 
 
@@ -20,6 +21,9 @@ int main(int argc, char *args[]) {
 	GameWindow gameWindow = GameWindow(game.map, game, mainWindow);
 	gameWindow.player = game.player;
 
+	DevConsole devConsole = DevConsole(game, mainWindow);
+	bool devConsoleOn = false;
+
 	bool quit = false;
 	while (!quit) {
 
@@ -31,24 +35,27 @@ int main(int argc, char *args[]) {
 				quit = true;
 				break;
 			}
-			if (e.type == SDL_SCANCODE_GRAVE) {
-				//mainWindow.devConsoleEnabled = !mainWindow.devConsoleEnabled;
-				//break;
+			if (e.type == SDL_KEYUP && e.key.keysym.sym == SDLK_BACKQUOTE) {
+				if (!devConsoleOn) {
+					SDL_StartTextInput();
+					mainWindow.screens.push_back(&devConsole);
+					devConsoleOn = true;
+				}
+				else {
+					SDL_StopTextInput();
+					mainWindow.screens.pop_back();
+					devConsoleOn = false;
+				}
 			}
-	
+			//std::cout << e.key.keysym.sym << std::endl;
 			mainWindow.handleEvent(e);
 
 		}
-
-
-
-
-		
 		
 		game.runNextMove();
 		gameWindow.cameraXcoord = game.player.lock()->xCoord;
 		gameWindow.cameraYcoord = game.player.lock()->yCoord;
-		mainWindow.render();
+		mainWindow.drawWindow();
 		std::this_thread::sleep_for(std::chrono::milliseconds(250));
 	
 	}

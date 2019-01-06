@@ -31,7 +31,7 @@ public:
 	GameWindow(GameMap& map, GameMaster& master, Window& mainWindow);
 	~GameWindow();
 	void init();
-	void render();
+	void drawScreen(int x, int y, Canvas& c);
 
 	void panCameraNorth();
 	void panCameraEast();
@@ -44,7 +44,7 @@ public:
 	bool startOfTick = false;
 
 	
-
+	Texture texture;
 	GameMap& map;
 	GameMaster& gameMaster;
 	Window& mainWindow;

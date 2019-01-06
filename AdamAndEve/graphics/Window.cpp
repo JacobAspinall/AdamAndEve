@@ -5,6 +5,13 @@
 
 Window::Window()
 {
+	SDL_Init(SDL_INIT_VIDEO);
+	window = SDL_CreateWindow("Adam and Eve", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
+
+	int imgFlags = IMG_INIT_PNG;
+	IMG_Init(imgFlags);
+	TTF_Init();
+	canvas = new Canvas(*this);
 }
 
 
@@ -15,26 +22,20 @@ Window::~Window()
 
 void Window::init() {
 
-	SDL_Init(SDL_INIT_VIDEO);
-	window = SDL_CreateWindow("Adam and Eve", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
-
-	int imgFlags = IMG_INIT_PNG;
-	IMG_Init(imgFlags);
-	renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
-	SDL_SetRenderDrawColor(renderer, 0x00, 0x00, 0x00, 0x00);
+	
 }
 
 
-void Window::render() {
-	SDL_RenderClear(renderer);
+void Window::drawWindow() {
+	SDL_RenderClear(canvas->renderer);
 	for (Screen* s : screens) {
-		s->render();
+		s->drawScreen(s->xPosition, s->yPosition, *canvas);
 	}
-	
-	SDL_RenderPresent(renderer);
+
+	SDL_RenderPresent(canvas->renderer);
 }
 
 void Window::handleEvent(SDL_Event &e) {
 	
-	screens.front()->handleEvent(e);
+	screens.back()->handleEvent(e);
 }

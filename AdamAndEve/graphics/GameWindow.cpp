@@ -5,11 +5,15 @@
 
 
 GameWindow::GameWindow(GameMap& map, GameMaster& master, Window& mainWindow)
-	:map{ map }, gameMaster{ master }, mainWindow{ mainWindow }, Screen(mainWindow)
+	:map{ map }, gameMaster{ master }, mainWindow{ mainWindow }, Screen(mainWindow), texture{Texture("textures/tiles.png",*(mainWindow.canvas))}
 {
 	this->mainWindow.screens.push_back(this);
 	init();
 	this->addKeyPressHandler(KeyPressHandler);
+	this->xPosition = 0;
+	this->yPosition = 0;
+	this->width = SCREEN_WIDTH;
+	this->xPosition = SCREEN_HEIGHT;
 }
 
 
@@ -19,16 +23,17 @@ GameWindow::~GameWindow()
 
 //Runs necessary initialization functions from PDcurses
 void GameWindow::init() {
-	createTextureClip(0, 0, 16, 16, ClipCode::GRASS);
-	createTextureClip(16, 0, 16, 16, ClipCode::TREE);
-	createTextureClip(32, 0, 16, 16, ClipCode::MAN);
-	createTextureClip(48, 0, 16, 16, ClipCode::WOMAN);
-	createTextureClip(64, 0, 16, 16, ClipCode::LOG);
+	
+	texture.addClip(0, 0, 16, 16, ClipCode::GRASS);
+	texture.addClip(16, 0, 16, 16, ClipCode::TREE);
+	texture.addClip(32, 0, 16, 16, ClipCode::MAN);
+	texture.addClip(48, 0, 16, 16, ClipCode::WOMAN);
+	texture.addClip(64, 0, 16, 16, ClipCode::LOG);
 
 }
 
 //displays map on terminal based upon the camera's x and y coords
-void GameWindow::render() {
+void GameWindow::drawScreen(int x, int y, Canvas& c) {
 
 	int topLeftXCoord = cameraXcoord - MAP_DISPLAY_WIDTH / 2;
 	int topRightXCoord = topLeftXCoord + MAP_DISPLAY_WIDTH;
@@ -41,15 +46,15 @@ void GameWindow::render() {
 	for (int i = topLeftYCoord, screenYindex = 0; i < bottomLeftYCoord; i++, screenYindex++) {
 		for (int j = topLeftXCoord, screenXindex = 0; j < topRightXCoord; j++, screenXindex++) {
 			if (i >= 0 && i < MAP_WIDTH && j >= 0 && j < MAP_WIDTH) {
-				draw(screenXindex * 16, screenYindex * 16, getClipCode(map.get(j, i)));
+				c.draw(screenXindex * 16, screenYindex * 16,texture, getClipCode(map.get(j, i)));
 				if (map.get(j, i)->object != nullptr) {
-					draw(screenXindex *16, screenYindex *16, getClipCode(map.get(j, i)->object.get()));
+					c.draw(screenXindex * 16, screenYindex * 16, texture, getClipCode(map.get(j, i)->object.get()));
 				}
 				if ((int)map.get(j, i)->items.size() > 0) {
-					draw(screenXindex * 16, screenYindex * 16, getClipCode(map.get(j, i)->items.back().get()));
+					c.draw(screenXindex * 16, screenYindex * 16, texture, getClipCode(map.get(j, i)->items.back().get()));
 				}
 				if (map.get(j, i)->entity != nullptr) {
-					draw(screenXindex * 16, screenYindex * 16, getClipCode(map.get(j, i)->entity.get()));
+					c.draw(screenXindex * 16, screenYindex * 16, texture, getClipCode(map.get(j, i)->entity.get()));
 				}
 			}
 		}

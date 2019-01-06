@@ -2,14 +2,27 @@
 #include "Window.h"
 #include "GameMaster.h"
 #include "Constants.h"
+#include "TextDisplayBox.h"
+#include "TextinputBox.h"
+
 class DevConsole :
-	public Window
+	public Screen
 {
 public:
-	DevConsole();
+	DevConsole(GameMaster& master, Window& mainWindow);
 	~DevConsole();
-	void KeyPressHandler(SDL_Event& e);
-	void render();
+
+	GameMaster& gameMaster;
+	Window& mainWindow;
+	TextDisplayBox displayBox;
+	TextInputBox inputBox;
+
+	
+	void drawScreen(int x, int y, Canvas& c);
+	void executeCommand(std::string command);
+	void displayInventory();
 
 };
+
+void DevConsoleKeyPressHandler(Screen& window, SDL_Event& e);
 

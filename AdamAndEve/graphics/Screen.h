@@ -4,12 +4,14 @@ class Window;
 #include "Texture.h"
 #include <string>
 #include <unordered_map>
+#include "Element.h"
 
 class Screen
 {
 public:
 	Screen(Window& window);
 	~Screen();
+	Window& parentWindow;
 
 	int xPosition = 0;
 	int yPosition = 0;
@@ -18,9 +20,10 @@ public:
 
 	bool isVisible = true;
 
+	std::vector<Element*> elements;
+
 	void loadTexture(std::string fileName);
-	void draw(int x, int y, int clipCode);
-	void createTextureClip(int x, int y, int width, int height, int clipCode);
+	virtual void drawScreen(int x, int y, Canvas& c);
 	virtual void render();
 	void addKeyPressHandler(void(*funcPtr)(Screen& s, SDL_Event& e));
 	void handleEvent(SDL_Event& e);
@@ -29,24 +32,10 @@ public:
 	void (*keyPressHandler)(Screen& s, SDL_Event& e) = nullptr;
 
 private:
-	SDL_Renderer& renderer;
+	
 
 	Texture texture;
-	class Clip;
-	std::unordered_map<int,Clip> clipMap;
-
-	class Clip {
-	public:
-		Clip();
-		Clip(int x, int y, int width, int height);
-		~Clip();
-
-		int x;
-		int y;
-		int width;
-		int height;
-
-	};
+	
 
 };
 

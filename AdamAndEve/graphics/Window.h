@@ -5,6 +5,7 @@
 #include <vector>
 #include "Screen.h"
 #include "Renderable.h"
+#include "Canvas.h"
 class Window
 {
 public:
@@ -12,10 +13,13 @@ public:
 	virtual ~Window();
 	std::vector<Screen*> screens;
 	SDL_Window* window;
-	SDL_Renderer* renderer;
+	int width = SCREEN_WIDTH;
+	int height = SCREEN_HEIGHT;
+	Canvas* canvas;
+
 
 	void init();
-	void render();
+	void drawWindow();
 	void handleEvent(SDL_Event &e);
 
 };
