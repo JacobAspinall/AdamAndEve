@@ -43,9 +43,11 @@ void GameWindow::drawScreen(int x, int y, Canvas& c) {
 	int currentCol = 0;
 	bool validCoord = false;
 
+	map.mapMutex->lock();
 	for (int i = topLeftYCoord, screenYindex = 0; i < bottomLeftYCoord; i++, screenYindex++) {
 		for (int j = topLeftXCoord, screenXindex = 0; j < topRightXCoord; j++, screenXindex++) {
 			if (i >= 0 && i < MAP_WIDTH && j >= 0 && j < MAP_WIDTH) {
+				
 				c.draw(screenXindex * 16, screenYindex * 16,texture, getClipCode(map.get(j, i)));
 				if (map.get(j, i)->object != nullptr) {
 					c.draw(screenXindex * 16, screenYindex * 16, texture, getClipCode(map.get(j, i)->object.get()));
@@ -56,9 +58,11 @@ void GameWindow::drawScreen(int x, int y, Canvas& c) {
 				if (map.get(j, i)->entity != nullptr) {
 					c.draw(screenXindex * 16, screenYindex * 16, texture, getClipCode(map.get(j, i)->entity.get()));
 				}
+				
 			}
 		}
 	}
+	map.mapMutex->unlock();
 }
 
 //Returns the texture clip code used for a tile
@@ -157,146 +161,44 @@ void GameWindow::panCameraWest() {
 
 
 void KeyPressHandler(Screen& window, SDL_Event* e){
+	if (e == nullptr)
+		return;
+	const Uint8* keyboard = SDL_GetKeyboardState(NULL);
+	
 	GameWindow& gameWindow = static_cast<GameWindow&>(window);
-	bool isStartOfTick = gameWindow.startOfTick;
-	gameWindow.startOfTick = false;
-	static bool northKeyDown = false;
-	static bool southKeyDown = false;
-	static bool eastKeyDown = false;
-	static bool westKeyDown = false;
+	gameWindow.map.mapMutex->lock();
 	static bool interactionKeyDown = false;
 
-	MoveType nextMove = MoveType::NoAction;
 
-	bool northKeyStartedDown = false;
-	bool eastKeyStartedDown = false;
-	bool westKeyStartedDown = false;
-	bool southKeyStartedDown = false;
-
-	if(isStartOfTick)
+	if(keyboard[SDL_SCANCODE_W])
+		gameWindow.gameMaster.setNextMove(MoveType::North);
+	else if (keyboard[SDL_SCANCODE_A])
+		gameWindow.gameMaster.setNextMove(MoveType::West);
+	else if (keyboard[SDL_SCANCODE_S])
+		gameWindow.gameMaster.setNextMove(MoveType::South);
+	else if (keyboard[SDL_SCANCODE_D])
+		gameWindow.gameMaster.setNextMove(MoveType::East);
+	else
 		gameWindow.gameMaster.setNextMove(MoveType::NoAction);
 
-	if (isStartOfTick && northKeyDown) {
-		northKeyStartedDown = true;
-		gameWindow.gameMaster.setNextMove(MoveType::North);
-	}
 
-	if (isStartOfTick && eastKeyDown) {
-		eastKeyStartedDown = true;
-		gameWindow.gameMaster.setNextMove(MoveType::East);
-	}
-
-	if (isStartOfTick && southKeyDown) {
-		southKeyStartedDown = true;
-		gameWindow.gameMaster.setNextMove(MoveType::South);
-	}
-
-	if (isStartOfTick && westKeyDown) {
-		westKeyStartedDown = true;
-		gameWindow.gameMaster.setNextMove(MoveType::West);
-	}
-
-	if (e == NULL)
-		return;
-	
-	if (e->type == SDL_KEYDOWN)
-	{
+	if (e->type == SDL_KEYDOWN) {
 		switch (e->key.keysym.sym)
 		{
-		case SDLK_w:
-			gameWindow.gameMaster.setNextMove(MoveType::North);
-			northKeyDown = true;
-			break;
-
-		case SDLK_a:
-			gameWindow.gameMaster.setNextMove(MoveType::West);
-			westKeyDown = true;
-			break;
-
-		case SDLK_s:
-			gameWindow.gameMaster.setNextMove(MoveType::South);
-			southKeyDown = true;
-			break;
-
-		case SDLK_d:
-			gameWindow.gameMaster.setNextMove(MoveType::East);
-			eastKeyDown = true;
-			break;
-
 		case SDLK_f:
 			interactionKeyDown = true;
 			break;
-
-		default:
-			gameWindow.gameMaster.setNextMove(MoveType::NoAction);
-			break;
 		}
 	}
-
 	if (e->type == SDL_KEYUP)
 	{
-		//Select surfaces based on key press
 		switch (e->key.keysym.sym)
 		{
-		case SDLK_w:
-			if (northKeyDown) {
-				if (northKeyStartedDown) {
-					gameWindow.gameMaster.setNextMove(MoveType::NoAction);
-				}
-				else {
-					gameWindow.gameMaster.setNextMove(MoveType::North);
-				}
-				northKeyDown = false;
-			}
-			break;
-
-		case SDLK_a:
-			if (westKeyDown) {
-				if (westKeyStartedDown) {
-					gameWindow.gameMaster.setNextMove(MoveType::NoAction);
-				}
-				else {
-					gameWindow.gameMaster.setNextMove(MoveType::West);
-				}
-				westKeyDown = false;
-			}
-			break;
-
-		case SDLK_s:
-			if (southKeyDown) {
-				if (southKeyStartedDown) {
-					gameWindow.gameMaster.setNextMove(MoveType::NoAction);
-				}
-				else {
-					gameWindow.gameMaster.setNextMove(MoveType::South);
-				}
-				southKeyDown = false;
-			}
-			break;
-
-		case SDLK_d:
-			if (eastKeyDown) {
-				if (eastKeyStartedDown) {
-					gameWindow.gameMaster.setNextMove(MoveType::NoAction);
-				}
-				else {
-					gameWindow.gameMaster.setNextMove(MoveType::East);
-				}
-				eastKeyDown = false;
-			}
-			break;
-
 		case SDLK_f:
-			if (interactionKeyDown) {
-				gameWindow.gameMaster.setNextMove(MoveType::Interact);
-				interactionKeyDown = false;
-			}
-			break;
-
-		default:
-			gameWindow.gameMaster.setNextMove(MoveType::NoAction);
+			gameWindow.gameMaster.setNextMove(MoveType::Interact);
+			interactionKeyDown = false;
 			break;
 		}
 	}
-	
+	gameWindow.map.mapMutex->unlock();
 }

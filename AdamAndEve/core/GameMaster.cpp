@@ -57,6 +57,6 @@ void GameMaster::runNextMove() {
 }
 
 void GameMaster::setNextMove(MoveType t) {
-	player.lock()->nextMove = t;
+		player.lock()->nextMove = t;
 	
 }

@@ -42,6 +42,10 @@ void DevConsole::displayInventory() {
 
 
 void DevConsoleKeyPressHandler(Screen& window, SDL_Event* e) {
+
+	if (e == nullptr) {
+		return;
+	}
 	DevConsole& devConsole = static_cast<DevConsole&>(window);
 	TextInputBox& inputBox = devConsole.inputBox;
 	if (e->type == SDL_KEYDOWN) {

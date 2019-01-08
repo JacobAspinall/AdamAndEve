@@ -6,6 +6,7 @@
 #include <vector>
 #include "curses.h"
 #include "Human.h"
+#include <mutex>
 
 
 
@@ -28,7 +29,7 @@ public:
 	void dropItem(Entity& e, int inventoryIndex);
 	void pickUpItem(Entity& e, int tileItemsIndex);
 
-
+	std::mutex* mapMutex;
 
 	SaveFile saveFile;
 	std::vector<std::unique_ptr<Tile>> map;

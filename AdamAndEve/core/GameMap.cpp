@@ -6,12 +6,14 @@
 GameMap::GameMap()
 {
 	map.resize(MAP_WIDTH*MAP_WIDTH);
+	mapMutex = new std::mutex;
 
 }
 
 
 GameMap::~GameMap()
 {
+	delete mapMutex;
 }
 
 //returns pointer to the tile at coordinates x and y

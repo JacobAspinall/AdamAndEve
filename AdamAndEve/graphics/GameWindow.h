@@ -37,7 +37,6 @@ public:
 	void panCameraEast();
 	void panCameraSouth();
 	void panCameraWest();
-	void displayInventory(Human& h);
 	int cameraXcoord = 0;
 	int cameraYcoord = 0;
 	std::weak_ptr<Player> player;
@@ -54,6 +53,9 @@ private:
 	int getClipCode(Object* o);
 	int getClipCode(Entity* e);
 	int getClipCode(Item* i);
+
+	std::vector<Tile> lastMove;
+	std::vector<Tile> thisMove;
 };
 
 void KeyPressHandler(Screen& window, SDL_Event* e);

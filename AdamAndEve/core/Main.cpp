@@ -8,13 +8,37 @@
 #include "Player.h"
 #include "SDL.h"
 #include "DevConsole.h"
+#include <thread>
 
-
+void GUI_thread(GameMaster& game);
+void game_thread(GameMaster& game);
 
 int main(int argc, char *args[]) {
 	
 	GameMaster game = GameMaster();
+	
 
+	std::thread gui_thread(GUI_thread, std::ref(game));
+
+	while (1) {
+		std::thread game_thread(game_thread, std::ref(game));
+		std::this_thread::sleep_for(std::chrono::milliseconds(50));
+		game_thread.join();
+	}
+
+	
+	return 0;
+}
+
+void game_thread(GameMaster& game) {
+	game.map.mapMutex->lock();
+	game.runNextMove();
+	game.map.mapMutex->unlock();
+	
+}
+
+
+void GUI_thread(GameMaster& game) {
 	Window mainWindow = Window();
 	mainWindow.init();
 
@@ -26,7 +50,7 @@ int main(int argc, char *args[]) {
 	bool madeMove = false;
 	bool quit = false;
 	while (!quit) {
-
+		
 		SDL_Event e;
 		gameWindow.startOfTick = true;
 		//game.setNextMove(MoveType::NoAction);
@@ -57,67 +81,12 @@ int main(int argc, char *args[]) {
 		else {
 			madeMove = false;
 		}
+
 		
-		game.runNextMove();
 		gameWindow.cameraXcoord = game.player.lock()->xCoord;
 		gameWindow.cameraYcoord = game.player.lock()->yCoord;
 		mainWindow.drawWindow();
-		std::this_thread::sleep_for(std::chrono::milliseconds(250));
-	
-	}
-
-
-
-	/*
-	GameWindow mainWindow = GameWindow(game.map, game);
-	mainWindow.player = game.player;
-	mainWindow.init();
-	bool quit = false;
-	std::vector<Window*> openWindows;
-	openWindows.push_back(&mainWindow);
-	
-	
-	while(!quit) {
-		SDL_Event e;
-		bool startOfTick = true;
-		game.setNextMove(MoveType::NoAction);
-		while (SDL_PollEvent(&e) != 0) {
-			if (e.type == SDL_QUIT) {
-				quit = true;
-				break;
-			}
-			if (e.type == SDL_SCANCODE_GRAVE) {
-				mainWindow.devConsoleEnabled = !mainWindow.devConsoleEnabled;
-				break;
-			}
-			if (mainWindow.devConsoleEnabled == false) {
-				mainWindow.KeyPressHandler(e, startOfTick);
-				startOfTick = false;
-			}
-			//if (mainWindow.devConsoleEnabled == true) {
-			//	readUserInputForDevConsole();
-			//}
-
-
-		}
-
-		
-		game.runNextMove();
-		mainWindow.cameraXcoord = game.player.lock()->xCoord;
-		mainWindow.cameraYcoord = game.player.lock()->yCoord;
-
-		//Clear screen
-		SDL_RenderClear(mainWindow.renderer);
-
-		mainWindow.render();
-
-		//Update screen
-		SDL_RenderPresent(mainWindow.renderer);
-		std::this_thread::sleep_for(std::chrono::milliseconds(250));
-
 
 	}
-	*/
-	return 0;
-
+	
 }
