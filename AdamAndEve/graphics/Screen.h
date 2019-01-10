@@ -26,10 +26,12 @@ public:
 	virtual void drawScreen(int x, int y, Canvas& c);
 	virtual void render();
 	void addKeyPressHandler(void(*funcPtr)(Screen& s, SDL_Event* e));
+	void addMouseClickHandler(void(*funcPtr)(Screen& s, SDL_Event* e));
 	void handleEvent(SDL_Event* e);
 
 
 	void (*keyPressHandler)(Screen& s, SDL_Event* e) = nullptr;
+	void(*mouseClickHandler)(Screen& s, SDL_Event* e) = nullptr;
 
 private:
 	

@@ -59,4 +59,5 @@ private:
 };
 
 void KeyPressHandler(Screen& window, SDL_Event* e);
+void GameWindowMouseClickHandler(Screen& window, SDL_Event* e);
 

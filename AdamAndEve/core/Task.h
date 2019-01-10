@@ -16,5 +16,6 @@ public:
 	virtual int run();
 	Entity& entity;
 	GameMap& map;
+	bool isMovementTask = false;
 };
 

@@ -17,14 +17,17 @@ public:
 	virtual int makeMove();
 	virtual void setCurrentTask(std::unique_ptr<Task> t);
 	virtual void endCurrentTask();
+	void removeMovementTasks();
 
 	EntityType type = EntityType::Empty;
 	std::list<std::unique_ptr<Task>> taskQueue;
 
 	int xCoord;
 	int yCoord;
+	double tileXCoord = 7;
+	double tileYCoord = 7;
 	long long timeOfNextMove = 0;
-	Direction directionFacing = Direction::NORTH;
+	Direction directionFacing = Direction::SOUTH;
 
 
 

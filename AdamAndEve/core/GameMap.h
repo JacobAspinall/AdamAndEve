@@ -7,6 +7,7 @@
 #include "curses.h"
 #include "Human.h"
 #include <mutex>
+#include "MovementVector.h"
 
 
 
@@ -25,6 +26,11 @@ public:
 	void moveEntityEast(Entity& e);
 	void moveEntitySouth(Entity& e);
 	void moveEntityWest(Entity& e);
+	void moveEntityNorthEast(Entity& e);
+	void moveEntityNorthWest(Entity& e);
+	void moveEntitySouthEast(Entity& e);
+	void moveEntitySouthWest(Entity& e);
+	void moveEntity(Entity& e, MovementVector direction);
 	Tile* tileInFrontof(Entity& e);
 	void dropItem(Entity& e, int inventoryIndex);
 	void pickUpItem(Entity& e, int tileItemsIndex);

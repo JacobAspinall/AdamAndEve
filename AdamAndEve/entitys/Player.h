@@ -1,6 +1,7 @@
 #pragma once
 #include "Human.h"
 #include "MoveType.h"
+#include "MovementVector.h"
 
 
 //Represents the human controlled by the player
@@ -13,6 +14,6 @@ public:
 	~Player();
 
 
-	MoveType nextMove = MoveType::NoAction;
+	MovementVector nextMove;
 };
 

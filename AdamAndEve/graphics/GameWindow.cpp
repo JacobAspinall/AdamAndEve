@@ -1,5 +1,6 @@
 #include "GameWindow.h"
 #include "ClipCode.h"
+#include "MoveInStraightLine.h"
 
 
 
@@ -10,6 +11,7 @@ GameWindow::GameWindow(GameMap& map, GameMaster& master, Window& mainWindow)
 	this->mainWindow.screens.push_back(this);
 	init();
 	this->addKeyPressHandler(KeyPressHandler);
+	this->addMouseClickHandler(GameWindowMouseClickHandler);
 	this->xPosition = 0;
 	this->yPosition = 0;
 	this->width = SCREEN_WIDTH;
@@ -35,30 +37,49 @@ void GameWindow::init() {
 //displays map on terminal based upon the camera's x and y coords
 void GameWindow::drawScreen(int x, int y, Canvas& c) {
 
-	int topLeftXCoord = cameraXcoord - MAP_DISPLAY_WIDTH / 2;
-	int topRightXCoord = topLeftXCoord + MAP_DISPLAY_WIDTH;
-	int topLeftYCoord = cameraYcoord - MAP_DISPLAY_HEIGHT / 2;
-	int bottomLeftYCoord = topLeftYCoord + MAP_DISPLAY_HEIGHT;
+	int topLeftXCoord = cameraXcoord - MAP_DISPLAY_WIDTH / 2 - 1;
+	int topRightXCoord = topLeftXCoord + MAP_DISPLAY_WIDTH + 1;
+	int topLeftYCoord = cameraYcoord - MAP_DISPLAY_HEIGHT / 2 - 1;
+	int bottomLeftYCoord = topLeftYCoord + MAP_DISPLAY_HEIGHT + 1;
 	int currentRow = 0;
 	int currentCol = 0;
 	bool validCoord = false;
 
 	map.mapMutex->lock();
-	for (int i = topLeftYCoord, screenYindex = 0; i < bottomLeftYCoord; i++, screenYindex++) {
-		for (int j = topLeftXCoord, screenXindex = 0; j < topRightXCoord; j++, screenXindex++) {
+	for (int i = topLeftYCoord, screenYindex = 0 - std::lround(player.lock()->tileYCoord); i < bottomLeftYCoord; i++, screenYindex+=16) {
+		for (int j = topLeftXCoord, screenXindex = 0 - std::lround(player.lock()->tileXCoord); j < topRightXCoord; j++, screenXindex+=16) {
 			if (i >= 0 && i < MAP_WIDTH && j >= 0 && j < MAP_WIDTH) {
 				
-				c.draw(screenXindex * 16, screenYindex * 16,texture, getClipCode(map.get(j, i)));
+				c.draw(screenXindex, screenYindex,texture, getClipCode(map.get(j, i)));
+				//if (map.get(j, i)->object != nullptr) {
+				//	c.draw(screenXindex * 16, screenYindex * 16, texture, getClipCode(map.get(j, i)->object.get()));
+				//}
+				//if ((int)map.get(j, i)->items.size() > 0) {
+				//	c.draw(screenXindex * 16, screenYindex * 16, texture, getClipCode(map.get(j, i)->items.back().get()));
+				//}
+				//if (map.get(j, i)->entity != nullptr) {
+				//	c.draw(screenXindex * 16 + (map.get(j, i)->entity->tileXoord - 7), screenYindex * 16 + (map.get(j, i)->entity->tileYCoord - 7), texture, getClipCode(map.get(j, i)->entity.get()));
+				//}
+				//
+			}
+		}
+	}
+
+	for (int i = topLeftYCoord, screenYindex = 0 - std::lround(player.lock()->tileYCoord); i < bottomLeftYCoord; i++, screenYindex+=16) {
+		for (int j = topLeftXCoord, screenXindex = 0 - std::lround(player.lock()->tileXCoord); j < topRightXCoord; j++, screenXindex+=16) {
+			if (i >= 0 && i < MAP_WIDTH && j >= 0 && j < MAP_WIDTH) {
+
+				//c.draw(screenXindex * 16, screenYindex * 16, texture, getClipCode(map.get(j, i)));
 				if (map.get(j, i)->object != nullptr) {
-					c.draw(screenXindex * 16, screenYindex * 16, texture, getClipCode(map.get(j, i)->object.get()));
+					c.draw(screenXindex, screenYindex, texture, getClipCode(map.get(j, i)->object.get()));
 				}
 				if ((int)map.get(j, i)->items.size() > 0) {
-					c.draw(screenXindex * 16, screenYindex * 16, texture, getClipCode(map.get(j, i)->items.back().get()));
+					c.draw(screenXindex, screenYindex, texture, getClipCode(map.get(j, i)->items.back().get()));
 				}
 				if (map.get(j, i)->entity != nullptr) {
-					c.draw(screenXindex * 16, screenYindex * 16, texture, getClipCode(map.get(j, i)->entity.get()));
+					c.draw(screenXindex + (std::lround(map.get(j, i)->entity->tileXCoord) - 7), screenYindex + (std::lround(map.get(j, i)->entity->tileYCoord) - 7), texture, getClipCode(map.get(j, i)->entity.get()));
 				}
-				
+
 			}
 		}
 	}
@@ -169,17 +190,24 @@ void KeyPressHandler(Screen& window, SDL_Event* e){
 	gameWindow.map.mapMutex->lock();
 	static bool interactionKeyDown = false;
 
-
-	if(keyboard[SDL_SCANCODE_W])
-		gameWindow.gameMaster.setNextMove(MoveType::North);
+	if(keyboard[SDL_SCANCODE_W] && keyboard[SDL_SCANCODE_D] && !(keyboard[SDL_SCANCODE_S] && keyboard[SDL_SCANCODE_A]))
+		gameWindow.gameMaster.setNextMove(MovementVector(std::sin(45 * (180/M_PI)),std::sin(-45 * (180 / M_PI))));
+	else if (keyboard[SDL_SCANCODE_W] && keyboard[SDL_SCANCODE_A] && !(keyboard[SDL_SCANCODE_S] && keyboard[SDL_SCANCODE_D]))
+		gameWindow.gameMaster.setNextMove(MovementVector(std::sin(-45 * (180 / M_PI)), std::sin(-45 * (180 / M_PI))));
+	else if (keyboard[SDL_SCANCODE_S] && keyboard[SDL_SCANCODE_D] && !(keyboard[SDL_SCANCODE_W] && keyboard[SDL_SCANCODE_A]))
+		gameWindow.gameMaster.setNextMove(MovementVector(std::sin(45 * (180 / M_PI)), std::sin(45 * (180 / M_PI))));
+	else if (keyboard[SDL_SCANCODE_S] && keyboard[SDL_SCANCODE_A] && !(keyboard[SDL_SCANCODE_W] && keyboard[SDL_SCANCODE_D]))
+		gameWindow.gameMaster.setNextMove(MovementVector(std::sin(-45 * (180 / M_PI)), std::sin(45 * (180 / M_PI))));
+	else if(keyboard[SDL_SCANCODE_W])
+		gameWindow.gameMaster.setNextMove(MovementVector(0, -1));
 	else if (keyboard[SDL_SCANCODE_A])
-		gameWindow.gameMaster.setNextMove(MoveType::West);
+		gameWindow.gameMaster.setNextMove(MovementVector(-1, 0));
 	else if (keyboard[SDL_SCANCODE_S])
-		gameWindow.gameMaster.setNextMove(MoveType::South);
+		gameWindow.gameMaster.setNextMove(MovementVector(0, 1));
 	else if (keyboard[SDL_SCANCODE_D])
-		gameWindow.gameMaster.setNextMove(MoveType::East);
+		gameWindow.gameMaster.setNextMove(MovementVector(1, 0));
 	else
-		gameWindow.gameMaster.setNextMove(MoveType::NoAction);
+		gameWindow.gameMaster.setNextMove(MovementVector(std::sin(0), std::sin(0)));
 
 
 	if (e->type == SDL_KEYDOWN) {
@@ -195,10 +223,32 @@ void KeyPressHandler(Screen& window, SDL_Event* e){
 		switch (e->key.keysym.sym)
 		{
 		case SDLK_f:
-			gameWindow.gameMaster.setNextMove(MoveType::Interact);
+			//gameWindow.gameMaster.setNextMove(MoveType::Interact);
 			interactionKeyDown = false;
 			break;
 		}
 	}
 	gameWindow.map.mapMutex->unlock();
+}
+
+
+void GameWindowMouseClickHandler(Screen& window, SDL_Event* e) {
+	GameWindow& gameWindow = static_cast<GameWindow&>(window);
+	if (e->type == SDL_MOUSEBUTTONDOWN) {
+		int x, y;
+		SDL_GetMouseState(&x, &y);
+		//(y + std::abs(std::lround(gameWindow.gameMaster.player.lock()->tileYCoord) - 7)) / 16 + gameWindow.cameraYcoord - MAP_DISPLAY_HEIGHT / 2 - 1;
+
+		int xCoord = (x  - (15 - std::lround(gameWindow.gameMaster.player.lock()->tileXCoord)) - (SCREEN_WIDTH / 2)) / 16 + gameWindow.cameraXcoord - 1;
+		int yCoord = (y - (15 - std::lround(gameWindow.gameMaster.player.lock()->tileYCoord)) - (SCREEN_HEIGHT / 2)) / 16 + gameWindow.cameraYcoord - 1;
+		if (x >= SCREEN_WIDTH / 2)
+			xCoord++;
+		if (y >= SCREEN_HEIGHT / 2)
+			yCoord++;
+		
+		//std::cout << xCoord << ", " << yCoord << std::endl;
+		gameWindow.gameMaster.player.lock()->removeMovementTasks();
+		gameWindow.gameMaster.player.lock()->setCurrentTask(std::move(std::make_unique<MoveInStraightLine>(*(gameWindow.gameMaster.player.lock()), gameWindow.gameMaster.map, xCoord, yCoord)));
+	}
+
 }

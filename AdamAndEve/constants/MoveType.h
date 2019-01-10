@@ -6,6 +6,10 @@ enum class MoveType {
 	East,
 	South,
 	West,
+	NorthEast,
+	NorthWest,
+	SouthEast,
+	SouthWest,
 	Interact,
 	Drop,
 	PickUp

@@ -36,6 +36,6 @@ void Window::drawWindow() {
 }
 
 void Window::handleEvent(SDL_Event* e) {
-	if(e == NULL || e->type == SDL_KEYDOWN || e->type == SDL_KEYUP || e->type == SDL_TEXTINPUT)
+	if(e == NULL || e->type == SDL_KEYDOWN || e->type == SDL_KEYUP || e->type == SDL_TEXTINPUT || e->type == SDL_MOUSEBUTTONDOWN || e->type == SDL_MOUSEBUTTONUP)
 		screens.back()->handleEvent(e);
 }

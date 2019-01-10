@@ -36,13 +36,22 @@ void Screen::addKeyPressHandler(void (*funcPtr)(Screen& s, SDL_Event* e)) {
 	keyPressHandler = funcPtr;
 }
 
+void Screen::addMouseClickHandler(void(*funcPtr)(Screen& s, SDL_Event* e)) {
+	mouseClickHandler = funcPtr;
+}
+
 
 void Screen::handleEvent(SDL_Event* e) {
 
-	////if (e.type == SDL_KEYDOWN || e.type == SDL_KEYUP ) {
+	if (e == nullptr || e->type == SDL_KEYDOWN || e->type == SDL_KEYUP ) {
 		if (keyPressHandler != nullptr) {
 			keyPressHandler(*this, e);
 		}
-	//}
+	}
+	else if (e->type == SDL_MOUSEBUTTONDOWN || e->type == SDL_MOUSEBUTTONUP) {
+		if (mouseClickHandler != nullptr) {
+			mouseClickHandler(*this, e);
+		}
+	}
 }
 

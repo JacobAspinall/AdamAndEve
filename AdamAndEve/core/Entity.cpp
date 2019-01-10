@@ -25,3 +25,11 @@ void Entity::setCurrentTask(std::unique_ptr<Task> t) {
 void Entity::endCurrentTask() {
 	taskQueue.pop_front();
 }
+
+void Entity::removeMovementTasks() {
+	while (taskQueue.front().get()->isMovementTask) {
+		endCurrentTask();
+	}
+
+}
+

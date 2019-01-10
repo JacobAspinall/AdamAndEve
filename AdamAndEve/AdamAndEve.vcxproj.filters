@@ -79,18 +79,6 @@
     <ClCompile Include="tasks\Interact.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="tasks\MoveEast.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="tasks\MoveNorth.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="tasks\MoveSouth.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="tasks\MoveWest.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="tasks\PlayerTask.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -128,6 +116,15 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="graphics\textInputBox.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="tasks\Move.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="core\MovementVector.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="tasks\MoveInStraightLine.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -190,18 +187,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="tasks\Interact.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="tasks\MoveEast.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="tasks\MoveNorth.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="tasks\MoveSouth.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="tasks\MoveWest.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="tasks\PlayerTask.h">
@@ -520,6 +505,15 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="graphics\textInputBox.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="tasks\Move.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="core\MovementVector.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="tasks\MoveInStraightLine.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

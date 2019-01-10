@@ -1,10 +1,8 @@
 #include "WalkRandomly.h"
 #include "Entity.h"
 #include "GameMap.h"
-#include "MoveNorth.h"
-#include "MoveEast.h"
-#include "MoveSouth.h"
-#include "MoveWest.h"
+#include "MoveType.h"
+#include "Move.h"
 #include <random>
 
 
@@ -26,16 +24,16 @@ int WalkRandomly::run() {
 	case 0:
 		break;
 	case 1:
-		human.setCurrentTask(std::move(std::make_unique<MoveNorth>(entity, map)));
+		//human.setCurrentTask(std::move(std::make_unique<Move>(entity, map, MoveType::North)));
 		break;
 	case 2:
-		human.setCurrentTask(std::move(std::make_unique<MoveEast>(entity, map)));
+		//human.setCurrentTask(std::move(std::make_unique<Move>(entity, map, MoveType::East)));
 		break;
 	case 3:
-		human.setCurrentTask(std::move(std::make_unique<MoveSouth>(entity, map)));
+		//human.setCurrentTask(std::move(std::make_unique<Move>(entity, map, MoveType::South)));
 		break;
 	case 4:
-		human.setCurrentTask(std::move(std::make_unique<MoveWest>(entity, map)));
+		//human.setCurrentTask(std::move(std::make_unique<Move>(entity, map, MoveType::West)));
 		break;
 	}
 
