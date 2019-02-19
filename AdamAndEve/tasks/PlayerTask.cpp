@@ -17,11 +17,12 @@ PlayerTask::~PlayerTask()
 int PlayerTask::run() {
 
 	Player& player = static_cast<Player&>(entity);
-
-//	if(player.nextMove != MoveType::Interact)
-	player.setCurrentTask(std::move(std::make_unique<Move>(entity, map, player.nextMove)));
-	//else if(player.nextMove != MoveType::Interact)
-	//	entity.setCurrentTask(std::move(std::make_unique<Interact>(entity, map)));
+	if (player.nextMove.type == MoveType::NoAction)
+		return 1;
+	else if(player.nextMove.type == MoveType::Move)
+		player.setCurrentTask(std::move(std::make_unique<Move>(entity, map, player.nextMove.direction)));
+	else if(player.nextMove.type == MoveType::Interact)
+		entity.setCurrentTask(std::move(std::make_unique<Interact>(entity, map)));
 
 	return 0;
 }

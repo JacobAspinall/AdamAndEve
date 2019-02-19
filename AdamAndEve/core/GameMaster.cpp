@@ -1,6 +1,9 @@
 #include "GameMaster.h"
 #include "PlayerTask.h"
 #include "WalkRandomly.h"
+#include "MoveInStraightLine.h"
+#include "Interact.h"
+
 
 
 
@@ -56,7 +59,38 @@ void GameMaster::runNextMove() {
 
 }
 
-void GameMaster::setNextMove(MovementVector t) {
-		player.lock()->nextMove = t;
+void GameMaster::setNextMove(PlayerMove m) {
+		player.lock()->nextMove = m;
 	
+}
+
+void GameMaster::movePlayerToCoords(int xCoord, int yCoord, int innerXCoord, int innerYCoord) {
+	player.lock()->removeMovementTasks();
+	player.lock()->setCurrentTask(std::move(std::make_unique<MoveInStraightLine>(*(player.lock()), map, xCoord, yCoord, innerXCoord, innerYCoord)));
+}
+
+bool GameMaster::hasObject(int xCoord, int yCoord, int innerXCoord, int innerYCoord) {
+	if (map.get(xCoord, yCoord)->object != nullptr)
+		return true;
+	else
+		return false;
+}
+
+void GameMaster::interactWithObject(int xCoord, int yCoord, int innerXCoord, int innerYCoord) {
+	player.lock()->setCurrentTask(std::move(std::make_unique<Interact>(*(player.lock()), map)));
+}
+
+void GameMaster::facePlayerTowards(int xCoord, int yCoord, int innerXCoord, int innerYCoord) {
+	double a = xCoord - player.lock()->xCoord;
+	double b = yCoord - player.lock()->yCoord;
+	double c = sqrt(a*a + b * b);
+	map.assignDirection(*(player.lock()), a / c, b / c);
+}
+
+bool GameMaster::tileIsNextToPlayer(int xCoord, int yCoord) {
+	if (abs(player.lock()->xCoord - xCoord) <= 1 && abs(player.lock()->yCoord - yCoord) <= 1)
+		return true;
+	else
+		return false;
+
 }

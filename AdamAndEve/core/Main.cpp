@@ -13,6 +13,8 @@
 void GUI_thread(GameMaster& game);
 void game_thread(GameMaster& game);
 
+int fps = 0;
+
 int main(int argc, char *args[]) {
 	
 	GameMaster game = GameMaster();
@@ -23,6 +25,8 @@ int main(int argc, char *args[]) {
 	while (1) {
 		std::thread game_thread(game_thread, std::ref(game));
 		std::this_thread::sleep_for(std::chrono::milliseconds(50));
+		//std::cout << fps << std::endl;
+		fps = 0;
 		game_thread.join();
 	}
 
@@ -85,7 +89,10 @@ void GUI_thread(GameMaster& game) {
 		
 		gameWindow.cameraXcoord = game.player.lock()->xCoord;
 		gameWindow.cameraYcoord = game.player.lock()->yCoord;
+		gameWindow.cameraInnerXcoord = std::lround(game.player.lock()->tileXCoord);
+		gameWindow.cameraInnerYcoord = std::lround(game.player.lock()->tileYCoord);
 		mainWindow.drawWindow();
+		fps++;
 
 	}
 	

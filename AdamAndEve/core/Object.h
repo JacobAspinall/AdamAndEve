@@ -16,5 +16,6 @@ public:
 
 	ObjectType type = ObjectType::Empty;
 	bool canWalkOn;
+	static const int hitboxRadius = 16;
 };
 

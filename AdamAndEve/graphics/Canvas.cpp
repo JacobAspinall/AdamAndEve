@@ -22,7 +22,7 @@ void Canvas::draw(int x, int y, Texture& t, int clipCode) {
 	
 	SDL_Rect clipLocation = t.getClip(clipCode);
 
-	SDL_Rect renderQuad = { x, y, clipLocation.w, clipLocation.h };
+	SDL_Rect renderQuad = { x, y, clipLocation.w, clipLocation.h};
 
 	//Render texture to screen
 	if(t.texture != NULL)

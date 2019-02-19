@@ -43,7 +43,7 @@ void Screen::addMouseClickHandler(void(*funcPtr)(Screen& s, SDL_Event* e)) {
 
 void Screen::handleEvent(SDL_Event* e) {
 
-	if (e == nullptr || e->type == SDL_KEYDOWN || e->type == SDL_KEYUP ) {
+	if (e == nullptr || e->type == SDL_KEYDOWN || e->type == SDL_KEYUP || e->type == SDL_TEXTINPUT) {
 		if (keyPressHandler != nullptr) {
 			keyPressHandler(*this, e);
 		}

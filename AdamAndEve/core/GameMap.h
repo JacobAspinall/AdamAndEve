@@ -34,6 +34,7 @@ public:
 	Tile* tileInFrontof(Entity& e);
 	void dropItem(Entity& e, int inventoryIndex);
 	void pickUpItem(Entity& e, int tileItemsIndex);
+	void assignDirection(Entity& e, double vectorX, double vectorY);
 
 	std::mutex* mapMutex;
 

@@ -162,26 +162,26 @@ void GameMap::moveEntitySouthWest(Entity& e) {
 }
 
 void GameMap::moveEntity(Entity& e, MovementVector direction) {
-	double newTileXCoord = e.tileXCoord + direction.x;
-	double newTileYCoord = e.tileYCoord + direction.y;
+	double newTileXCoord = e.tileXCoord + direction.x*2;
+	double newTileYCoord = e.tileYCoord + direction.y*2;
 	int newXCoord = e.xCoord;
 	int newYCoord = e.yCoord;
 
-	if (newTileXCoord > 15) {
-		newTileXCoord -= 15;
+	if (newTileXCoord > 31) {
+		newTileXCoord -= 31;
 		newXCoord++;
 	}
 	else if (newTileXCoord < 0) {
-		newTileXCoord += 15;
+		newTileXCoord += 31;
 		newXCoord--;
 	}
 
-	if (newTileYCoord > 15) {
-		newTileYCoord -= 15;
+	if (newTileYCoord > 31) {
+		newTileYCoord -= 31;
 		newYCoord++;
 	}
 	else if (newTileYCoord < 0) {
-		newTileYCoord += 15;
+		newTileYCoord += 31;
 		newYCoord--;
 	}
 	if (newXCoord != e.xCoord || newYCoord != e.yCoord) {
@@ -206,6 +206,19 @@ void GameMap::moveEntity(Entity& e, MovementVector direction) {
 		e.tileYCoord = newTileYCoord;
 	}
 
+	assignDirection(e, direction.x, direction.y);
+
+}
+
+void GameMap::assignDirection(Entity& e, double vectorX, double vectorY) {
+	if (vectorY > 0 && vectorX > -.707 && vectorX < .707)
+		e.directionFacing = Direction::SOUTH;
+	if (vectorY < 0 && vectorX > -.707 && vectorX < .707)
+		e.directionFacing = Direction::NORTH;
+	if (vectorX > 0 && vectorY >= -.707 && vectorY <= .707)
+		e.directionFacing = Direction::EAST;
+	if (vectorX < 0 && vectorY >= -.707 && vectorY <= .707)
+		e.directionFacing = Direction::WEST;
 }
 
 Tile* GameMap::tileInFrontof(Entity& e) {

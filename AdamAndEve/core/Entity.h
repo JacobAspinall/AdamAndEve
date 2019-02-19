@@ -24,8 +24,9 @@ public:
 
 	int xCoord;
 	int yCoord;
-	double tileXCoord = 7;
-	double tileYCoord = 7;
+	static const int hitboxRadius = 16;
+	double tileXCoord = 15;
+	double tileYCoord = 15;
 	long long timeOfNextMove = 0;
 	Direction directionFacing = Direction::SOUTH;
 

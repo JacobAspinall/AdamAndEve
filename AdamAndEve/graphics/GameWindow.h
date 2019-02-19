@@ -39,6 +39,8 @@ public:
 	void panCameraWest();
 	int cameraXcoord = 0;
 	int cameraYcoord = 0;
+	int cameraInnerXcoord = 15;
+	int cameraInnerYcoord = 15;
 	std::weak_ptr<Player> player;
 	bool startOfTick = false;
 

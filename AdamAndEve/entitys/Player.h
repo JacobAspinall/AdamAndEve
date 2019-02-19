@@ -1,7 +1,7 @@
 #pragma once
 #include "Human.h"
 #include "MoveType.h"
-#include "MovementVector.h"
+#include "PlayerMove.h"
 
 
 //Represents the human controlled by the player
@@ -14,6 +14,6 @@ public:
 	~Player();
 
 
-	MovementVector nextMove;
+	PlayerMove nextMove;
 };
 

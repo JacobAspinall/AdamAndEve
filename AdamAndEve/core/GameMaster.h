@@ -5,6 +5,7 @@
 #include "InitializeMap.h"
 #include <vector>
 #include <queue>
+#include "PlayerMove.h"
 
 //In charge of executing the required actions each game tick.
 //-Run the next move for each entity scheduled to move on a turn, and reshedule them afterwards.
@@ -29,7 +30,12 @@ public:
 	GameMaster();
 	~GameMaster();
 	void runNextMove();
-	void setNextMove(MovementVector t);
+	void setNextMove(PlayerMove m);
+	void movePlayerToCoords(int xCoord, int yCoord, int innerXCoord, int innerYCoord);
+	bool hasObject(int xCoord, int yCoord, int innerXCoord, int innerYCoord);
+	void interactWithObject(int xCoord, int yCoord, int innerXCoord, int innerYCoord);
+	void facePlayerTowards(int xCoord, int yCoord, int innerXCoord, int innerYCoord);
+	bool tileIsNextToPlayer(int xCoord, int yCoord);
 
 
 	GameMap map;

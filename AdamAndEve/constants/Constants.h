@@ -7,8 +7,8 @@ const int SCREEN_HEIGHT = 480;
 
 //Constants for map
 const int MAP_WIDTH = 256;
-const int MAP_DISPLAY_WIDTH = 40;
-const int MAP_DISPLAY_HEIGHT = 30;
+const int MAP_DISPLAY_WIDTH = 20;
+const int MAP_DISPLAY_HEIGHT = 15;
 
 //Constants for save file
 const int HEADER_SIZE = 12;
