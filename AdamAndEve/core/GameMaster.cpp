@@ -94,3 +94,12 @@ bool GameMaster::tileIsNextToPlayer(int xCoord, int yCoord) {
 		return false;
 
 }
+
+std::vector<ItemType> GameMaster::getPlayerInventory() {
+	std::vector<ItemType> items = std::vector<ItemType>();
+
+	for (int i = 0; i < static_cast<int>(player.lock()->inventory.size()); i++) {
+		items.push_back(player.lock()->inventory.at(i)->type);
+	}
+	return items;
+}

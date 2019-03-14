@@ -157,6 +157,7 @@
     <ClCompile Include="entitys\Human.cpp" />
     <ClCompile Include="entitys\Player.cpp" />
     <ClCompile Include="graphics\GameWindow.cpp" />
+    <ClCompile Include="graphics\ItemBar.cpp" />
     <ClCompile Include="items\WoodenLog.cpp" />
     <ClCompile Include="core\MovementVector.cpp" />
     <ClCompile Include="tasks\MoveInStraightLine.cpp" />
@@ -287,6 +288,7 @@
     <ClInclude Include="include\SDL_image\SDL_image.h" />
     <ClInclude Include="include\SDL_ttf\SDL_ttf.h" />
     <ClInclude Include="include\term.h" />
+    <ClInclude Include="graphics\ItemBar.h" />
     <ClInclude Include="items\WoodenLog.h" />
     <ClInclude Include="core\MovementVector.h" />
     <ClInclude Include="tasks\MoveInStraightLine.h" />

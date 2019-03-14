@@ -10,6 +10,7 @@
 #include "Window.h"
 #include "Screen.h"
 #include "Renderable.h"
+#include "ItemBar.h"
 
 
 
@@ -43,12 +44,14 @@ public:
 	int cameraInnerYcoord = 15;
 	std::weak_ptr<Player> player;
 	bool startOfTick = false;
+	
 
 	
 	Texture texture;
 	GameMap& map;
 	GameMaster& gameMaster;
 	Window& mainWindow;
+	ItemBar itemBar;
 
 private:
 	int getClipCode(Tile* t);
@@ -62,4 +65,5 @@ private:
 
 void KeyPressHandler(Screen& window, SDL_Event* e);
 void GameWindowMouseClickHandler(Screen& window, SDL_Event* e);
+int getClipCode(ItemType i);
 

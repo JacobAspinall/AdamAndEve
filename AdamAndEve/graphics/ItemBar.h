@@ -1,0 +1,24 @@
+#pragma once
+#include "Element.h"
+#include "Texture.h"
+#include "Screen.h"
+#include "Window.h"
+#include "GameMaster.h"
+#include "Texture.h"
+#include "SDL.h"
+class ItemBar :
+	public Element
+{
+public:
+	ItemBar(int width, int height, Screen& s, Texture& itemTexture, GameMaster& g);
+	~ItemBar();
+
+	Texture texture;
+	Texture& itemTexture;
+	GameMaster& g;
+	int selectedPosition = -1;
+
+	void drawElement(int x, int y, Canvas& c);
+	void mouseClickHandler(int x, int y, SDL_Event* e);
+};
+

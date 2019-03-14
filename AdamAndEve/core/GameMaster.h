@@ -36,6 +36,7 @@ public:
 	void interactWithObject(int xCoord, int yCoord, int innerXCoord, int innerYCoord);
 	void facePlayerTowards(int xCoord, int yCoord, int innerXCoord, int innerYCoord);
 	bool tileIsNextToPlayer(int xCoord, int yCoord);
+	std::vector<ItemType> getPlayerInventory();
 
 
 	GameMap map;

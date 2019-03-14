@@ -50,7 +50,17 @@ void Screen::handleEvent(SDL_Event* e) {
 	}
 	else if (e->type == SDL_MOUSEBUTTONDOWN || e->type == SDL_MOUSEBUTTONUP) {
 		if (mouseClickHandler != nullptr) {
-			mouseClickHandler(*this, e);
+			bool clickedOnElement = false;
+			for (Element *element : elements) {
+				int x, y;
+				SDL_GetMouseState(&x, &y);
+				if (element->coordIsInsideElement(x, y) && !clickedOnElement) {
+					element->mouseClickHandler(x, y, e);
+					clickedOnElement = true;
+				}
+			}
+			if(!clickedOnElement)
+				mouseClickHandler(*this, e);
 		}
 	}
 }

@@ -6,7 +6,7 @@
 
 
 GameWindow::GameWindow(GameMap& map, GameMaster& master, Window& mainWindow)
-	:map{ map }, gameMaster{ master }, mainWindow{ mainWindow }, Screen(mainWindow), texture{Texture("textures/tiles.png",*(mainWindow.canvas))}
+	:map{ map }, gameMaster{ master }, mainWindow{ mainWindow }, Screen(mainWindow), texture{ Texture("textures/tiles.png",*(mainWindow.canvas)) }, itemBar{ ItemBar(320,40,*this, texture, gameMaster) }
 {
 	this->mainWindow.screens.push_back(this);
 	init();
@@ -16,6 +16,7 @@ GameWindow::GameWindow(GameMap& map, GameMaster& master, Window& mainWindow)
 	this->yPosition = 0;
 	this->width = SCREEN_WIDTH;
 	this->xPosition = SCREEN_HEIGHT;
+	this->elements.push_back(static_cast<Element*>(&itemBar));
 }
 
 
@@ -117,8 +118,11 @@ void GameWindow::drawScreen(int x, int y, Canvas& c) {
 			}
 		}
 	}
-	c.drawRectangle(SCREEN_WIDTH / 2 - 1, SCREEN_HEIGHT / 2 - 1, 1, 1);
-	c.drawRectangle(cameraXcoord * 32 + cameraInnerXcoord, cameraYcoord * 32 + cameraInnerYcoord, 1, 1);
+	
+	//draw itemBar
+	itemBar.drawElement(SCREEN_WIDTH / 2 - itemBar.width / 2, SCREEN_HEIGHT - itemBar.height - 20, c);
+	
+
 	map.mapMutex->unlock();
 }
 
@@ -178,6 +182,17 @@ int GameWindow::getClipCode(Item* i) {
 		return 0;
 
 	switch (i->type) {
+	case ItemType::Log:
+		return ClipCode::LOG;
+	default:
+		return 0;
+	}
+}
+
+//Returns the texture clip code used for an Item
+int getClipCode(ItemType i) {
+
+	switch (i) {
 	case ItemType::Log:
 		return ClipCode::LOG;
 	default:

@@ -127,6 +127,9 @@
     <ClCompile Include="tasks\MoveInStraightLine.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="graphics\ItemBar.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="core\Entity.h">
@@ -514,6 +517,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="tasks\MoveInStraightLine.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="graphics\ItemBar.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
