@@ -28,16 +28,24 @@ void ItemBar::drawElement(int x, int y, Canvas& c) {
 
 	if (selectedPosition != -1) {
 		int xDrawPosition = x + 4 + 40 * selectedPosition - 2;
-		int yDrawPosition = y + 3;
+		int yDrawPosition = y + 2;
 		c.draw(xDrawPosition, yDrawPosition, texture, 2);
 
 	}
 }
 
 void ItemBar::mouseClickHandler(int x, int y, SDL_Event* e) {
-	if (x > 4 && x < 326 && y > 4 && y < 36) {
-		if (x % 40 < 32) {
-			selectedPosition = x % 40;
+	if (e->type == SDL_MOUSEBUTTONDOWN) {
+		x = x - xPos;
+		y = y - yPos;
+		if (x > 4 && x < 326 && y > 4 && y < 36) {
+			if (x % 40 < 32) {
+				int newSelectedPosition = x / 40;
+				if (newSelectedPosition != selectedPosition)
+					selectedPosition = x / 40;
+				else
+					selectedPosition = -1;
+			}
 		}
 	}
 }
