@@ -1,6 +1,7 @@
 #include "GameWindow.h"
 #include "ClipCode.h"
 #include "MoveInStraightLine.h"
+#include "RightClickMenu.h"
 
 
 
@@ -121,6 +122,10 @@ void GameWindow::drawScreen(int x, int y, Canvas& c) {
 	
 	//draw itemBar
 	itemBar.drawElement(SCREEN_WIDTH / 2 - itemBar.width / 2, SCREEN_HEIGHT - itemBar.height - 20, c);
+
+	//Draw right click menu
+	if (menu != nullptr)
+		menu->drawElement(menu->xPos, menu->yPos, c);
 	
 
 	map.mapMutex->unlock();
@@ -306,16 +311,15 @@ void GameWindowMouseClickHandler(Screen& window, SDL_Event* e) {
 		else {
 			yCoord = (y - (SCREEN_HEIGHT / 2 + (31 - gameWindow.cameraInnerYcoord))) / 32 + gameWindow.cameraYcoord + 1;
 			innerYCoord = (y - (SCREEN_HEIGHT / 2 + (31 - gameWindow.cameraInnerYcoord))) % 32;
-		}
-
-
-		//innerYCoord = ((y - (31 - gameWindow.cameraInnerYcoord) - (gameWindow.cameraYcoord * 32 + gameWindow.cameraInnerYcoord)) + gameWindow.cameraYcoord * 32 - 32) % 32;
-
-
-		
+		}	
 		
 		std::cout << xCoord << ", " << yCoord << "    " << innerXCoord << ", " << innerYCoord << std::endl;
 		if (e->button.button == SDL_BUTTON_LEFT) {
+
+			if (gameWindow.menu != nullptr) {
+				gameWindow.menu = nullptr;
+			}
+
 			if (gameWindow.gameMaster.hasObject(xCoord, yCoord, innerXCoord, innerYCoord) && gameWindow.gameMaster.tileIsNextToPlayer(xCoord, yCoord)) {
 				gameWindow.gameMaster.facePlayerTowards(xCoord, yCoord, innerXCoord, innerYCoord);
 				gameWindow.gameMaster.interactWithObject(xCoord, yCoord, innerXCoord, innerYCoord);
@@ -325,9 +329,24 @@ void GameWindowMouseClickHandler(Screen& window, SDL_Event* e) {
 			}
 		}
 		else if (e->button.button == SDL_BUTTON_RIGHT) {
+			
+			gameWindow.menu = std::make_unique<RightClickMenu>(gameWindow, gameWindow.gameMaster);
+			gameWindow.menu->xPos = x;
+			gameWindow.menu->yPos = y;
 
 		}
 	}
+	else if (e->type == SDL_MOUSEMOTION) {
+		if (gameWindow.menu != nullptr) {
+			int x, y;
+			SDL_GetMouseState(&x, &y);
+
+			if (!gameWindow.menu->coordIsNearby(x, y)) {
+				gameWindow.menu = nullptr;
+			}
+		}
+	}
+
 
 
 }

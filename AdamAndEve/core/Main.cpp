@@ -46,7 +46,7 @@ void GUI_thread(GameMaster& game) {
 	Window mainWindow = Window();
 	mainWindow.init();
 
-	GameWindow gameWindow = GameWindow(game.map, game, mainWindow);
+	GameWindow gameWindow(game.map, game, mainWindow);
 	gameWindow.player = game.player;
 
 	DevConsole devConsole = DevConsole(game, mainWindow);

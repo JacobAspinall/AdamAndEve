@@ -130,6 +130,9 @@
     <ClCompile Include="graphics\ItemBar.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="graphics\RightClickMenu.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="core\Entity.h">
@@ -520,6 +523,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="graphics\ItemBar.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="graphics\RightClickMenu.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

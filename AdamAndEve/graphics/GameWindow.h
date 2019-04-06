@@ -11,6 +11,7 @@
 #include "Screen.h"
 #include "Renderable.h"
 #include "ItemBar.h"
+#include "RightClickMenu.h"
 
 
 
@@ -52,6 +53,7 @@ public:
 	GameMaster& gameMaster;
 	Window& mainWindow;
 	ItemBar itemBar;
+	std::unique_ptr<RightClickMenu> menu;
 
 private:
 	int getClipCode(Tile* t);

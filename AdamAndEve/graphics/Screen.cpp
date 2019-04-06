@@ -48,7 +48,7 @@ void Screen::handleEvent(SDL_Event* e) {
 			keyPressHandler(*this, e);
 		}
 	}
-	else if (e->type == SDL_MOUSEBUTTONDOWN || e->type == SDL_MOUSEBUTTONUP) {
+	else if (e->type == SDL_MOUSEBUTTONDOWN || e->type == SDL_MOUSEBUTTONUP || e->type == SDL_MOUSEMOTION) {
 		if (mouseClickHandler != nullptr) {
 			bool clickedOnElement = false;
 			for (Element *element : elements) {
