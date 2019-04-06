@@ -161,6 +161,7 @@
     <ClCompile Include="items\WoodenLog.cpp" />
     <ClCompile Include="core\MovementVector.cpp" />
     <ClCompile Include="graphics\RightClickMenu.cpp" />
+    <ClCompile Include="tasks\MoveWithShortestPath.cpp" />
     <ClCompile Include="tasks\MoveInStraightLine.cpp" />
     <ClCompile Include="tasks\Move.cpp" />
     <ClCompile Include="objects\Tree.cpp" />
@@ -293,6 +294,7 @@
     <ClInclude Include="items\WoodenLog.h" />
     <ClInclude Include="core\MovementVector.h" />
     <ClInclude Include="graphics\RightClickMenu.h" />
+    <ClInclude Include="tasks\MoveWithShortestPath.h" />
     <ClInclude Include="tasks\MoveInStraightLine.h" />
     <ClInclude Include="tasks\Move.h" />
     <ClInclude Include="objects\Tree.h" />

@@ -133,6 +133,9 @@
     <ClCompile Include="graphics\RightClickMenu.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="tasks\MoveWithShortestPath.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="core\Entity.h">
@@ -526,6 +529,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="graphics\RightClickMenu.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="tasks\MoveWithShortestPath.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
