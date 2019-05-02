@@ -6,6 +6,7 @@
 #include "Screen.h"
 #include "Window.h"
 #include <vector>
+#include "Color.h"
 
 class TextDisplayBox:
 	public Element
@@ -18,6 +19,8 @@ public:
 	
 	Texture fontTexture;
 	std::string content = "";
+	Color::Color backgroundColor = Color::BLACK;
+	Color::Color textColor = Color::WHITE;
 	
 };
 

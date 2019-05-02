@@ -140,6 +140,9 @@
     <None Include="zlib1.dll" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="core\Color.cpp" />
+    <ClCompile Include="core\GameObject.cpp" />
+    <ClCompile Include="graphics\Button.cpp" />
     <ClCompile Include="graphics\Canvas.cpp" />
     <ClCompile Include="constants\ClipCode.h" />
     <ClCompile Include="core\Entity.cpp" />
@@ -161,6 +164,9 @@
     <ClCompile Include="items\WoodenLog.cpp" />
     <ClCompile Include="core\MovementVector.cpp" />
     <ClCompile Include="graphics\RightClickMenu.cpp" />
+    <ClCompile Include="graphics\RightClickMenuButton.cpp" />
+    <ClCompile Include="items\StoneAxe.cpp" />
+    <ClCompile Include="items\StoneHoe.cpp" />
     <ClCompile Include="tasks\MoveWithShortestPath.cpp" />
     <ClCompile Include="tasks\MoveInStraightLine.cpp" />
     <ClCompile Include="tasks\Move.cpp" />
@@ -177,8 +183,13 @@
     <ClCompile Include="graphics\Window.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="constants\GameObjectAction.h" />
+    <ClInclude Include="core\ActionDescription.h" />
+    <ClInclude Include="core\Color.h" />
+    <ClInclude Include="core\Subject.h" />
+    <ClInclude Include="core\GameObject.h" />
+    <ClInclude Include="graphics\Button.h" />
     <ClInclude Include="graphics\Canvas.h" />
-    <ClInclude Include="constants\Color.h" />
     <ClInclude Include="constants\Constants.h" />
     <ClInclude Include="constants\Direction.h" />
     <ClInclude Include="constants\EntityType.h" />
@@ -294,6 +305,10 @@
     <ClInclude Include="items\WoodenLog.h" />
     <ClInclude Include="core\MovementVector.h" />
     <ClInclude Include="graphics\RightClickMenu.h" />
+    <ClInclude Include="core\Observer.h" />
+    <ClInclude Include="graphics\RightClickMenuButton.h" />
+    <ClInclude Include="items\StoneAxe.h" />
+    <ClInclude Include="items\StoneHoe.h" />
     <ClInclude Include="tasks\MoveWithShortestPath.h" />
     <ClInclude Include="tasks\MoveInStraightLine.h" />
     <ClInclude Include="tasks\Move.h" />

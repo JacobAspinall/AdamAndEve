@@ -4,7 +4,9 @@ enum ClipCode{
 	TREE,
 	MAN,
 	WOMAN,
-	LOG
+	LOG,
+	STONEHOE,
+	STONEAXE
 
 
 };

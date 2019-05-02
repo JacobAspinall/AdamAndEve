@@ -5,11 +5,13 @@
 #include "Task.h"
 #include <memory>
 #include "Direction.h"
+#include "GameObject.h"
 
 //Abstract class to represent anything that is run by AI.
 //e.g. a human or a chicken
 //
-class Entity
+class Entity:
+	public GameObject
 {
 public:
 	Entity();

@@ -1,13 +1,10 @@
 #pragma once
 #include "Item.h"
-class WoodenLog :
+class StoneAxe :
 	public Item
 {
 public:
-	WoodenLog();
-	~WoodenLog();
-
-
-
+	StoneAxe();
+	~StoneAxe();
 };
 

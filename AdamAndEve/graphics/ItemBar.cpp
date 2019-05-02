@@ -23,7 +23,7 @@ void ItemBar::drawElement(int x, int y, Canvas& c) {
 	std::vector<ItemType> inventory = g.getPlayerInventory();
 
 	for (int i = 0; i < static_cast<int>(inventory.size()); i++) {
-		c.draw(x + 4 + 40*i, y + 4, itemTexture, getClipCode(inventory.at(0)));
+		c.draw(x + 4 + 40*i, y + 4, itemTexture, getClipCode(inventory.at(i)));
 	}
 
 	if (selectedPosition != -1) {
@@ -40,12 +40,15 @@ void ItemBar::mouseClickHandler(int x, int y, SDL_Event* e) {
 		y = y - yPos;
 		if (x > 4 && x < 326 && y > 4 && y < 36) {
 			if (x % 40 < 32) {
-				int newSelectedPosition = x / 40;
-				if (newSelectedPosition != selectedPosition)
-					selectedPosition = x / 40;
-				else
-					selectedPosition = -1;
+				selectedPosition = x / 40;
+				g.setSelectedItem(selectedPosition);
 			}
+			
 		}
 	}
+}
+
+void ItemBar::setSelectedPosition(int position) {
+	selectedPosition = position;
+	g.setSelectedItem(selectedPosition);
 }

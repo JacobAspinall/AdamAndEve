@@ -7,17 +7,16 @@
 
 
 GameWindow::GameWindow(GameMap& map, GameMaster& master, Window& mainWindow)
-	:map{ map }, gameMaster{ master }, mainWindow{ mainWindow }, Screen(mainWindow), texture{ Texture("textures/tiles.png",*(mainWindow.canvas)) }, itemBar{ ItemBar(320,40,*this, texture, gameMaster) }
+	:map{ map }, gameMaster{ master }, mainWindow{ mainWindow }, Screen(mainWindow), texture{ Texture("textures/tiles.png",*(mainWindow.canvas)) }, itemBar{ ItemBar(320,40,*this, texture, gameMaster) }, menu{ RightClickMenu(*this, gameMaster) }
 {
 	this->mainWindow.screens.push_back(this);
 	init();
-	this->addKeyPressHandler(KeyPressHandler);
-	this->addMouseClickHandler(GameWindowMouseClickHandler);
 	this->xPosition = 0;
 	this->yPosition = 0;
 	this->width = SCREEN_WIDTH;
 	this->xPosition = SCREEN_HEIGHT;
 	this->elements.push_back(static_cast<Element*>(&itemBar));
+	this->elements.push_back(static_cast<Element*>(&menu));
 }
 
 
@@ -33,6 +32,8 @@ void GameWindow::init() {
 	texture.addClip(64, 0, 32, 32, ClipCode::MAN);
 	texture.addClip(96, 0, 32, 32, ClipCode::WOMAN);
 	texture.addClip(128, 0, 32, 32, ClipCode::LOG);
+	texture.addClip(160, 0, 32, 32, ClipCode::STONEHOE);
+	texture.addClip(192, 0, 32, 32, ClipCode::STONEAXE);
 
 }
 
@@ -124,8 +125,8 @@ void GameWindow::drawScreen(int x, int y, Canvas& c) {
 	itemBar.drawElement(SCREEN_WIDTH / 2 - itemBar.width / 2, SCREEN_HEIGHT - itemBar.height - 20, c);
 
 	//Draw right click menu
-	if (menu != nullptr)
-		menu->drawElement(menu->xPos, menu->yPos, c);
+	if (menu.isVisible)
+		menu.drawElement(menu.xPos, menu.yPos, c);
 	
 
 	map.mapMutex->unlock();
@@ -189,6 +190,10 @@ int GameWindow::getClipCode(Item* i) {
 	switch (i->type) {
 	case ItemType::Log:
 		return ClipCode::LOG;
+	case ItemType::StoneHoe:
+		return ClipCode::STONEHOE;
+	case ItemType::StoneAxe:
+		return ClipCode::STONEAXE;
 	default:
 		return 0;
 	}
@@ -200,6 +205,10 @@ int getClipCode(ItemType i) {
 	switch (i) {
 	case ItemType::Log:
 		return ClipCode::LOG;
+	case ItemType::StoneHoe:
+		return ClipCode::STONEHOE;
+	case ItemType::StoneAxe:
+		return ClipCode::STONEAXE;
 	default:
 		return 0;
 	}
@@ -237,7 +246,7 @@ void GameWindow::panCameraWest() {
 
 
 
-void KeyPressHandler(Screen& window, SDL_Event* e){
+void GameWindow::keyPressHandler(Screen& window, SDL_Event* e){
 	if (e == nullptr)
 		return;
 	const Uint8* keyboard = SDL_GetKeyboardState(NULL);
@@ -288,7 +297,7 @@ void KeyPressHandler(Screen& window, SDL_Event* e){
 }
 
 
-void GameWindowMouseClickHandler(Screen& window, SDL_Event* e) {
+void GameWindow::mouseClickHandler(Screen& window, SDL_Event* e) {
 	GameWindow& gameWindow = static_cast<GameWindow&>(window);
 	if (e->type == SDL_MOUSEBUTTONDOWN) {
 		int x, y;
@@ -314,37 +323,46 @@ void GameWindowMouseClickHandler(Screen& window, SDL_Event* e) {
 		}	
 		
 		std::cout << xCoord << ", " << yCoord << "    " << innerXCoord << ", " << innerYCoord << std::endl;
-		if (e->button.button == SDL_BUTTON_LEFT) {
+		if (e->button.button == SDL_BUTTON_RIGHT) {
 
-			if (gameWindow.menu != nullptr) {
-				gameWindow.menu = nullptr;
-			}
-
+				gameWindow.gameMaster.movePlayerToCoords(xCoord, yCoord, innerXCoord, innerYCoord);
+		}
+		else if (e->button.button == SDL_BUTTON_LEFT) {
+			
 			if (gameWindow.gameMaster.hasObject(xCoord, yCoord, innerXCoord, innerYCoord) && gameWindow.gameMaster.tileIsNextToPlayer(xCoord, yCoord)) {
 				gameWindow.gameMaster.facePlayerTowards(xCoord, yCoord, innerXCoord, innerYCoord);
 				gameWindow.gameMaster.interactWithObject(xCoord, yCoord, innerXCoord, innerYCoord);
 			}
-			else {
-				gameWindow.gameMaster.movePlayerToCoords(xCoord, yCoord, innerXCoord, innerYCoord);
+			else if(gameWindow.gameMaster.tileIsNextToPlayer(xCoord, yCoord) ){
+				//gameWindow.gameMaster.interactWithTile(xCoord, yCoord, innerXCoord, innerYCoord);
 			}
-		}
-		else if (e->button.button == SDL_BUTTON_RIGHT) {
-			
-			gameWindow.menu = std::make_unique<RightClickMenu>(gameWindow, gameWindow.gameMaster);
-			gameWindow.menu->xPos = x;
-			gameWindow.menu->yPos = y;
-
 		}
 	}
 	else if (e->type == SDL_MOUSEMOTION) {
-		if (gameWindow.menu != nullptr) {
+		if (gameWindow.menu.isVisible) {
 			int x, y;
 			SDL_GetMouseState(&x, &y);
 
-			if (!gameWindow.menu->coordIsNearby(x, y)) {
-				gameWindow.menu = nullptr;
+			if (!gameWindow.menu.coordIsNearby(x, y)) {
+				gameWindow.menu.isVisible = false;
 			}
 		}
+	}
+	else if (e->type == SDL_MOUSEWHEEL) {
+		int direction = e->wheel.y;
+		if (direction < 0) {
+			if (itemBar.getSelectedPosition() == 7)
+				itemBar.setSelectedPosition(0);
+			else
+				itemBar.setSelectedPosition(itemBar.getSelectedPosition() + 1);
+		}
+		if (direction > 0) {
+			if (itemBar.getSelectedPosition() == 0)
+				itemBar.setSelectedPosition(7);
+			else
+				itemBar.setSelectedPosition(itemBar.getSelectedPosition() - 1);
+		}
+
 	}
 
 

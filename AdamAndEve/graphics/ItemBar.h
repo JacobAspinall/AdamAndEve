@@ -16,9 +16,14 @@ public:
 	Texture texture;
 	Texture& itemTexture;
 	GameMaster& g;
-	int selectedPosition = -1;
+
 
 	void drawElement(int x, int y, Canvas& c);
 	void mouseClickHandler(int x, int y, SDL_Event* e);
+	void setSelectedPosition(int position);
+	int getSelectedPosition() { return selectedPosition; };
+
+private:
+	int selectedPosition = 0;
 };
 

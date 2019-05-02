@@ -20,6 +20,8 @@ public:
 	bool isWoman() const { return gender == Gender::WOMAN ? false : true; }
 	void addItemToInventory(std::shared_ptr<Item> item);
 	std::vector<std::shared_ptr<Item>> inventory;
+	//Inventory index of the selected item. -1 for no selection
+	int selectedItem = 0;
 private:
 
 protected:

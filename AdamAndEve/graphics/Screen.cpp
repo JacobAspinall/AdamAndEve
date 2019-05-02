@@ -32,36 +32,25 @@ void Screen::render() {
 
 }
 
-void Screen::addKeyPressHandler(void (*funcPtr)(Screen& s, SDL_Event* e)) {
-	keyPressHandler = funcPtr;
-}
-
-void Screen::addMouseClickHandler(void(*funcPtr)(Screen& s, SDL_Event* e)) {
-	mouseClickHandler = funcPtr;
-}
-
 
 void Screen::handleEvent(SDL_Event* e) {
 
 	if (e == nullptr || e->type == SDL_KEYDOWN || e->type == SDL_KEYUP || e->type == SDL_TEXTINPUT) {
-		if (keyPressHandler != nullptr) {
 			keyPressHandler(*this, e);
-		}
 	}
-	else if (e->type == SDL_MOUSEBUTTONDOWN || e->type == SDL_MOUSEBUTTONUP || e->type == SDL_MOUSEMOTION) {
-		if (mouseClickHandler != nullptr) {
+	else if (e->type == SDL_MOUSEBUTTONDOWN || e->type == SDL_MOUSEBUTTONUP || e->type == SDL_MOUSEMOTION || e->type == SDL_MOUSEWHEEL) {
+
 			bool clickedOnElement = false;
 			for (Element *element : elements) {
 				int x, y;
 				SDL_GetMouseState(&x, &y);
-				if (element->coordIsInsideElement(x, y) && !clickedOnElement) {
-					element->mouseClickHandler(x, y, e);
+				if (element->coordIsInsideElement(x, y) && !clickedOnElement && element->isVisible) {
+					element->handleEvent(e);
 					clickedOnElement = true;
 				}
 			}
 			if(!clickedOnElement)
 				mouseClickHandler(*this, e);
-		}
 	}
 }
 

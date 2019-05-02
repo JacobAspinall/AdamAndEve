@@ -21,8 +21,8 @@ public:
 	void drawScreen(int x, int y, Canvas& c);
 	void executeCommand(std::string command);
 	void displayInventory();
+	void keyPressHandler(Screen& window, SDL_Event* e);
 
 };
 
-void DevConsoleKeyPressHandler(Screen& window, SDL_Event* e);
 

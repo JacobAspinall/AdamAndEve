@@ -3,6 +3,8 @@
 #include "WalkRandomly.h"
 #include "MoveInStraightLine.h"
 #include "Interact.h"
+#include "StoneAxe.h"
+#include "StoneHoe.h"
 
 
 
@@ -36,6 +38,11 @@ GameMaster::GameMaster()
 
 	entityList.push_back(std::weak_ptr<Entity>(wifey));
 	moveQueue.push(std::weak_ptr<Entity>(wifey));
+
+	//Add items
+	player.lock()->addItemToInventory(std::make_shared<StoneHoe>());
+	player.lock()->addItemToInventory(std::make_shared<StoneAxe>());
+
 
 
 }
@@ -102,4 +109,9 @@ std::vector<ItemType> GameMaster::getPlayerInventory() {
 		items.push_back(player.lock()->inventory.at(i)->type);
 	}
 	return items;
+}
+
+void GameMaster::setSelectedItem(int inventoryPosition) {
+	player.lock()->selectedItem = inventoryPosition;
+
 }

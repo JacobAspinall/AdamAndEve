@@ -10,8 +10,10 @@
 //Abstract class to represent the ground of each tile on the game map
 //e.g. grass, water, sand, etc.
 //
+#include "GameObject.h"
 
-class Tile
+class Tile :
+	public GameObject
 {
 public:
 	Tile();

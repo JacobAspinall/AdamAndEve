@@ -21,11 +21,11 @@ public:
 	SDL_Rect getClip(int clipCode);
 
 
-	TTF_Font* font;
+	TTF_Font* font = NULL;
 	int width;
 	int height;
-	SDL_Texture* texture;
-	SDL_Renderer* renderer;
+	SDL_Texture* texture = NULL;
+	SDL_Renderer* renderer = NULL;
 
 	class Clip;
 	std::unordered_map<int, Clip> clipMap;

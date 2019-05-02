@@ -53,7 +53,7 @@ public:
 	GameMaster& gameMaster;
 	Window& mainWindow;
 	ItemBar itemBar;
-	std::unique_ptr<RightClickMenu> menu;
+	RightClickMenu menu;
 
 private:
 	int getClipCode(Tile* t);
@@ -61,11 +61,13 @@ private:
 	int getClipCode(Entity* e);
 	int getClipCode(Item* i);
 
+	void keyPressHandler(Screen& window, SDL_Event* e);
+	void mouseClickHandler(Screen& window, SDL_Event* e);
+
 	std::vector<Tile> lastMove;
 	std::vector<Tile> thisMove;
 };
 
-void KeyPressHandler(Screen& window, SDL_Event* e);
-void GameWindowMouseClickHandler(Screen& window, SDL_Event* e);
+
 int getClipCode(ItemType i);
 

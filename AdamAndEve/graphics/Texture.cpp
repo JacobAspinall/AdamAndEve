@@ -15,7 +15,7 @@ Texture::Texture(std::string path, Canvas& c)
 }
 
 Texture::Texture(const Texture& obj) 
-	:renderer{obj.renderer}, texture{obj.texture}
+	:renderer{ obj.renderer }, texture{ obj.texture }, font{ obj.font }, width{ width }, height{ height }
 {
 
 

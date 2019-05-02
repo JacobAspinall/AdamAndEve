@@ -13,10 +13,10 @@ TextDisplayBox::~TextDisplayBox()
 void TextDisplayBox::drawElement(int x, int y, Canvas& c){
 
 	std::vector<std::string> delimitedContent = splitString(content, "\n");
-	c.drawRectangle(x, y, width, height);
+	c.drawRectangle(x, y, width, height, backgroundColor);
 	for (int i = 0; i < static_cast<int>(delimitedContent.size()); i++) {
-		fontTexture.loadText(delimitedContent[i], SDL_Color{ 0x00, 0x00, 0x00 });
-		c.draw(x + 10, y + 10 + i*14, fontTexture, -1);
+		fontTexture.loadText(delimitedContent[i], SDL_Color{ static_cast<Uint8>(textColor.red), static_cast<Uint8>(textColor.green), static_cast<Uint8>(textColor.blue) });
+		c.draw(x + 2, y + 2 + i*16, fontTexture, -1);
 	}
 
 }

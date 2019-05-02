@@ -9,7 +9,6 @@ DevConsole::DevConsole(GameMaster& master, Window& mainWindow)
 	elements.push_back(&displayBox);
 	xPosition = 0;
 	yPosition = SCREEN_HEIGHT / 2;
-	this->addKeyPressHandler(DevConsoleKeyPressHandler);
 
 }
 
@@ -41,7 +40,7 @@ void DevConsole::displayInventory() {
 }
 
 
-void DevConsoleKeyPressHandler(Screen& window, SDL_Event* e) {
+void DevConsole::keyPressHandler(Screen& window, SDL_Event* e) {
 
 	if (e == nullptr) {
 		return;

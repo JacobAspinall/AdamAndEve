@@ -1,7 +1,9 @@
 #pragma once
 #include <string>
 #include "ItemType.h"
-class Item
+#include "GameObject.h"
+class Item :
+	public GameObject
 {
 public:
 	Item();
