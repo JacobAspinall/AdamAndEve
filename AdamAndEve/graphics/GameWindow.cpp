@@ -34,6 +34,8 @@ void GameWindow::init() {
 	texture.addClip(128, 0, 32, 32, ClipCode::LOG);
 	texture.addClip(160, 0, 32, 32, ClipCode::STONEHOE);
 	texture.addClip(192, 0, 32, 32, ClipCode::STONEAXE);
+	texture.addClip(224, 0, 32, 32, ClipCode::BLUEBERRYBUSH);
+	texture.addClip(256, 0, 32, 32, ClipCode::APPLETREE);
 
 }
 
@@ -156,6 +158,10 @@ int GameWindow::getClipCode(Object* o) {
 	switch (o->type) {
 	case ObjectType::Tree:
 		return ClipCode::TREE;
+	case ObjectType::AppleTree:
+		return ClipCode::APPLETREE;
+	case ObjectType::BlueberryBush:
+		return ClipCode::BLUEBERRYBUSH;
 	default:
 		return 0;
 	}

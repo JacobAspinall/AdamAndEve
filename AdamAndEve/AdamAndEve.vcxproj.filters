@@ -154,6 +154,12 @@
     <ClCompile Include="items\StoneHoe.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="objects\AppleTree.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="objects\BlueberryBush.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="core\Entity.h">
@@ -577,6 +583,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="items\StoneHoe.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="objects\AppleTree.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="objects\BlueberryBush.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

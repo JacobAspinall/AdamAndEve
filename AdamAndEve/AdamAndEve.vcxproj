@@ -140,6 +140,8 @@
     <None Include="zlib1.dll" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="objects\BlueberryBush.cpp" />
+    <ClCompile Include="objects\AppleTree.cpp" />
     <ClCompile Include="core\Color.cpp" />
     <ClCompile Include="core\GameObject.cpp" />
     <ClCompile Include="graphics\Button.cpp" />
@@ -183,6 +185,8 @@
     <ClCompile Include="graphics\Window.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="objects\BlueberryBush.h" />
+    <ClInclude Include="objects\AppleTree.h" />
     <ClInclude Include="constants\GameObjectAction.h" />
     <ClInclude Include="core\ActionDescription.h" />
     <ClInclude Include="core\Color.h" />

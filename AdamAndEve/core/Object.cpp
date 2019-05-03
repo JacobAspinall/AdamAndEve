@@ -15,5 +15,6 @@ Object::~Object()
 
 
 int Object::interact(Entity& e, GameMap& myMap) {
+	e.endCurrentTask();
 	return 1;
 }

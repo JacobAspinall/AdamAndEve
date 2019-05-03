@@ -31,6 +31,7 @@ int Tree::interact(Entity& entity, GameMap& map) {
 		}
 	}
 	entity.endCurrentTask();
+	return 1;
 }
 
 
