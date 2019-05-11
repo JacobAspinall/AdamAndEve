@@ -5,6 +5,7 @@
 #include "Interact.h"
 #include "StoneAxe.h"
 #include "StoneHoe.h"
+#include "FishingRod.h"
 
 
 
@@ -42,6 +43,7 @@ GameMaster::GameMaster()
 	//Add items
 	player.lock()->addItemToInventory(std::make_shared<StoneHoe>());
 	player.lock()->addItemToInventory(std::make_shared<StoneAxe>());
+	player.lock()->addItemToInventory(std::make_shared<FishingRod>());
 
 
 
@@ -86,6 +88,9 @@ bool GameMaster::hasObject(int xCoord, int yCoord, int innerXCoord, int innerYCo
 void GameMaster::interactWithObject(int xCoord, int yCoord, int innerXCoord, int innerYCoord) {
 	player.lock()->setCurrentTask(std::move(std::make_unique<Interact>(*(player.lock()), map)));
 }
+void GameMaster::interactWithTile(int xCoord, int yCoord, int innerXCoord, int innerYCoord) {
+	player.lock()->setCurrentTask(std::move(std::make_unique<Interact>(*(player.lock()), map)));
+}
 
 void GameMaster::facePlayerTowards(int xCoord, int yCoord, int innerXCoord, int innerYCoord) {
 	double a = xCoord - player.lock()->xCoord;
@@ -106,7 +111,10 @@ std::vector<ItemType> GameMaster::getPlayerInventory() {
 	std::vector<ItemType> items = std::vector<ItemType>();
 
 	for (int i = 0; i < static_cast<int>(player.lock()->inventory.size()); i++) {
-		items.push_back(player.lock()->inventory.at(i)->type);
+		if (player.lock()->inventory.at(i) == nullptr)
+			items.push_back(ItemType::Empty);
+		else
+			items.push_back(player.lock()->inventory.at(i)->type);
 	}
 	return items;
 }
@@ -114,4 +122,12 @@ std::vector<ItemType> GameMaster::getPlayerInventory() {
 void GameMaster::setSelectedItem(int inventoryPosition) {
 	player.lock()->selectedItem = inventoryPosition;
 
+}
+
+void GameMaster::dropItem(Entity& e, int inventoryIndex) {
+	map.dropItem(e, inventoryIndex);
+}
+
+void GameMaster::pickUpItem(Entity& e, int inventoryIndex) {
+	map.pickUpItem(e, inventoryIndex);
 }

@@ -140,6 +140,8 @@
     <None Include="zlib1.dll" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="items\Fish.cpp" />
+    <ClCompile Include="items\FishingRod.cpp" />
     <ClCompile Include="objects\BlueberryBush.cpp" />
     <ClCompile Include="objects\AppleTree.cpp" />
     <ClCompile Include="core\Color.cpp" />
@@ -183,8 +185,11 @@
     <ClCompile Include="graphics\textInputBox.cpp" />
     <ClCompile Include="tiles\Grass.cpp" />
     <ClCompile Include="graphics\Window.cpp" />
+    <ClCompile Include="tiles\Water.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="items\Fish.h" />
+    <ClInclude Include="items\FishingRod.h" />
     <ClInclude Include="objects\BlueberryBush.h" />
     <ClInclude Include="objects\AppleTree.h" />
     <ClInclude Include="constants\GameObjectAction.h" />
@@ -328,6 +333,7 @@
     <ClInclude Include="graphics\textInputBox.h" />
     <ClInclude Include="tiles\Grass.h" />
     <ClInclude Include="graphics\Window.h" />
+    <ClInclude Include="tiles\Water.h" />
   </ItemGroup>
   <ItemGroup>
     <Library Include="lib\pdcurses.lib" />

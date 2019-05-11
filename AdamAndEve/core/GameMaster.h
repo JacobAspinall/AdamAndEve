@@ -34,10 +34,13 @@ public:
 	void movePlayerToCoords(int xCoord, int yCoord, int innerXCoord, int innerYCoord);
 	bool hasObject(int xCoord, int yCoord, int innerXCoord, int innerYCoord);
 	void interactWithObject(int xCoord, int yCoord, int innerXCoord, int innerYCoord);
+	void interactWithTile(int xCoord, int yCoord, int innerXCoord, int innerYCoord);
 	void facePlayerTowards(int xCoord, int yCoord, int innerXCoord, int innerYCoord);
 	bool tileIsNextToPlayer(int xCoord, int yCoord);
 	std::vector<ItemType> getPlayerInventory();
 	void setSelectedItem(int inventoryPosition);
+	void dropItem(Entity& e, int intentoryIndex);
+	void pickUpItem(Entity& e, int intentoryIndex);
 
 
 	GameMap map;

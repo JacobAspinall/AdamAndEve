@@ -188,7 +188,7 @@ void GameMap::moveEntity(Entity& e, MovementVector direction) {
 
 		if (isValidCoordinate(newXCoord, newYCoord)) {
 			Tile* newTile = get(newXCoord, newYCoord);
-			if (newTile->object == nullptr || newTile->object->canWalkOn == true) {
+			if (newTile->canWalkOn == true && (newTile->object == nullptr || newTile->object->canWalkOn == true) ) {
 				if (newTile->entity == nullptr) {
 					Tile* t = get(e.xCoord, e.yCoord);
 					newTile->entity = std::move(t->entity);
@@ -242,7 +242,7 @@ void GameMap::dropItem(Entity& e, int inventoryIndex) {
 	Human& h = static_cast<Human&>(e);
 	if (inventoryIndex < (int)h.inventory.size() && inventoryIndex >= 0) {
 		t->items.push_back(h.inventory[inventoryIndex]);
-		h.inventory.erase(h.inventory.begin() + inventoryIndex);
+		h.inventory.at(inventoryIndex) = nullptr;;
 	}
 
 }
@@ -252,7 +252,7 @@ void GameMap::pickUpItem(Entity& e, int tileItemsIndex) {
 	Tile* t = get(e.xCoord, e.yCoord);
 	Human& h = static_cast<Human&>(e);
 	if (tileItemsIndex < (int)t->items.size() && tileItemsIndex >= 0) {
-		h.inventory.push_back(t->items[tileItemsIndex]);
+		h.addItemToInventory(t->items[tileItemsIndex]);
 		t->items.erase(t->items.begin() + tileItemsIndex);
 	}
 }

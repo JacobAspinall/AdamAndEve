@@ -11,12 +11,13 @@ Interact::~Interact()
 }
 
 int Interact::run() {
-	if (map.tileInFrontof(entity) == nullptr || map.tileInFrontof(entity)->object == nullptr) {
-		entity.endCurrentTask();
-		return 1;
-	}
-	else {
+
+	if (map.tileInFrontof(entity)->object != nullptr) {
 		return map.tileInFrontof(entity)->object->interact(entity, map);
 	}
+	else {
+		return map.tileInFrontof(entity)->interact(entity, map);
+	}
+
 
 }

@@ -17,7 +17,7 @@ Tree::~Tree() {
 int Tree::interact(Entity& entity, GameMap& map) {
 	if (entity.type == EntityType::Human) {
 		Human& h = static_cast<Human&>(entity);
-		if (h.inventory.at(h.selectedItem)->type == ItemType::StoneAxe) {
+		if (h.inventory.at(h.selectedItem) != nullptr && h.inventory.at(h.selectedItem)->type == ItemType::StoneAxe) {
 			if (!startedChopping) {
 				startedChopping = true;
 				return 10;
@@ -26,6 +26,7 @@ int Tree::interact(Entity& entity, GameMap& map) {
 				map.tileInFrontof(entity)->removeObject();
 				entity.endCurrentTask();
 				h.addItemToInventory(std::make_shared<WoodenLog>());
+				startedChopping = false;
 				return 1;
 			}
 		}

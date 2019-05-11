@@ -160,6 +160,15 @@
     <ClCompile Include="objects\BlueberryBush.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="tiles\Water.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="items\FishingRod.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="items\Fish.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="core\Entity.h">
@@ -589,6 +598,15 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="objects\BlueberryBush.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="tiles\Water.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="items\FishingRod.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="items\Fish.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -2,7 +2,10 @@
 
 
 Human::Human() {
-
+	inventory.resize(8);
+	for (std::shared_ptr<Item> i : inventory) {
+		i = nullptr;
+	}
 }
 
 Human::Human(Gender gender)
@@ -18,6 +21,10 @@ Human::~Human()
 
 
 void Human::addItemToInventory(std::shared_ptr<Item> item) {
-	if(static_cast<int>(inventory.size()) < 8)
-		inventory.push_back(std::move(item));
+	for (int i = 0; i < inventory.size(); i++) {
+		if (inventory.at(i) == nullptr) {
+			inventory.at(i) = item;
+			break;
+		}
+	}
 }

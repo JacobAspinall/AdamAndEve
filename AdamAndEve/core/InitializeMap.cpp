@@ -1,6 +1,7 @@
 #include "InitializeMap.h"
 #include "AppleTree.h"
 #include "BlueberryBush.h"
+#include "Water.h"
 
 //Fills a game map with tiles
 //call when creating a map for the first time
@@ -8,7 +9,8 @@ void initializeMap(GameMap& map)
 {
 	for (int i = 0; i < MAP_WIDTH; i++) {
 		for (int j = 0; j < MAP_WIDTH; j++) {
-			if (rand() % 10 < 1) {
+			int randnum = rand();
+			if (randnum % 100 < 10) {
 				std::unique_ptr<Tile> newTile = std::make_unique<Grass>();
 				int zeroToTwo = rand() % 3;
 				if (zeroToTwo == 0) {
@@ -25,6 +27,9 @@ void initializeMap(GameMap& map)
 				}
 				
 
+			}
+			else if (randnum % 100 == 11) {
+				map.set(i, j, std::make_unique<Water>());
 			}
 			else
 				map.set(i, j, std::make_unique<Grass>());

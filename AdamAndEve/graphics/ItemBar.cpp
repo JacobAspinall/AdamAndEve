@@ -23,7 +23,8 @@ void ItemBar::drawElement(int x, int y, Canvas& c) {
 	std::vector<ItemType> inventory = g.getPlayerInventory();
 
 	for (int i = 0; i < static_cast<int>(inventory.size()); i++) {
-		c.draw(x + 4 + 40*i, y + 4, itemTexture, getClipCode(inventory.at(i)));
+		if(inventory.at(i) != ItemType::Empty)
+			c.draw(x + 4 + 40*i, y + 4, itemTexture, getClipCode(inventory.at(i)));
 	}
 
 	if (selectedPosition != -1) {

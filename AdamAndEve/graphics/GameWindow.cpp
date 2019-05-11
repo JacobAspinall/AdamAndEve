@@ -36,6 +36,9 @@ void GameWindow::init() {
 	texture.addClip(192, 0, 32, 32, ClipCode::STONEAXE);
 	texture.addClip(224, 0, 32, 32, ClipCode::BLUEBERRYBUSH);
 	texture.addClip(256, 0, 32, 32, ClipCode::APPLETREE);
+	texture.addClip(288, 0, 32, 32, ClipCode::FISHINGROD);
+	texture.addClip(0, 32, 32, 32, ClipCode::WATER);
+	texture.addClip(32, 32, 32, 32, ClipCode::FISH);
 
 }
 
@@ -142,6 +145,8 @@ int GameWindow::getClipCode(Tile* t) {
 	switch (t->type) {
 	case TileType::Grass:
 		return ClipCode::GRASS;
+	case TileType::Water:
+		return ClipCode::WATER;
 	case TileType::Sand:
 		return 0;
 	default:
@@ -200,6 +205,10 @@ int GameWindow::getClipCode(Item* i) {
 		return ClipCode::STONEHOE;
 	case ItemType::StoneAxe:
 		return ClipCode::STONEAXE;
+	case ItemType::FishingRod:
+		return ClipCode::FISHINGROD;
+	case ItemType::Fish:
+		return ClipCode::FISH;
 	default:
 		return 0;
 	}
@@ -215,6 +224,10 @@ int getClipCode(ItemType i) {
 		return ClipCode::STONEHOE;
 	case ItemType::StoneAxe:
 		return ClipCode::STONEAXE;
+	case ItemType::FishingRod:
+		return ClipCode::FISHINGROD;
+	case ItemType::Fish:
+		return ClipCode::FISH;
 	default:
 		return 0;
 	}
@@ -297,6 +310,12 @@ void GameWindow::keyPressHandler(Screen& window, SDL_Event* e){
 			gameWindow.gameMaster.setNextMove(PlayerMove(MoveType::Interact));
 			interactionKeyDown = false;
 			break;
+		case SDLK_q:
+			gameMaster.dropItem(*(gameMaster.player.lock().get()), gameMaster.player.lock().get()->selectedItem);
+			break;
+		case SDLK_r:
+			gameMaster.pickUpItem(*(gameMaster.player.lock().get()), 0);
+			break;
 		}
 	}
 	gameWindow.map.mapMutex->unlock();
@@ -340,7 +359,7 @@ void GameWindow::mouseClickHandler(Screen& window, SDL_Event* e) {
 				gameWindow.gameMaster.interactWithObject(xCoord, yCoord, innerXCoord, innerYCoord);
 			}
 			else if(gameWindow.gameMaster.tileIsNextToPlayer(xCoord, yCoord) ){
-				//gameWindow.gameMaster.interactWithTile(xCoord, yCoord, innerXCoord, innerYCoord);
+				gameWindow.gameMaster.interactWithTile(xCoord, yCoord, innerXCoord, innerYCoord);
 			}
 		}
 	}
